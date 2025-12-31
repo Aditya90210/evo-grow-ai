@@ -1,5 +1,6 @@
 import { Check, Zap, Rocket, Building2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useEffect, useRef, useState } from "react";
 
 const tiers = [
   {
@@ -59,7 +60,30 @@ const tiers = [
   },
 ];
 
+const useInView = (options = {}) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [isInView, setIsInView] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setIsInView(true);
+        observer.disconnect();
+      }
+    }, { threshold: 0.2, ...options });
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return { ref, isInView };
+};
+
 export const PricingSection = () => {
+  const { ref: sectionRef, isInView } = useInView();
   return (
     <section id="pricing" className="relative py-24 overflow-hidden">
       {/* Background Effects */}
@@ -87,14 +111,20 @@ export const PricingSection = () => {
         </div>
 
         {/* Pricing Cards */}
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div ref={sectionRef} className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {tiers.map((tier, index) => {
             const Icon = tier.icon;
             return (
               <div
                 key={tier.name}
-                className={`relative group ${tier.popular ? "md:-mt-4 md:mb-4" : ""}`}
-                style={{ animationDelay: `${index * 100}ms` }}
+                className={`relative group transition-all duration-700 ease-out ${
+                  tier.popular ? "md:-mt-4 md:mb-4" : ""
+                } ${
+                  isInView
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-12"
+                }`}
+                style={{ transitionDelay: `${index * 150}ms` }}
               >
                 {/* Popular Badge */}
                 {tier.popular && (
