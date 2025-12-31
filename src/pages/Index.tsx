@@ -1,12 +1,31 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useEffect } from "react";
+import Navbar from "@/components/landing/Navbar";
+import HeroSection from "@/components/landing/HeroSection";
+import PillarsSection from "@/components/landing/PillarsSection";
+import FeaturesSection from "@/components/landing/FeaturesSection";
+import CTASection from "@/components/landing/CTASection";
+import Footer from "@/components/landing/Footer";
 
 const Index = () => {
+  useEffect(() => {
+    // Enable dark mode by default for the futuristic theme
+    document.documentElement.classList.add("dark");
+  }, []);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      <Navbar />
+      <main>
+        <HeroSection />
+        <section id="pillars">
+          <PillarsSection />
+        </section>
+        <section id="features">
+          <FeaturesSection />
+        </section>
+        <CTASection />
+      </main>
+      <Footer />
     </div>
   );
 };
