@@ -33,6 +33,11 @@ const Navbar = () => {
               <a
                 key={link.label}
                 href={link.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  const target = document.querySelector(link.href);
+                  target?.scrollIntoView({ behavior: "smooth" });
+                }}
                 className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
               >
                 {link.label}
@@ -67,8 +72,13 @@ const Navbar = () => {
                 <a
                   key={link.label}
                   href={link.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const target = document.querySelector(link.href);
+                    target?.scrollIntoView({ behavior: "smooth" });
+                    setIsOpen(false);
+                  }}
                   className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors py-2"
-                  onClick={() => setIsOpen(false)}
                 >
                   {link.label}
                 </a>
