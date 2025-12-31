@@ -1,10 +1,13 @@
 import { useState } from "react";
-import { Menu, X, Zap } from "lucide-react";
+import { Menu, X, Zap, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
 
   const navLinks = [
     { label: "Features", href: "#features" },
@@ -12,6 +15,11 @@ const Navbar = () => {
     { label: "Pricing", href: "#pricing" },
     { label: "Resources", href: "#resources" },
   ];
+
+  const handleSignOut = async () => {
+    await signOut();
+    setIsOpen(false);
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass-strong border-b border-border/50">
@@ -47,12 +55,26 @@ const Navbar = () => {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-3">
-            <Button variant="ghost" size="sm">
-              Sign In
-            </Button>
-            <Button variant="default" size="sm">
-              Get Started
-            </Button>
+            {user ? (
+              <>
+                <span className="text-sm text-muted-foreground">
+                  {user.email}
+                </span>
+                <Button variant="ghost" size="sm" onClick={handleSignOut}>
+                  <LogOut className="w-4 h-4 mr-2" />
+                  Sign Out
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button variant="ghost" size="sm" onClick={() => navigate("/auth")}>
+                  Sign In
+                </Button>
+                <Button variant="default" size="sm" onClick={() => navigate("/auth")}>
+                  Get Started
+                </Button>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -84,12 +106,26 @@ const Navbar = () => {
                 </a>
               ))}
               <div className="flex flex-col gap-2 pt-4 border-t border-border/50">
-                <Button variant="ghost" size="sm" className="justify-start">
-                  Sign In
-                </Button>
-                <Button variant="default" size="sm">
-                  Get Started
-                </Button>
+                {user ? (
+                  <>
+                    <span className="text-sm text-muted-foreground px-3 py-2">
+                      {user.email}
+                    </span>
+                    <Button variant="ghost" size="sm" className="justify-start" onClick={handleSignOut}>
+                      <LogOut className="w-4 h-4 mr-2" />
+                      Sign Out
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Button variant="ghost" size="sm" className="justify-start" onClick={() => { navigate("/auth"); setIsOpen(false); }}>
+                      Sign In
+                    </Button>
+                    <Button variant="default" size="sm" onClick={() => { navigate("/auth"); setIsOpen(false); }}>
+                      Get Started
+                    </Button>
+                  </>
+                )}
               </div>
             </div>
           </div>
