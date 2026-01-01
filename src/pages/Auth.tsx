@@ -200,7 +200,9 @@ const Auth = () => {
                       </FormLabel>
                       <FormControl>
                         <Input
+                          type="text"
                           placeholder="John Doe"
+                          autoComplete="name"
                           className="bg-background/50 border-border/50"
                           {...field}
                         />
@@ -220,8 +222,10 @@ const Auth = () => {
                       </FormLabel>
                       <FormControl>
                         <Input
-                          type="email"
+                          type="text"
+                          inputMode="email"
                           placeholder="your@email.com"
+                          autoComplete="email"
                           className="bg-background/50 border-border/50"
                           {...field}
                         />
