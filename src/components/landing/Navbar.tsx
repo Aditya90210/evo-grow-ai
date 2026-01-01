@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Menu, X, Zap, LogOut } from "lucide-react";
+import { Menu, X, Zap, LogOut, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
@@ -57,9 +57,10 @@ const Navbar = () => {
           <div className="hidden md:flex items-center gap-3">
             {user ? (
               <>
-                <span className="text-sm text-muted-foreground">
-                  {user.email}
-                </span>
+                <Button variant="ghost" size="sm" onClick={() => navigate("/dashboard")}>
+                  <User className="w-4 h-4 mr-2" />
+                  Dashboard
+                </Button>
                 <Button variant="ghost" size="sm" onClick={handleSignOut}>
                   <LogOut className="w-4 h-4 mr-2" />
                   Sign Out
@@ -108,9 +109,10 @@ const Navbar = () => {
               <div className="flex flex-col gap-2 pt-4 border-t border-border/50">
                 {user ? (
                   <>
-                    <span className="text-sm text-muted-foreground px-3 py-2">
-                      {user.email}
-                    </span>
+                    <Button variant="ghost" size="sm" className="justify-start" onClick={() => { navigate("/dashboard"); setIsOpen(false); }}>
+                      <User className="w-4 h-4 mr-2" />
+                      Dashboard
+                    </Button>
                     <Button variant="ghost" size="sm" className="justify-start" onClick={handleSignOut}>
                       <LogOut className="w-4 h-4 mr-2" />
                       Sign Out
