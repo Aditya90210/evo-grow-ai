@@ -28,14 +28,14 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
   const [displayName, setDisplayName] = useState("");
   const [bio, setBio] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleAvatarUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file || !user) return;
+  const processFile = async (file: File) => {
+    if (!user) return;
 
     // Validate file type
     if (!file.type.startsWith("image/")) {
@@ -93,6 +93,36 @@ const Dashboard = () => {
       });
     } finally {
       setUploading(false);
+    }
+  };
+
+  const handleAvatarUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      await processFile(file);
+    }
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+  };
+
+  const handleDrop = async (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+
+    const file = e.dataTransfer.files?.[0];
+    if (file) {
+      await processFile(file);
     }
   };
 
@@ -193,25 +223,32 @@ const Dashboard = () => {
         <Card>
           <CardHeader className="text-center">
             <div className="flex justify-center mb-4">
-              <div className="relative group">
+              <div
+                className={`relative group cursor-pointer rounded-full transition-all ${
+                  isDragging ? "ring-4 ring-primary ring-offset-2 ring-offset-background" : ""
+                }`}
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDrop}
+                onClick={() => fileInputRef.current?.click()}
+              >
                 <Avatar className="w-24 h-24">
                   <AvatarImage src={avatarUrl} alt={displayName || "User"} />
                   <AvatarFallback className="text-2xl bg-primary text-primary-foreground">
                     {getInitials()}
                   </AvatarFallback>
                 </Avatar>
-                <button
-                  type="button"
-                  onClick={() => fileInputRef.current?.click()}
-                  disabled={uploading}
-                  className="absolute inset-0 flex items-center justify-center bg-background/80 rounded-full opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+                <div
+                  className={`absolute inset-0 flex items-center justify-center bg-background/80 rounded-full transition-opacity cursor-pointer ${
+                    isDragging || uploading ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+                  }`}
                 >
                   {uploading ? (
                     <Loader2 className="w-6 h-6 animate-spin text-primary" />
                   ) : (
                     <Camera className="w-6 h-6 text-primary" />
                   )}
-                </button>
+                </div>
                 <input
                   ref={fileInputRef}
                   type="file"
@@ -271,7 +308,7 @@ const Dashboard = () => {
                 </Button>
               </div>
               <p className="text-xs text-muted-foreground">
-                Click the avatar or button to upload a new image (max 5MB)
+                Click, or drag & drop an image onto the avatar (max 5MB)
               </p>
             </div>
 
