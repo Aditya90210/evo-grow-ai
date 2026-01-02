@@ -10,6 +10,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2, ArrowLeft, Upload, Camera } from "lucide-react";
+import { AvatarCropper } from "@/components/AvatarCropper";
 
 interface Profile {
   id: string;
@@ -33,8 +34,10 @@ const Dashboard = () => {
   const [bio, setBio] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [cropperOpen, setCropperOpen] = useState(false);
+  const [imageToCrop, setImageToCrop] = useState<string | null>(null);
 
-  const processFile = async (file: File) => {
+  const handleFileSelect = (file: File) => {
     if (!user) return;
 
     // Validate file type
@@ -57,26 +60,35 @@ const Dashboard = () => {
       return;
     }
 
+    // Convert to data URL for cropper
+    const reader = new FileReader();
+    reader.onload = () => {
+      setImageToCrop(reader.result as string);
+      setCropperOpen(true);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const uploadCroppedImage = async (blob: Blob) => {
+    if (!user) return;
+
     setUploading(true);
+    setCropperOpen(false);
+    setImageToCrop(null);
 
     try {
-      // Create unique file path
-      const fileExt = file.name.split(".").pop();
-      const fileName = `${user.id}/avatar.${fileExt}`;
+      const fileName = `${user.id}/avatar.jpg`;
 
-      // Upload to storage
       const { error: uploadError } = await supabase.storage
         .from("avatars")
-        .upload(fileName, file, { upsert: true });
+        .upload(fileName, blob, { upsert: true, contentType: "image/jpeg" });
 
       if (uploadError) throw uploadError;
 
-      // Get public URL
       const { data: { publicUrl } } = supabase.storage
         .from("avatars")
         .getPublicUrl(fileName);
 
-      // Add cache buster to force refresh
       const urlWithCacheBuster = `${publicUrl}?t=${Date.now()}`;
       setAvatarUrl(urlWithCacheBuster);
 
@@ -96,11 +108,13 @@ const Dashboard = () => {
     }
   };
 
-  const handleAvatarUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAvatarUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      await processFile(file);
+      handleFileSelect(file);
     }
+    // Reset input so same file can be selected again
+    event.target.value = "";
   };
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -115,14 +129,14 @@ const Dashboard = () => {
     setIsDragging(false);
   };
 
-  const handleDrop = async (e: React.DragEvent) => {
+  const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
     setIsDragging(false);
 
     const file = e.dataTransfer.files?.[0];
     if (file) {
-      await processFile(file);
+      handleFileSelect(file);
     }
   };
 
@@ -263,6 +277,16 @@ const Dashboard = () => {
               Manage your account information
             </CardDescription>
           </CardHeader>
+          
+          <AvatarCropper
+            imageSrc={imageToCrop || ""}
+            open={cropperOpen}
+            onClose={() => {
+              setCropperOpen(false);
+              setImageToCrop(null);
+            }}
+            onCropComplete={uploadCroppedImage}
+          />
           <CardContent className="space-y-6">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
