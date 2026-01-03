@@ -304,6 +304,66 @@ export const PricingSection = () => {
           })}
         </div>
 
+        {/* Comparison Table */}
+        <div className="mt-20 max-w-7xl mx-auto">
+          <h3 className="text-2xl font-bold text-center mb-8">
+            <span className="bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+              Compare Plans
+            </span>
+          </h3>
+          <div className="overflow-x-auto rounded-2xl border border-border/50 bg-card/50 backdrop-blur-xl">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-border/50">
+                  <th className="text-left p-4 text-sm font-semibold text-foreground">Features</th>
+                  {tiers.map((tier) => (
+                    <th key={tier.name} className="p-4 text-center">
+                      <span className={`text-sm font-semibold ${tier.popular ? 'text-primary' : 'text-foreground'}`}>
+                        {tier.name}
+                      </span>
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  { feature: "Business Twin", values: ["Basic", "Advanced", "Advanced", "Advanced", "Custom", "Custom"] },
+                  { feature: "AI Strategy Reports", values: ["5/month", "Unlimited", "Unlimited", "Unlimited", "Unlimited", "Unlimited"] },
+                  { feature: "Decision Framework", values: ["Basic", "Full", "Full", "Full", "Full", "Full"] },
+                  { feature: "Execution Automation", values: [false, true, true, true, true, true] },
+                  { feature: "Team Members", values: ["1", "5", "10", "25", "Unlimited", "Unlimited"] },
+                  { feature: "Custom Integrations", values: [false, false, true, true, true, true] },
+                  { feature: "API Access", values: [false, false, true, true, true, true] },
+                  { feature: "White-label Options", values: [false, false, false, true, true, true] },
+                  { feature: "Custom AI Training", values: [false, false, false, true, true, true] },
+                  { feature: "Dedicated Success Manager", values: [false, false, false, false, true, true] },
+                  { feature: "On-premise Deployment", values: [false, false, false, false, true, true] },
+                  { feature: "Custom Feature Development", values: [false, false, false, false, false, true] },
+                  { feature: "24/7 Priority Support", values: [false, false, false, false, false, true] },
+                  { feature: "Support Level", values: ["Email", "Priority", "Dedicated", "Phone", "Premium", "24/7"] },
+                ].map((row, idx) => (
+                  <tr key={row.feature} className={idx % 2 === 0 ? "bg-muted/20" : ""}>
+                    <td className="p-4 text-sm text-muted-foreground font-medium">{row.feature}</td>
+                    {row.values.map((value, i) => (
+                      <td key={i} className="p-4 text-center">
+                        {typeof value === "boolean" ? (
+                          value ? (
+                            <Check className="w-5 h-5 text-primary mx-auto" />
+                          ) : (
+                            <span className="text-muted-foreground/50">—</span>
+                          )
+                        ) : (
+                          <span className="text-sm text-foreground">{value}</span>
+                        )}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
         {/* Bottom Note */}
         <p className="text-center text-sm text-muted-foreground mt-12">
           All plans include 14-day free trial. No credit card required.
