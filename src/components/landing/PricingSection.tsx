@@ -1,12 +1,13 @@
-import { Check, Zap, Rocket, Building2 } from "lucide-react";
+import { Check, Zap, Rocket, Building2, Crown, Star, Gem } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
 import { useEffect, useRef, useState } from "react";
 
 const tiers = [
   {
     name: "Starter",
-    price: "$49",
-    period: "/month",
+    monthlyPrice: 49,
+    yearlyPrice: 499,
     description: "Perfect for small businesses starting their growth journey",
     icon: Zap,
     features: [
@@ -22,8 +23,8 @@ const tiers = [
   },
   {
     name: "Growth",
-    price: "$149",
-    period: "/month",
+    monthlyPrice: 149,
+    yearlyPrice: 1499,
     description: "For scaling businesses ready to accelerate growth",
     icon: Rocket,
     features: [
@@ -33,26 +34,78 @@ const tiers = [
       "Execution Automation",
       "Priority Support",
       "5 Team Members",
-      "Custom Integrations",
     ],
     cta: "Get Started",
     popular: true,
     accent: "purple",
   },
   {
-    name: "Enterprise",
-    price: "Custom",
-    period: "",
-    description: "For large organizations with complex needs",
-    icon: Building2,
+    name: "Professional",
+    monthlyPrice: 299,
+    yearlyPrice: 2999,
+    description: "For established businesses seeking advanced features",
+    icon: Star,
     features: [
       "Everything in Growth",
+      "10 Team Members",
+      "Custom Integrations",
+      "Advanced Analytics",
+      "Dedicated Support",
+      "API Access",
+    ],
+    cta: "Get Started",
+    popular: false,
+    accent: "electric",
+  },
+  {
+    name: "Business",
+    monthlyPrice: 599,
+    yearlyPrice: 5999,
+    description: "For growing organizations with demanding needs",
+    icon: Building2,
+    features: [
+      "Everything in Professional",
+      "25 Team Members",
+      "White-label Options",
+      "Custom AI Training",
+      "Priority Phone Support",
+      "SLA Guarantee",
+    ],
+    cta: "Get Started",
+    popular: false,
+    accent: "cyan",
+  },
+  {
+    name: "Enterprise",
+    monthlyPrice: 2999,
+    yearlyPrice: 29999,
+    description: "For large organizations with complex requirements",
+    icon: Crown,
+    features: [
+      "Everything in Business",
       "Unlimited Team Members",
       "Dedicated Success Manager",
-      "Custom AI Training",
-      "White-label Options",
-      "SLA Guarantee",
       "On-premise Deployment",
+      "Custom Contracts",
+      "99.9% Uptime SLA",
+    ],
+    cta: "Contact Sales",
+    popular: false,
+    accent: "purple",
+  },
+  {
+    name: "Ultimate",
+    monthlyPrice: 5999,
+    yearlyPrice: 59999,
+    description: "The complete solution for industry leaders",
+    icon: Gem,
+    features: [
+      "Everything in Enterprise",
+      "24/7 Priority Support",
+      "Custom Feature Development",
+      "Dedicated Infrastructure",
+      "Executive Business Reviews",
+      "Full Customization",
     ],
     cta: "Contact Sales",
     popular: false,
@@ -84,6 +137,8 @@ const useInView = (options = {}) => {
 
 export const PricingSection = () => {
   const { ref: sectionRef, isInView } = useInView();
+  const [isYearly, setIsYearly] = useState(false);
+
   return (
     <section id="pricing" className="relative py-24 overflow-hidden">
       {/* Background Effects */}
@@ -105,26 +160,49 @@ export const PricingSection = () => {
               Growth Plan
             </span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
             Start free and scale as you grow. No hidden fees, cancel anytime.
           </p>
+
+          {/* Billing Toggle */}
+          <div className="flex items-center justify-center gap-4">
+            <span className={`text-sm font-medium transition-colors ${!isYearly ? 'text-foreground' : 'text-muted-foreground'}`}>
+              Monthly
+            </span>
+            <Switch
+              checked={isYearly}
+              onCheckedChange={setIsYearly}
+              className="data-[state=checked]:bg-primary"
+            />
+            <span className={`text-sm font-medium transition-colors ${isYearly ? 'text-foreground' : 'text-muted-foreground'}`}>
+              Yearly
+            </span>
+            {isYearly && (
+              <span className="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded-full">
+                Save up to 17%
+              </span>
+            )}
+          </div>
         </div>
 
         {/* Pricing Cards */}
-        <div ref={sectionRef} className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div ref={sectionRef} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
           {tiers.map((tier, index) => {
             const Icon = tier.icon;
+            const price = isYearly ? tier.yearlyPrice : tier.monthlyPrice;
+            const period = isYearly ? "/year" : "/month";
+            
             return (
               <div
                 key={tier.name}
                 className={`relative group transition-all duration-700 ease-out ${
-                  tier.popular ? "md:-mt-4 md:mb-4" : ""
+                  tier.popular ? "lg:-mt-4 lg:mb-4" : ""
                 } ${
                   isInView
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-12"
                 }`}
-                style={{ transitionDelay: `${index * 150}ms` }}
+                style={{ transitionDelay: `${index * 100}ms` }}
               >
                 {/* Popular Badge */}
                 {tier.popular && (
@@ -143,7 +221,7 @@ export const PricingSection = () => {
                       : "bg-gradient-to-b from-border/50 to-border/20 hover:from-primary/50 hover:to-secondary/50"
                   }`}
                 >
-                  <div className="relative h-full rounded-2xl bg-card/80 backdrop-blur-xl p-8 flex flex-col">
+                  <div className="relative h-full rounded-2xl bg-card/80 backdrop-blur-xl p-6 flex flex-col">
                     {/* Glow Effect */}
                     <div
                       className={`absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${
@@ -163,7 +241,7 @@ export const PricingSection = () => {
                         }`}
                       >
                         <Icon
-                          className={`w-6 h-6 ${
+                          className={`w-5 h-5 ${
                             tier.accent === "cyan"
                               ? "text-primary"
                               : tier.accent === "purple"
@@ -172,22 +250,22 @@ export const PricingSection = () => {
                           }`}
                         />
                       </div>
-                      <h3 className="text-xl font-bold text-foreground">{tier.name}</h3>
+                      <h3 className="text-lg font-bold text-foreground">{tier.name}</h3>
                     </div>
 
                     {/* Price */}
                     <div className="relative z-10 mb-4">
                       <div className="flex items-baseline gap-1">
-                        <span className="text-4xl font-bold text-foreground">{tier.price}</span>
-                        <span className="text-muted-foreground">{tier.period}</span>
+                        <span className="text-3xl font-bold text-foreground">${price.toLocaleString()}</span>
+                        <span className="text-muted-foreground text-sm">{period}</span>
                       </div>
                       <p className="text-sm text-muted-foreground mt-2">{tier.description}</p>
                     </div>
 
                     {/* Features */}
-                    <ul className="relative z-10 space-y-3 mb-8 flex-grow">
+                    <ul className="relative z-10 space-y-2 mb-6 flex-grow">
                       {tier.features.map((feature) => (
-                        <li key={feature} className="flex items-start gap-3">
+                        <li key={feature} className="flex items-start gap-2">
                           <div
                             className={`mt-0.5 p-1 rounded-full ${
                               tier.accent === "cyan"
@@ -214,7 +292,7 @@ export const PricingSection = () => {
 
                     {/* CTA Button */}
                     <Button
-                      variant={tier.popular ? "hero" : "glass"}
+                      variant={tier.popular ? "default" : "outline"}
                       className="relative z-10 w-full"
                     >
                       {tier.cta}

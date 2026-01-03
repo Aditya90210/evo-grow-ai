@@ -13,7 +13,7 @@ const Navbar = () => {
     { label: "Features", href: "#features" },
     { label: "How It Works", href: "#pillars" },
     { label: "Pricing", href: "#pricing" },
-    { label: "Resources", href: "#resources" },
+    { label: "Testimonials", href: "#testimonials" },
   ];
 
   const handleSignOut = async () => {
