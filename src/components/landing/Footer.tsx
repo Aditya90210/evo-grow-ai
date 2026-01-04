@@ -3,10 +3,30 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   const footerLinks = {
-    Product: ["Features", "Pricing", "Integrations", "API"],
-    Company: ["About", "Blog", "Careers", "Contact"],
-    Resources: ["Documentation", "Help Center", "Community", "Tutorials"],
-    Legal: ["Privacy", "Terms", "Security", "Cookies"],
+    Product: [
+      { name: "Features", path: "/#features" },
+      { name: "Pricing", path: "/#pricing" },
+      { name: "Integrations", path: "/integrations" },
+      { name: "API", path: "/api" },
+    ],
+    Company: [
+      { name: "About", path: "/about" },
+      { name: "Blog", path: "/blog" },
+      { name: "Careers", path: "/careers" },
+      { name: "Contact", path: "/#contact" },
+    ],
+    Resources: [
+      { name: "Documentation", path: "/documentation" },
+      { name: "Help Center", path: "/help-center" },
+      { name: "Community", path: "/community" },
+      { name: "Tutorials", path: "/tutorials" },
+    ],
+    Legal: [
+      { name: "Privacy", path: "/privacy" },
+      { name: "Terms", path: "/terms" },
+      { name: "Security", path: "/security" },
+      { name: "Cookies", path: "/cookies" },
+    ],
   };
 
   return (
@@ -38,13 +58,13 @@ const Footer = () => {
               </h4>
               <ul className="space-y-2">
                 {links.map((link) => (
-                  <li key={link}>
-                    <a
-                      href="#"
+                  <li key={link.name}>
+                    <Link
+                      to={link.path}
                       className="text-sm text-muted-foreground hover:text-primary transition-colors"
                     >
-                      {link}
-                    </a>
+                      {link.name}
+                    </Link>
                   </li>
                 ))}
               </ul>
