@@ -2,15 +2,16 @@ import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 import { Puzzle, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const Integrations = () => {
   const integrations = [
-    { name: "Salesforce", category: "CRM", description: "Sync your customer data seamlessly" },
-    { name: "Slack", category: "Communication", description: "Get real-time notifications and updates" },
-    { name: "Google Workspace", category: "Productivity", description: "Connect your docs, sheets, and calendar" },
-    { name: "Microsoft 365", category: "Productivity", description: "Integrate with Office apps" },
-    { name: "Stripe", category: "Payments", description: "Manage billing and subscriptions" },
-    { name: "HubSpot", category: "Marketing", description: "Automate your marketing workflows" },
+    { name: "Salesforce", category: "CRM", description: "Sync your customer data seamlessly", path: "/integrations/salesforce" },
+    { name: "Slack", category: "Communication", description: "Get real-time notifications and updates", path: "/integrations/slack" },
+    { name: "Google Workspace", category: "Productivity", description: "Connect your docs, sheets, and calendar", path: "/integrations/google-workspace" },
+    { name: "Microsoft 365", category: "Productivity", description: "Integrate with Office apps", path: "/integrations/microsoft-365" },
+    { name: "Stripe", category: "Payments", description: "Manage billing and subscriptions", path: "/integrations/stripe" },
+    { name: "HubSpot", category: "Marketing", description: "Automate your marketing workflows", path: "/integrations/hubspot" },
   ];
 
   return (
@@ -37,8 +38,10 @@ const Integrations = () => {
                 <span className="text-xs text-primary font-medium">{integration.category}</span>
                 <h3 className="text-xl font-semibold mt-2 mb-2">{integration.name}</h3>
                 <p className="text-muted-foreground text-sm mb-4">{integration.description}</p>
-                <Button variant="ghost" size="sm" className="gap-2">
-                  Learn more <ArrowRight className="w-4 h-4" />
+                <Button variant="ghost" size="sm" className="gap-2" asChild>
+                  <Link to={integration.path}>
+                    Learn more <ArrowRight className="w-4 h-4" />
+                  </Link>
                 </Button>
               </div>
             ))}

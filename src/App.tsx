@@ -9,6 +9,13 @@ import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 import Integrations from "./pages/Integrations";
+import IntegrationSalesforce from "./pages/IntegrationSalesforce";
+import IntegrationSlack from "./pages/IntegrationSlack";
+import IntegrationGoogleWorkspace from "./pages/IntegrationGoogleWorkspace";
+import IntegrationMicrosoft365 from "./pages/IntegrationMicrosoft365";
+import IntegrationStripe from "./pages/IntegrationStripe";
+import IntegrationHubSpot from "./pages/IntegrationHubSpot";
+import Pricing from "./pages/Pricing";
 import API from "./pages/API";
 import About from "./pages/About";
 import Blog from "./pages/Blog";
@@ -36,6 +43,13 @@ const App = () => (
             <Route path="/auth" element={<Auth />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/integrations" element={<Integrations />} />
+            <Route path="/integrations/salesforce" element={<IntegrationSalesforce />} />
+            <Route path="/integrations/slack" element={<IntegrationSlack />} />
+            <Route path="/integrations/google-workspace" element={<IntegrationGoogleWorkspace />} />
+            <Route path="/integrations/microsoft-365" element={<IntegrationMicrosoft365 />} />
+            <Route path="/integrations/stripe" element={<IntegrationStripe />} />
+            <Route path="/integrations/hubspot" element={<IntegrationHubSpot />} />
+            <Route path="/pricing" element={<Pricing />} />
             <Route path="/api" element={<API />} />
             <Route path="/about" element={<About />} />
             <Route path="/blog" element={<Blog />} />
