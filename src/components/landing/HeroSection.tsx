@@ -40,10 +40,6 @@ const HeroSection = () => {
               Start Your Evolution
               <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
             </Button>
-            <Button variant="outline" size="xl">
-              <Zap className="w-5 h-5" />
-              See It In Action
-            </Button>
           </div>
           
           {/* Stats */}
