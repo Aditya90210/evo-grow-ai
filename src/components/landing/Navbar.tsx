@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu, X, Zap, LogOut, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate, useLocation } from "react-router-dom";
@@ -6,6 +6,7 @@ import { useAuth } from "@/hooks/useAuth";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string | null>(null);
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -17,6 +18,52 @@ const Navbar = () => {
     { label: "Pricing", href: "/#pricing", section: "pricing" },
     { label: "Testimonials", href: "/#testimonials", section: "testimonials" },
   ];
+
+  // Track active section on home page
+  useEffect(() => {
+    if (location.pathname !== "/") {
+      setActiveSection(null);
+      return;
+    }
+
+    const sectionIds = ["features", "pillars", "pricing", "testimonials"];
+    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { threshold: 0.3, rootMargin: "-80px 0px -50% 0px" }
+    );
+
+    // Check if at top of page for "Home" active state
+    const handleScroll = () => {
+      if (window.scrollY < 100) {
+        setActiveSection(null);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    sectionIds.forEach((id) => {
+      const element = document.getElementById(id);
+      if (element) observer.observe(element);
+    });
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [location.pathname]);
+
+  const isLinkActive = (link: { section: string | null }) => {
+    if (location.pathname !== "/") return false;
+    if (link.section === null) return activeSection === null;
+    return activeSection === link.section;
+  };
 
   const handleNavClick = (link: { href: string; section: string | null }) => {
     if (link.section === null) {
@@ -67,7 +114,11 @@ const Navbar = () => {
               <button
                 key={link.label}
                 onClick={() => handleNavClick(link)}
-                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors bg-transparent border-none cursor-pointer"
+                className={`text-sm font-medium transition-colors bg-transparent border-none cursor-pointer ${
+                  isLinkActive(link)
+                    ? "text-primary"
+                    : "text-muted-foreground hover:text-primary"
+                }`}
               >
                 {link.label}
               </button>
@@ -119,7 +170,11 @@ const Navbar = () => {
                     handleNavClick(link);
                     setIsOpen(false);
                   }}
-                  className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors py-2 bg-transparent border-none cursor-pointer text-left"
+                  className={`text-sm font-medium transition-colors py-2 bg-transparent border-none cursor-pointer text-left ${
+                    isLinkActive(link)
+                      ? "text-primary"
+                      : "text-muted-foreground hover:text-primary"
+                  }`}
                 >
                   {link.label}
                 </button>
