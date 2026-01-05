@@ -161,7 +161,7 @@ export const PricingSection = () => {
             </span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-            Start free and scale as you grow. No hidden fees, cancel anytime.
+            Start free and scale as you grow.
           </p>
 
           {/* Billing Toggle */}
