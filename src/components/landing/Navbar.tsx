@@ -1,21 +1,46 @@
 import { useState } from "react";
 import { Menu, X, Zap, LogOut, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const navLinks = [
-    { label: "Home", href: "/" },
-    { label: "Features", href: "#features" },
-    { label: "How It Works", href: "#pillars" },
-    { label: "Pricing", href: "#pricing" },
-    { label: "Testimonials", href: "#testimonials" },
+    { label: "Home", href: "/", section: null },
+    { label: "Features", href: "/#features", section: "features" },
+    { label: "How It Works", href: "/#pillars", section: "pillars" },
+    { label: "Pricing", href: "/#pricing", section: "pricing" },
+    { label: "Testimonials", href: "/#testimonials", section: "testimonials" },
   ];
+
+  const handleNavClick = (link: { href: string; section: string | null }) => {
+    if (link.section === null) {
+      // Home link
+      if (location.pathname === "/") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        navigate("/");
+      }
+    } else {
+      // Section link
+      if (location.pathname === "/") {
+        const target = document.getElementById(link.section);
+        target?.scrollIntoView({ behavior: "smooth" });
+      } else {
+        navigate(`/#${link.section}`);
+        // After navigation, scroll to section
+        setTimeout(() => {
+          const target = document.getElementById(link.section!);
+          target?.scrollIntoView({ behavior: "smooth" });
+        }, 100);
+      }
+    }
+  };
 
   const handleSignOut = async () => {
     await signOut();
@@ -39,29 +64,13 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
-              link.href === "/" ? (
-                <Link
-                  key={link.label}
-                  to="/"
-                  onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-                  className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-                >
-                  {link.label}
-                </Link>
-              ) : (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const target = document.querySelector(link.href);
-                    target?.scrollIntoView({ behavior: "smooth" });
-                  }}
-                  className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-                >
-                  {link.label}
-                </a>
-              )
+              <button
+                key={link.label}
+                onClick={() => handleNavClick(link)}
+                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors bg-transparent border-none cursor-pointer"
+              >
+                {link.label}
+              </button>
             ))}
           </div>
 
@@ -104,33 +113,16 @@ const Navbar = () => {
           <div className="md:hidden py-4 border-t border-border/50 animate-fade-in">
             <div className="flex flex-col gap-4">
               {navLinks.map((link) => (
-                link.href === "/" ? (
-                  <Link
-                    key={link.label}
-                    to="/"
-                    onClick={() => {
-                      window.scrollTo({ top: 0, behavior: "smooth" });
-                      setIsOpen(false);
-                    }}
-                    className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors py-2"
-                  >
-                    {link.label}
-                  </Link>
-                ) : (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      const target = document.querySelector(link.href);
-                      target?.scrollIntoView({ behavior: "smooth" });
-                      setIsOpen(false);
-                    }}
-                    className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors py-2"
-                  >
-                    {link.label}
-                  </a>
-                )
+                <button
+                  key={link.label}
+                  onClick={() => {
+                    handleNavClick(link);
+                    setIsOpen(false);
+                  }}
+                  className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors py-2 bg-transparent border-none cursor-pointer text-left"
+                >
+                  {link.label}
+                </button>
               ))}
               <div className="flex flex-col gap-2 pt-4 border-t border-border/50">
                 {user ? (
