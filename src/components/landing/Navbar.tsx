@@ -10,6 +10,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const navLinks = [
+    { label: "Home", href: "/" },
     { label: "Features", href: "#features" },
     { label: "How It Works", href: "#pillars" },
     { label: "Pricing", href: "#pricing" },
@@ -38,18 +39,29 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  const target = document.querySelector(link.href);
-                  target?.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-              >
-                {link.label}
-              </a>
+              link.href === "/" ? (
+                <Link
+                  key={link.label}
+                  to="/"
+                  onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                  className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+                >
+                  {link.label}
+                </Link>
+              ) : (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const target = document.querySelector(link.href);
+                    target?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+                >
+                  {link.label}
+                </a>
+              )
             ))}
           </div>
 
@@ -92,19 +104,33 @@ const Navbar = () => {
           <div className="md:hidden py-4 border-t border-border/50 animate-fade-in">
             <div className="flex flex-col gap-4">
               {navLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const target = document.querySelector(link.href);
-                    target?.scrollIntoView({ behavior: "smooth" });
-                    setIsOpen(false);
-                  }}
-                  className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors py-2"
-                >
-                  {link.label}
-                </a>
+                link.href === "/" ? (
+                  <Link
+                    key={link.label}
+                    to="/"
+                    onClick={() => {
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                      setIsOpen(false);
+                    }}
+                    className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors py-2"
+                  >
+                    {link.label}
+                  </Link>
+                ) : (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const target = document.querySelector(link.href);
+                      target?.scrollIntoView({ behavior: "smooth" });
+                      setIsOpen(false);
+                    }}
+                    className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors py-2"
+                  >
+                    {link.label}
+                  </a>
+                )
               ))}
               <div className="flex flex-col gap-2 pt-4 border-t border-border/50">
                 {user ? (
