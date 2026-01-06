@@ -73,12 +73,16 @@ const IntegrationSlack = () => {
             </div>
 
             <div className="flex gap-4">
-              <Button size="lg" className="gap-2">
-                Get Started <Zap className="w-4 h-4" />
-              </Button>
-              <Button size="lg" variant="outline">
-                View Documentation
-              </Button>
+              <Link to="/integrations/get-started?integration=Slack">
+                <Button size="lg" className="gap-2">
+                  Get Started <Zap className="w-4 h-4" />
+                </Button>
+              </Link>
+              <Link to="/integrations/docs?integration=Slack">
+                <Button size="lg" variant="outline">
+                  View Documentation
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
