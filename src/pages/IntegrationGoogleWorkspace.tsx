@@ -73,12 +73,16 @@ const IntegrationGoogleWorkspace = () => {
             </div>
 
             <div className="flex gap-4">
-              <Button size="lg" className="gap-2">
-                Get Started <Zap className="w-4 h-4" />
-              </Button>
-              <Button size="lg" variant="outline">
-                View Documentation
-              </Button>
+              <Link to="/integrations/get-started?integration=Google Workspace">
+                <Button size="lg" className="gap-2">
+                  Get Started <Zap className="w-4 h-4" />
+                </Button>
+              </Link>
+              <Link to="/integrations/docs?integration=Google Workspace">
+                <Button size="lg" variant="outline">
+                  View Documentation
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

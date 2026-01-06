@@ -16,6 +16,8 @@ import IntegrationGoogleWorkspace from "./pages/IntegrationGoogleWorkspace";
 import IntegrationMicrosoft365 from "./pages/IntegrationMicrosoft365";
 import IntegrationStripe from "./pages/IntegrationStripe";
 import IntegrationHubSpot from "./pages/IntegrationHubSpot";
+import IntegrationGetStarted from "./pages/IntegrationGetStarted";
+import IntegrationDocs from "./pages/IntegrationDocs";
 import Pricing from "./pages/Pricing";
 import API from "./pages/API";
 import About from "./pages/About";
@@ -50,6 +52,8 @@ const App = () => (
             <Route path="/integrations/microsoft-365" element={<IntegrationMicrosoft365 />} />
             <Route path="/integrations/stripe" element={<IntegrationStripe />} />
             <Route path="/integrations/hubspot" element={<IntegrationHubSpot />} />
+            <Route path="/integrations/get-started" element={<IntegrationGetStarted />} />
+            <Route path="/integrations/docs" element={<IntegrationDocs />} />
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/api" element={<API />} />
             <Route path="/about" element={<About />} />
