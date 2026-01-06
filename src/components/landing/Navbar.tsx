@@ -3,6 +3,7 @@ import { Menu, X, Zap, LogOut, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -127,6 +128,7 @@ const Navbar = () => {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-3">
+            <ThemeToggle />
             {user ? (
               <>
                 <Button variant="ghost" size="sm" onClick={() => navigate("/dashboard")}>
@@ -180,6 +182,10 @@ const Navbar = () => {
                 </button>
               ))}
               <div className="flex flex-col gap-2 pt-4 border-t border-border/50">
+                <div className="flex items-center justify-between py-2">
+                  <span className="text-sm text-muted-foreground">Theme</span>
+                  <ThemeToggle />
+                </div>
                 {user ? (
                   <>
                     <Button variant="ghost" size="sm" className="justify-start" onClick={() => { navigate("/dashboard"); setIsOpen(false); }}>
