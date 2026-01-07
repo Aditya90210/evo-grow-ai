@@ -21,6 +21,7 @@ import IntegrationGetStarted from "./pages/IntegrationGetStarted";
 import IntegrationDocs from "./pages/IntegrationDocs";
 import Pricing from "./pages/Pricing";
 import API from "./pages/API";
+import APIDocumentation from "./pages/APIDocumentation";
 import About from "./pages/About";
 import Blog from "./pages/Blog";
 import Careers from "./pages/Careers";
@@ -58,6 +59,7 @@ const App = () => (
               <Route path="/integrations/docs" element={<IntegrationDocs />} />
               <Route path="/pricing" element={<Pricing />} />
               <Route path="/api" element={<API />} />
+              <Route path="/api-documentation" element={<APIDocumentation />} />
               <Route path="/about" element={<About />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/careers" element={<Careers />} />
