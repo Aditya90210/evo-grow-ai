@@ -61,8 +61,8 @@ const features = [
 const FeaturesSection = () => {
   return (
     <section className="relative py-24 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-dark" />
-      <div className="absolute inset-0 radial-gradient-bg opacity-50" />
+      <div className="absolute inset-0 bg-background" />
+      <div className="absolute inset-0 bg-gradient-to-br from-secondary/5 via-background to-primary/5" />
       
       <div className="container relative z-10 px-4">
         {/* Section header */}
