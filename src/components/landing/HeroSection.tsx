@@ -6,14 +6,14 @@ const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Animated background */}
-      <div className="absolute inset-0 bg-gradient-dark" />
-      <div className="absolute inset-0 radial-gradient-bg" />
-      <div className="absolute inset-0 grid-pattern opacity-50" />
+      <div className="absolute inset-0 bg-background" />
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-secondary/5" />
+      <div className="absolute inset-0 grid-pattern opacity-30 dark:opacity-50" />
       
       {/* Floating orbs */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-float" />
-      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-secondary/20 rounded-full blur-3xl animate-float" style={{ animationDelay: "-3s" }} />
-      <div className="absolute top-1/2 right-1/3 w-64 h-64 bg-accent/15 rounded-full blur-3xl animate-float" style={{ animationDelay: "-1.5s" }} />
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 dark:bg-primary/20 rounded-full blur-3xl animate-float" />
+      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-secondary/10 dark:bg-secondary/20 rounded-full blur-3xl animate-float" style={{ animationDelay: "-3s" }} />
+      <div className="absolute top-1/2 right-1/3 w-64 h-64 bg-accent/10 dark:bg-accent/15 rounded-full blur-3xl animate-float" style={{ animationDelay: "-1.5s" }} />
       
       <div className="container relative z-10 px-4 py-20">
         <div className="max-w-5xl mx-auto text-center">
