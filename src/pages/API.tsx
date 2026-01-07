@@ -2,7 +2,7 @@ import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 import { Code, Terminal } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
+import { Link } from "react-router-dom";
 const API = () => {
   return (
     <div className="min-h-screen bg-background">
@@ -56,7 +56,9 @@ const API = () => {
             </div>
 
             <div className="text-center mt-12">
-              <Button size="lg">View API Documentation</Button>
+              <Button size="lg" asChild>
+                <Link to="/api-documentation">View API Documentation</Link>
+              </Button>
             </div>
           </div>
         </div>
