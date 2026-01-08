@@ -3,13 +3,46 @@ import Footer from "@/components/landing/Footer";
 import { FileText, Search, ArrowRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const Documentation = () => {
   const sections = [
-    { title: "Getting Started", description: "Learn the basics and set up your account", items: ["Quick Start Guide", "Installation", "First Steps"] },
-    { title: "Core Concepts", description: "Understand the fundamental concepts", items: ["Business Twin", "AI Predictions", "Decision Framework"] },
-    { title: "API Reference", description: "Complete API documentation", items: ["Authentication", "Endpoints", "Webhooks"] },
-    { title: "Integrations", description: "Connect with other tools", items: ["Salesforce", "Slack", "Custom Integrations"] },
+    { 
+      title: "Getting Started", 
+      description: "Learn the basics and set up your account", 
+      items: [
+        { name: "Quick Start Guide", slug: "quick-start-guide" },
+        { name: "Installation", slug: "installation" },
+        { name: "First Steps", slug: "first-steps" }
+      ] 
+    },
+    { 
+      title: "Core Concepts", 
+      description: "Understand the fundamental concepts", 
+      items: [
+        { name: "Business Twin", slug: "business-twin" },
+        { name: "AI Predictions", slug: "ai-predictions" },
+        { name: "Decision Framework", slug: "decision-framework" }
+      ] 
+    },
+    { 
+      title: "API Reference", 
+      description: "Complete API documentation", 
+      items: [
+        { name: "Authentication", slug: "authentication" },
+        { name: "Endpoints", slug: "endpoints" },
+        { name: "Webhooks", slug: "webhooks" }
+      ] 
+    },
+    { 
+      title: "Integrations", 
+      description: "Connect with other tools", 
+      items: [
+        { name: "Salesforce", slug: "salesforce" },
+        { name: "Slack", slug: "slack" },
+        { name: "Custom Integrations", slug: "custom-integrations" }
+      ] 
+    },
   ];
 
   return (
@@ -41,10 +74,12 @@ const Documentation = () => {
                 <p className="text-muted-foreground text-sm mb-4">{section.description}</p>
                 <ul className="space-y-2">
                   {section.items.map((item) => (
-                    <li key={item}>
-                      <Button variant="ghost" size="sm" className="w-full justify-between p-0 h-auto text-muted-foreground hover:text-primary">
-                        {item} <ArrowRight className="w-4 h-4" />
-                      </Button>
+                    <li key={item.slug}>
+                      <Link to={`/docs/${item.slug}`}>
+                        <Button variant="ghost" size="sm" className="w-full justify-between p-0 h-auto text-muted-foreground hover:text-primary">
+                          {item.name} <ArrowRight className="w-4 h-4" />
+                        </Button>
+                      </Link>
                     </li>
                   ))}
                 </ul>
