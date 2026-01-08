@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 import { BookOpen, Calendar, ArrowRight } from "lucide-react";
@@ -5,12 +6,12 @@ import { Button } from "@/components/ui/button";
 
 const Blog = () => {
   const posts = [
-    { title: "The Future of AI in Business Decision Making", date: "Jan 2, 2026", category: "AI Insights", excerpt: "Explore how artificial intelligence is transforming the way businesses make strategic decisions." },
-    { title: "5 Ways to Optimize Your Business Twin", date: "Dec 28, 2025", category: "Product Tips", excerpt: "Get the most out of your digital twin with these practical optimization strategies." },
-    { title: "Case Study: How TechCorp Increased Revenue by 40%", date: "Dec 20, 2025", category: "Case Studies", excerpt: "Learn how one of our customers achieved remarkable growth using EVO Grow." },
-    { title: "Understanding Predictive Analytics", date: "Dec 15, 2025", category: "Education", excerpt: "A beginner's guide to predictive analytics and its applications in modern business." },
-    { title: "2026 Business Intelligence Trends", date: "Dec 10, 2025", category: "Industry", excerpt: "What to expect in the world of business intelligence in the coming year." },
-    { title: "Building a Data-Driven Culture", date: "Dec 5, 2025", category: "Strategy", excerpt: "Tips for fostering a culture that embraces data-driven decision making." },
+    { slug: "future-of-ai-in-business", title: "The Future of AI in Business Decision Making", date: "Jan 2, 2026", category: "AI Insights", excerpt: "Explore how artificial intelligence is transforming the way businesses make strategic decisions." },
+    { slug: "optimize-business-twin", title: "5 Ways to Optimize Your Business Twin", date: "Dec 28, 2025", category: "Product Tips", excerpt: "Get the most out of your digital twin with these practical optimization strategies." },
+    { slug: "techcorp-case-study", title: "Case Study: How TechCorp Increased Revenue by 40%", date: "Dec 20, 2025", category: "Case Studies", excerpt: "Learn how one of our customers achieved remarkable growth using EVO Grow." },
+    { slug: "understanding-predictive-analytics", title: "Understanding Predictive Analytics", date: "Dec 15, 2025", category: "Education", excerpt: "A beginner's guide to predictive analytics and its applications in modern business." },
+    { slug: "2026-business-intelligence-trends", title: "2026 Business Intelligence Trends", date: "Dec 10, 2025", category: "Industry", excerpt: "What to expect in the world of business intelligence in the coming year." },
+    { slug: "building-data-driven-culture", title: "Building a Data-Driven Culture", date: "Dec 5, 2025", category: "Strategy", excerpt: "Tips for fostering a culture that embraces data-driven decision making." },
   ];
 
   return (
@@ -33,7 +34,7 @@ const Blog = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {posts.map((post) => (
-              <article key={post.title} className="p-6 rounded-2xl border border-border/50 bg-card/50 backdrop-blur-xl hover:border-primary/50 transition-all group">
+              <article key={post.slug} className="p-6 rounded-2xl border border-border/50 bg-card/50 backdrop-blur-xl hover:border-primary/50 transition-all group">
                 <span className="text-xs text-primary font-medium">{post.category}</span>
                 <h3 className="text-lg font-semibold mt-2 mb-2 group-hover:text-primary transition-colors">{post.title}</h3>
                 <p className="text-muted-foreground text-sm mb-4">{post.excerpt}</p>
@@ -42,9 +43,11 @@ const Blog = () => {
                     <Calendar className="w-3 h-3" />
                     {post.date}
                   </div>
-                  <Button variant="ghost" size="sm" className="gap-1 p-0 h-auto">
-                    Read <ArrowRight className="w-3 h-3" />
-                  </Button>
+                  <Link to={`/blog/${post.slug}`}>
+                    <Button variant="ghost" size="sm" className="gap-1 p-0 h-auto">
+                      Read <ArrowRight className="w-3 h-3" />
+                    </Button>
+                  </Link>
                 </div>
               </article>
             ))}

@@ -24,6 +24,7 @@ import API from "./pages/API";
 import APIDocumentation from "./pages/APIDocumentation";
 import About from "./pages/About";
 import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
 import Careers from "./pages/Careers";
 import Documentation from "./pages/Documentation";
 import HelpCenter from "./pages/HelpCenter";
@@ -62,6 +63,7 @@ const App = () => (
               <Route path="/api-documentation" element={<APIDocumentation />} />
               <Route path="/about" element={<About />} />
               <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/careers" element={<Careers />} />
               <Route path="/documentation" element={<Documentation />} />
               <Route path="/help-center" element={<HelpCenter />} />
