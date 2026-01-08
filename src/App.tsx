@@ -26,6 +26,7 @@ import About from "./pages/About";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import Careers from "./pages/Careers";
+import CareerApply from "./pages/CareerApply";
 import Documentation from "./pages/Documentation";
 import HelpCenter from "./pages/HelpCenter";
 import Community from "./pages/Community";
@@ -65,6 +66,7 @@ const App = () => (
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/careers" element={<Careers />} />
+              <Route path="/careers/:slug" element={<CareerApply />} />
               <Route path="/documentation" element={<Documentation />} />
               <Route path="/help-center" element={<HelpCenter />} />
               <Route path="/community" element={<Community />} />
