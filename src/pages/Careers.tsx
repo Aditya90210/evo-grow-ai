@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 import { Briefcase, MapPin, ArrowRight } from "lucide-react";
@@ -5,12 +6,12 @@ import { Button } from "@/components/ui/button";
 
 const Careers = () => {
   const jobs = [
-    { title: "Senior AI Engineer", location: "Remote", type: "Full-time", department: "Engineering" },
-    { title: "Product Manager", location: "San Francisco, CA", type: "Full-time", department: "Product" },
-    { title: "Customer Success Manager", location: "Remote", type: "Full-time", department: "Customer Success" },
-    { title: "Senior Frontend Developer", location: "Remote", type: "Full-time", department: "Engineering" },
-    { title: "Data Scientist", location: "New York, NY", type: "Full-time", department: "Data" },
-    { title: "Technical Writer", location: "Remote", type: "Contract", department: "Documentation" },
+    { slug: "senior-ai-engineer", title: "Senior AI Engineer", location: "Remote", type: "Full-time", department: "Engineering" },
+    { slug: "product-manager", title: "Product Manager", location: "San Francisco, CA", type: "Full-time", department: "Product" },
+    { slug: "customer-success-manager", title: "Customer Success Manager", location: "Remote", type: "Full-time", department: "Customer Success" },
+    { slug: "senior-frontend-developer", title: "Senior Frontend Developer", location: "Remote", type: "Full-time", department: "Engineering" },
+    { slug: "data-scientist", title: "Data Scientist", location: "New York, NY", type: "Full-time", department: "Data" },
+    { slug: "technical-writer", title: "Technical Writer", location: "Remote", type: "Contract", department: "Documentation" },
   ];
 
   return (
@@ -62,9 +63,11 @@ const Careers = () => {
                       <span>{job.type}</span>
                     </div>
                   </div>
-                  <Button className="gap-2">
-                    Apply <ArrowRight className="w-4 h-4" />
-                  </Button>
+                  <Link to={`/careers/${job.slug}`}>
+                    <Button className="gap-2">
+                      Apply <ArrowRight className="w-4 h-4" />
+                    </Button>
+                  </Link>
                 </div>
               ))}
             </div>
