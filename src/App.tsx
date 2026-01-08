@@ -36,6 +36,20 @@ import Terms from "./pages/Terms";
 import Security from "./pages/Security";
 import Cookies from "./pages/Cookies";
 
+// Documentation pages
+import QuickStartGuide from "./pages/docs/QuickStartGuide";
+import Installation from "./pages/docs/Installation";
+import FirstSteps from "./pages/docs/FirstSteps";
+import BusinessTwin from "./pages/docs/BusinessTwin";
+import AIPredictions from "./pages/docs/AIPredictions";
+import DecisionFramework from "./pages/docs/DecisionFramework";
+import Authentication from "./pages/docs/Authentication";
+import Endpoints from "./pages/docs/Endpoints";
+import Webhooks from "./pages/docs/Webhooks";
+import SalesforceIntegration from "./pages/docs/SalesforceIntegration";
+import SlackIntegration from "./pages/docs/SlackIntegration";
+import CustomIntegrations from "./pages/docs/CustomIntegrations";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -75,6 +89,19 @@ const App = () => (
               <Route path="/terms" element={<Terms />} />
               <Route path="/security" element={<Security />} />
               <Route path="/cookies" element={<Cookies />} />
+              {/* Documentation pages */}
+              <Route path="/docs/quick-start-guide" element={<QuickStartGuide />} />
+              <Route path="/docs/installation" element={<Installation />} />
+              <Route path="/docs/first-steps" element={<FirstSteps />} />
+              <Route path="/docs/business-twin" element={<BusinessTwin />} />
+              <Route path="/docs/ai-predictions" element={<AIPredictions />} />
+              <Route path="/docs/decision-framework" element={<DecisionFramework />} />
+              <Route path="/docs/authentication" element={<Authentication />} />
+              <Route path="/docs/endpoints" element={<Endpoints />} />
+              <Route path="/docs/webhooks" element={<Webhooks />} />
+              <Route path="/docs/salesforce" element={<SalesforceIntegration />} />
+              <Route path="/docs/slack" element={<SlackIntegration />} />
+              <Route path="/docs/custom-integrations" element={<CustomIntegrations />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
