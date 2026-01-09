@@ -57,6 +57,9 @@ import FeaturesUsage from "./pages/help/FeaturesUsage";
 import IntegrationsHelp from "./pages/help/IntegrationsHelp";
 import Troubleshooting from "./pages/help/Troubleshooting";
 import SecurityPrivacy from "./pages/help/SecurityPrivacy";
+import LiveChat from "./pages/help/LiveChat";
+import EmailSupport from "./pages/help/EmailSupport";
+import PhoneSupport from "./pages/help/PhoneSupport";
 
 const queryClient = new QueryClient();
 
@@ -97,6 +100,9 @@ const App = () => (
               <Route path="/help-center/integrations" element={<IntegrationsHelp />} />
               <Route path="/help-center/troubleshooting" element={<Troubleshooting />} />
               <Route path="/help-center/security-privacy" element={<SecurityPrivacy />} />
+              <Route path="/help-center/live-chat" element={<LiveChat />} />
+              <Route path="/help-center/email-support" element={<EmailSupport />} />
+              <Route path="/help-center/phone-support" element={<PhoneSupport />} />
               <Route path="/community" element={<Community />} />
               <Route path="/tutorials" element={<Tutorials />} />
               <Route path="/privacy" element={<Privacy />} />
