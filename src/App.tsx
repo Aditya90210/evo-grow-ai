@@ -61,6 +61,10 @@ import LiveChat from "./pages/help/LiveChat";
 import EmailSupport from "./pages/help/EmailSupport";
 import PhoneSupport from "./pages/help/PhoneSupport";
 
+// Community pages
+import Discussion from "./pages/community/Discussion";
+import Events from "./pages/community/Events";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -103,7 +107,15 @@ const App = () => (
               <Route path="/help-center/live-chat" element={<LiveChat />} />
               <Route path="/help-center/email-support" element={<EmailSupport />} />
               <Route path="/help-center/phone-support" element={<PhoneSupport />} />
+              <Route path="/help-center/getting-started/:articleSlug" element={<GettingStarted />} />
+              <Route path="/help-center/account-billing/:articleSlug" element={<AccountBilling />} />
+              <Route path="/help-center/features-usage/:articleSlug" element={<FeaturesUsage />} />
+              <Route path="/help-center/integrations/:articleSlug" element={<IntegrationsHelp />} />
+              <Route path="/help-center/troubleshooting/:articleSlug" element={<Troubleshooting />} />
+              <Route path="/help-center/security-privacy/:articleSlug" element={<SecurityPrivacy />} />
               <Route path="/community" element={<Community />} />
+              <Route path="/community/discussion" element={<Discussion />} />
+              <Route path="/community/events" element={<Events />} />
               <Route path="/tutorials" element={<Tutorials />} />
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/terms" element={<Terms />} />
