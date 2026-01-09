@@ -2,6 +2,7 @@ import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 import { Users, MessageSquare, Calendar, Award } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const Community = () => {
   return (
@@ -28,13 +29,17 @@ const Community = () => {
                 <MessageSquare className="w-12 h-12 text-primary mb-4" />
                 <h3 className="text-xl font-semibold mb-2">Discussion Forum</h3>
                 <p className="text-muted-foreground mb-4">Ask questions, share insights, and learn from other users.</p>
-                <Button>Join Discussion</Button>
+                <Link to="/community/discussion">
+                  <Button>Join Discussion</Button>
+                </Link>
               </div>
               <div className="p-8 rounded-2xl border border-border/50 bg-card/50 backdrop-blur-xl">
                 <Calendar className="w-12 h-12 text-primary mb-4" />
                 <h3 className="text-xl font-semibold mb-2">Events & Webinars</h3>
                 <p className="text-muted-foreground mb-4">Attend live events and learn from industry experts.</p>
-                <Button variant="outline">View Events</Button>
+                <Link to="/community/events">
+                  <Button variant="outline">View Events</Button>
+                </Link>
               </div>
             </div>
 
