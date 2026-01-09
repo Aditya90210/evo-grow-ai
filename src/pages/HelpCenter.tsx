@@ -56,19 +56,25 @@ const HelpCenter = () => {
                 <MessageCircle className="w-10 h-10 text-primary mx-auto mb-4" />
                 <h3 className="font-semibold mb-2">Live Chat</h3>
                 <p className="text-muted-foreground text-sm mb-4">Chat with our support team in real-time.</p>
-                <Button>Start Chat</Button>
+                <Link to="/help-center/live-chat">
+                  <Button>Start Chat</Button>
+                </Link>
               </div>
               <div className="p-6 rounded-2xl border border-border/50 bg-card/50 text-center">
                 <Mail className="w-10 h-10 text-primary mx-auto mb-4" />
                 <h3 className="font-semibold mb-2">Email</h3>
                 <p className="text-muted-foreground text-sm mb-4">Get a response within 24 hours.</p>
-                <Button variant="outline">Send Email</Button>
+                <Link to="/help-center/email-support">
+                  <Button variant="outline">Send Email</Button>
+                </Link>
               </div>
               <div className="p-6 rounded-2xl border border-border/50 bg-card/50 text-center">
                 <Phone className="w-10 h-10 text-primary mx-auto mb-4" />
                 <h3 className="font-semibold mb-2">Phone</h3>
                 <p className="text-muted-foreground text-sm mb-4">Available Mon-Fri, 9am-5pm EST.</p>
-                <Button variant="outline">Call Us</Button>
+                <Link to="/help-center/phone-support">
+                  <Button variant="outline">Call Us</Button>
+                </Link>
               </div>
             </div>
           </div>
