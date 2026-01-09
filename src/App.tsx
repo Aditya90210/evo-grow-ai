@@ -50,6 +50,14 @@ import SalesforceIntegration from "./pages/docs/SalesforceIntegration";
 import SlackIntegration from "./pages/docs/SlackIntegration";
 import CustomIntegrations from "./pages/docs/CustomIntegrations";
 
+// Help Center pages
+import AccountBilling from "./pages/help/AccountBilling";
+import GettingStarted from "./pages/help/GettingStarted";
+import FeaturesUsage from "./pages/help/FeaturesUsage";
+import IntegrationsHelp from "./pages/help/IntegrationsHelp";
+import Troubleshooting from "./pages/help/Troubleshooting";
+import SecurityPrivacy from "./pages/help/SecurityPrivacy";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -83,6 +91,12 @@ const App = () => (
               <Route path="/careers/:slug" element={<CareerApply />} />
               <Route path="/documentation" element={<Documentation />} />
               <Route path="/help-center" element={<HelpCenter />} />
+              <Route path="/help-center/account-billing" element={<AccountBilling />} />
+              <Route path="/help-center/getting-started" element={<GettingStarted />} />
+              <Route path="/help-center/features-usage" element={<FeaturesUsage />} />
+              <Route path="/help-center/integrations" element={<IntegrationsHelp />} />
+              <Route path="/help-center/troubleshooting" element={<Troubleshooting />} />
+              <Route path="/help-center/security-privacy" element={<SecurityPrivacy />} />
               <Route path="/community" element={<Community />} />
               <Route path="/tutorials" element={<Tutorials />} />
               <Route path="/privacy" element={<Privacy />} />

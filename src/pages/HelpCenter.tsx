@@ -3,15 +3,16 @@ import Footer from "@/components/landing/Footer";
 import { HelpCircle, Search, MessageCircle, Mail, Phone } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const HelpCenter = () => {
   const categories = [
-    { title: "Account & Billing", count: 12 },
-    { title: "Getting Started", count: 8 },
-    { title: "Features & Usage", count: 24 },
-    { title: "Integrations", count: 15 },
-    { title: "Troubleshooting", count: 18 },
-    { title: "Security & Privacy", count: 10 },
+    { title: "Account & Billing", count: 12, slug: "account-billing" },
+    { title: "Getting Started", count: 8, slug: "getting-started" },
+    { title: "Features & Usage", count: 24, slug: "features-usage" },
+    { title: "Integrations", count: 15, slug: "integrations" },
+    { title: "Troubleshooting", count: 18, slug: "troubleshooting" },
+    { title: "Security & Privacy", count: 10, slug: "security-privacy" },
   ];
 
   return (
@@ -40,10 +41,12 @@ const HelpCenter = () => {
             <h2 className="text-2xl font-bold mb-6">Browse by Category</h2>
             <div className="grid md:grid-cols-3 gap-4 mb-12">
               {categories.map((cat) => (
-                <div key={cat.title} className="p-4 rounded-2xl border border-border/50 bg-card/50 hover:border-primary/50 transition-all cursor-pointer">
-                  <h3 className="font-semibold">{cat.title}</h3>
-                  <p className="text-sm text-muted-foreground">{cat.count} articles</p>
-                </div>
+                <Link key={cat.slug} to={`/help-center/${cat.slug}`}>
+                  <div className="p-4 rounded-2xl border border-border/50 bg-card/50 hover:border-primary/50 transition-all cursor-pointer h-full">
+                    <h3 className="font-semibold">{cat.title}</h3>
+                    <p className="text-sm text-muted-foreground">{cat.count} articles</p>
+                  </div>
+                </Link>
               ))}
             </div>
 
