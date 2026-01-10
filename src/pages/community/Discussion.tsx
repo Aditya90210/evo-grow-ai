@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { useState } from "react";
 
 const Discussion = () => {
   const categories = [
@@ -14,14 +15,20 @@ const Discussion = () => {
     { name: "Showcase", topics: 67, icon: Users },
   ];
 
-  const recentTopics = [
-    { title: "Best practices for setting up Business Twin", author: "Sarah M.", replies: 23, views: 456, category: "Tips & Tricks", time: "2 hours ago" },
-    { title: "How to integrate with custom CRM?", author: "John D.", replies: 15, views: 234, category: "General Discussion", time: "4 hours ago" },
-    { title: "Feature request: Dark mode for reports", author: "Alex K.", replies: 45, views: 789, category: "Feature Requests", time: "6 hours ago" },
-    { title: "Sharing my dashboard setup for e-commerce", author: "Maria L.", replies: 12, views: 345, category: "Showcase", time: "8 hours ago" },
-    { title: "Slack integration not syncing - solved!", author: "David R.", replies: 8, views: 123, category: "Tips & Tricks", time: "12 hours ago" },
-    { title: "Weekly predictions accuracy discussion", author: "Emma W.", replies: 34, views: 567, category: "General Discussion", time: "1 day ago" },
+  const allTopics = [
+    { title: "Best practices for setting up Business Twin", slug: "best-practices-business-twin", author: "Sarah M.", replies: 23, views: 456, category: "Tips & Tricks", time: "2 hours ago" },
+    { title: "How to integrate with custom CRM?", slug: "integrate-custom-crm", author: "John D.", replies: 15, views: 234, category: "General Discussion", time: "4 hours ago" },
+    { title: "Feature request: Dark mode for reports", slug: "dark-mode-feature-request", author: "Alex K.", replies: 45, views: 789, category: "Feature Requests", time: "6 hours ago" },
+    { title: "Sharing my dashboard setup for e-commerce", slug: "ecommerce-dashboard-setup", author: "Maria L.", replies: 12, views: 345, category: "Showcase", time: "8 hours ago" },
+    { title: "Slack integration not syncing - solved!", slug: "slack-integration-solved", author: "David R.", replies: 8, views: 123, category: "Tips & Tricks", time: "12 hours ago" },
+    { title: "Weekly predictions accuracy discussion", slug: "weekly-predictions-accuracy", author: "Emma W.", replies: 34, views: 567, category: "General Discussion", time: "1 day ago" },
+    { title: "API rate limiting best practices", slug: "api-rate-limiting", author: "Tom H.", replies: 19, views: 289, category: "Tips & Tricks", time: "2 days ago" },
+    { title: "Request: Export to Google Sheets", slug: "export-google-sheets", author: "Lisa P.", replies: 27, views: 412, category: "Feature Requests", time: "2 days ago" },
+    { title: "My marketing automation workflow", slug: "marketing-automation", author: "Chris B.", replies: 31, views: 534, category: "Showcase", time: "3 days ago" },
   ];
+
+  const [visibleTopics, setVisibleTopics] = useState(6);
+  const hasMore = visibleTopics < allTopics.length;
 
   return (
     <div className="min-h-screen bg-background">
@@ -46,7 +53,6 @@ const Discussion = () => {
           </div>
 
           <div className="flex flex-col lg:flex-row gap-8">
-            {/* Main Content */}
             <div className="flex-1">
               <div className="flex gap-4 mb-6">
                 <div className="relative flex-1">
@@ -57,34 +63,39 @@ const Discussion = () => {
               </div>
 
               <div className="space-y-4">
-                {recentTopics.map((topic, index) => (
-                  <div key={index} className="p-4 rounded-xl border border-border/50 bg-card/50 hover:border-primary/50 transition-all cursor-pointer">
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="flex-1">
-                        <h3 className="font-semibold mb-1 hover:text-primary transition-colors">{topic.title}</h3>
-                        <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                          <span>by {topic.author}</span>
-                          <Badge variant="secondary" className="text-xs">{topic.category}</Badge>
+                {allTopics.slice(0, visibleTopics).map((topic, index) => (
+                  <Link key={index} to={`/community/discussion/${topic.slug}`}>
+                    <div className="p-4 rounded-xl border border-border/50 bg-card/50 hover:border-primary/50 transition-all cursor-pointer">
+                      <div className="flex items-start justify-between gap-4">
+                        <div className="flex-1">
+                          <h3 className="font-semibold mb-1 hover:text-primary transition-colors">{topic.title}</h3>
+                          <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                            <span>by {topic.author}</span>
+                            <Badge variant="secondary" className="text-xs">{topic.category}</Badge>
+                          </div>
                         </div>
-                      </div>
-                      <div className="text-right text-sm text-muted-foreground">
-                        <div className="flex items-center gap-1">
-                          <Clock className="w-3 h-3" />
-                          {topic.time}
+                        <div className="text-right text-sm text-muted-foreground">
+                          <div className="flex items-center gap-1">
+                            <Clock className="w-3 h-3" />
+                            {topic.time}
+                          </div>
+                          <div className="mt-1">{topic.replies} replies · {topic.views} views</div>
                         </div>
-                        <div className="mt-1">{topic.replies} replies · {topic.views} views</div>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
 
-              <div className="flex justify-center mt-8">
-                <Button variant="outline">Load More Topics</Button>
-              </div>
+              {hasMore && (
+                <div className="flex justify-center mt-8">
+                  <Button variant="outline" onClick={() => setVisibleTopics(prev => prev + 6)}>
+                    Load More Topics
+                  </Button>
+                </div>
+              )}
             </div>
 
-            {/* Sidebar */}
             <div className="lg:w-80">
               <div className="p-6 rounded-xl border border-border/50 bg-card/50 mb-6">
                 <h3 className="font-semibold mb-4">Categories</h3>
@@ -104,22 +115,10 @@ const Discussion = () => {
               <div className="p-6 rounded-xl border border-border/50 bg-card/50">
                 <h3 className="font-semibold mb-4">Community Stats</h3>
                 <div className="space-y-3 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Total Topics</span>
-                    <span className="font-medium">546</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Total Replies</span>
-                    <span className="font-medium">2,345</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Active Members</span>
-                    <span className="font-medium">1,234</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Online Now</span>
-                    <span className="font-medium text-green-500">89</span>
-                  </div>
+                  <div className="flex justify-between"><span className="text-muted-foreground">Total Topics</span><span className="font-medium">546</span></div>
+                  <div className="flex justify-between"><span className="text-muted-foreground">Total Replies</span><span className="font-medium">2,345</span></div>
+                  <div className="flex justify-between"><span className="text-muted-foreground">Active Members</span><span className="font-medium">1,234</span></div>
+                  <div className="flex justify-between"><span className="text-muted-foreground">Online Now</span><span className="font-medium text-green-500">89</span></div>
                 </div>
               </div>
             </div>

@@ -8,66 +8,16 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const Events = () => {
   const upcomingEvents = [
-    {
-      title: "Getting Started with Business Twin",
-      type: "Webinar",
-      date: "Jan 15, 2026",
-      time: "2:00 PM EST",
-      speaker: "Sarah Johnson, Product Manager",
-      attendees: 234,
-      description: "Learn how to set up and configure your Business Twin for maximum effectiveness.",
-    },
-    {
-      title: "AI Predictions Deep Dive",
-      type: "Workshop",
-      date: "Jan 22, 2026",
-      time: "11:00 AM EST",
-      speaker: "Dr. Michael Chen, AI Lead",
-      attendees: 156,
-      description: "Understand how our AI generates predictions and how to interpret them.",
-    },
-    {
-      title: "Community Meetup - New York",
-      type: "In-Person",
-      date: "Feb 5, 2026",
-      time: "6:00 PM EST",
-      location: "WeWork, Manhattan",
-      attendees: 45,
-      description: "Network with other EVO Grow users in the NYC area.",
-    },
-    {
-      title: "Advanced Integrations Masterclass",
-      type: "Webinar",
-      date: "Feb 12, 2026",
-      time: "3:00 PM EST",
-      speaker: "Alex Rivera, Integration Specialist",
-      attendees: 189,
-      description: "Master complex integration scenarios and custom API usage.",
-    },
+    { title: "Getting Started with Business Twin", slug: "getting-started-business-twin", type: "Webinar", date: "Jan 15, 2026", time: "2:00 PM EST", speaker: "Sarah Johnson, Product Manager", attendees: 234, description: "Learn how to set up and configure your Business Twin for maximum effectiveness." },
+    { title: "AI Predictions Deep Dive", slug: "ai-predictions-deep-dive", type: "Workshop", date: "Jan 22, 2026", time: "11:00 AM EST", speaker: "Dr. Michael Chen, AI Lead", attendees: 156, description: "Understand how our AI generates predictions and how to interpret them." },
+    { title: "Community Meetup - New York", slug: "community-meetup-new-york", type: "In-Person", date: "Feb 5, 2026", time: "6:00 PM EST", location: "WeWork, Manhattan", attendees: 45, description: "Network with other EVO Grow users in the NYC area." },
+    { title: "Advanced Integrations Masterclass", slug: "advanced-integrations-masterclass", type: "Webinar", date: "Feb 12, 2026", time: "3:00 PM EST", speaker: "Alex Rivera, Integration Specialist", attendees: 189, description: "Master complex integration scenarios and custom API usage." },
   ];
 
   const pastEvents = [
-    {
-      title: "2025 Year in Review",
-      type: "Webinar",
-      date: "Dec 15, 2025",
-      attendees: 567,
-      recording: true,
-    },
-    {
-      title: "Holiday Product Updates",
-      type: "Webinar",
-      date: "Dec 8, 2025",
-      attendees: 423,
-      recording: true,
-    },
-    {
-      title: "Community Showcase",
-      type: "Virtual Meetup",
-      date: "Nov 28, 2025",
-      attendees: 234,
-      recording: true,
-    },
+    { title: "2025 Year in Review", slug: "2025-year-in-review", type: "Webinar", date: "Dec 15, 2025", attendees: 567, recording: true },
+    { title: "Holiday Product Updates", slug: "holiday-product-updates", type: "Webinar", date: "Dec 8, 2025", attendees: 423, recording: true },
+    { title: "Community Showcase", slug: "community-showcase", type: "Virtual Meetup", date: "Nov 28, 2025", attendees: 234, recording: true },
   ];
 
   return (
@@ -113,31 +63,16 @@ const Events = () => {
                         <h3 className="text-xl font-semibold mb-2">{event.title}</h3>
                         <p className="text-muted-foreground mb-4">{event.description}</p>
                         <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
-                          <div className="flex items-center gap-1">
-                            <Calendar className="w-4 h-4" />
-                            {event.date}
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <Clock className="w-4 h-4" />
-                            {event.time}
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <Users className="w-4 h-4" />
-                            {event.attendees} registered
-                          </div>
+                          <div className="flex items-center gap-1"><Calendar className="w-4 h-4" />{event.date}</div>
+                          <div className="flex items-center gap-1"><Clock className="w-4 h-4" />{event.time}</div>
+                          <div className="flex items-center gap-1"><Users className="w-4 h-4" />{event.attendees} registered</div>
                         </div>
-                        {event.speaker && (
-                          <p className="text-sm mt-2">
-                            <span className="text-muted-foreground">Speaker:</span> {event.speaker}
-                          </p>
-                        )}
-                        {event.location && (
-                          <p className="text-sm mt-2">
-                            <span className="text-muted-foreground">Location:</span> {event.location}
-                          </p>
-                        )}
+                        {event.speaker && <p className="text-sm mt-2"><span className="text-muted-foreground">Speaker:</span> {event.speaker}</p>}
+                        {event.location && <p className="text-sm mt-2"><span className="text-muted-foreground">Location:</span> {event.location}</p>}
                       </div>
-                      <Button>Register Now</Button>
+                      <Link to={`/community/events/register/${event.slug}`}>
+                        <Button>Register Now</Button>
+                      </Link>
                     </div>
                   </div>
                 ))}
@@ -157,10 +92,12 @@ const Events = () => {
                       <p className="text-sm text-muted-foreground">{event.attendees} attendees</p>
                     </div>
                     {event.recording && (
-                      <Button variant="outline" size="sm">
-                        <Video className="w-4 h-4 mr-2" />
-                        Watch Recording
-                      </Button>
+                      <Link to={`/community/events/recording/${event.slug}`}>
+                        <Button variant="outline" size="sm">
+                          <Video className="w-4 h-4 mr-2" />
+                          Watch Recording
+                        </Button>
+                      </Link>
                     )}
                   </div>
                 ))}

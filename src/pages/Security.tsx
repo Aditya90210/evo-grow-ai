@@ -1,6 +1,7 @@
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 import { Lock, Shield, Server, Key } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Security = () => {
   const features = [
@@ -42,18 +43,18 @@ const Security = () => {
             <div className="p-8 rounded-2xl border border-border/50 bg-card/50 backdrop-blur-xl">
               <h2 className="text-2xl font-bold mb-6">Security Certifications</h2>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="p-4 rounded-lg bg-muted/30 text-center">
+                <Link to="/security/soc2" className="p-4 rounded-lg bg-muted/30 text-center hover:bg-primary/10 transition-colors">
                   <span className="font-semibold">SOC 2</span>
-                </div>
-                <div className="p-4 rounded-lg bg-muted/30 text-center">
+                </Link>
+                <Link to="/security/gdpr" className="p-4 rounded-lg bg-muted/30 text-center hover:bg-primary/10 transition-colors">
                   <span className="font-semibold">GDPR</span>
-                </div>
-                <div className="p-4 rounded-lg bg-muted/30 text-center">
+                </Link>
+                <Link to="/security/hipaa" className="p-4 rounded-lg bg-muted/30 text-center hover:bg-primary/10 transition-colors">
                   <span className="font-semibold">HIPAA</span>
-                </div>
-                <div className="p-4 rounded-lg bg-muted/30 text-center">
+                </Link>
+                <Link to="/security/iso27001" className="p-4 rounded-lg bg-muted/30 text-center hover:bg-primary/10 transition-colors">
                   <span className="font-semibold">ISO 27001</span>
-                </div>
+                </Link>
               </div>
             </div>
           </div>
