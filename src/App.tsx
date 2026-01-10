@@ -63,6 +63,15 @@ import PhoneSupport from "./pages/help/PhoneSupport";
 
 // Community pages
 import Discussion from "./pages/community/Discussion";
+import TopicDetail from "./pages/community/TopicDetail";
+import EventRegister from "./pages/community/EventRegister";
+import EventRecording from "./pages/community/EventRecording";
+
+// Security pages
+import SOC2 from "./pages/security/SOC2";
+import GDPR from "./pages/security/GDPR";
+import HIPAA from "./pages/security/HIPAA";
+import ISO27001 from "./pages/security/ISO27001";
 import Events from "./pages/community/Events";
 
 const queryClient = new QueryClient();
@@ -115,11 +124,18 @@ const App = () => (
               <Route path="/help-center/security-privacy/:articleSlug" element={<SecurityPrivacy />} />
               <Route path="/community" element={<Community />} />
               <Route path="/community/discussion" element={<Discussion />} />
+              <Route path="/community/discussion/:topicSlug" element={<TopicDetail />} />
               <Route path="/community/events" element={<Events />} />
+              <Route path="/community/events/register/:eventSlug" element={<EventRegister />} />
+              <Route path="/community/events/recording/:eventSlug" element={<EventRecording />} />
               <Route path="/tutorials" element={<Tutorials />} />
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/terms" element={<Terms />} />
               <Route path="/security" element={<Security />} />
+              <Route path="/security/soc2" element={<SOC2 />} />
+              <Route path="/security/gdpr" element={<GDPR />} />
+              <Route path="/security/hipaa" element={<HIPAA />} />
+              <Route path="/security/iso27001" element={<ISO27001 />} />
               <Route path="/cookies" element={<Cookies />} />
               {/* Documentation pages */}
               <Route path="/docs/quick-start-guide" element={<QuickStartGuide />} />
