@@ -35,6 +35,8 @@ import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import Security from "./pages/Security";
 import Cookies from "./pages/Cookies";
+import Contact from "./pages/Contact";
+import Features from "./pages/Features";
 
 // Documentation pages
 import QuickStartGuide from "./pages/docs/QuickStartGuide";
@@ -137,6 +139,8 @@ const App = () => (
               <Route path="/security/hipaa" element={<HIPAA />} />
               <Route path="/security/iso27001" element={<ISO27001 />} />
               <Route path="/cookies" element={<Cookies />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/features" element={<Features />} />
               {/* Documentation pages */}
               <Route path="/docs/quick-start-guide" element={<QuickStartGuide />} />
               <Route path="/docs/installation" element={<Installation />} />
