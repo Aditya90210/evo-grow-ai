@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import {
   Accordion,
   AccordionContent,
@@ -133,9 +134,9 @@ export const FAQSection = () => {
         <div className="text-center mt-12">
           <p className="text-muted-foreground">
             Still have questions?{" "}
-            <a href="#" className="text-primary hover:text-primary/80 font-medium transition-colors">
+            <Link to="/#contact" className="text-primary hover:text-primary/80 font-medium transition-colors">
               Contact our team
-            </a>
+            </Link>
           </p>
         </div>
       </div>

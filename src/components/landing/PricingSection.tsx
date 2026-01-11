@@ -2,6 +2,7 @@ import { Check, Zap, Rocket, Building2, Crown, Star, Gem } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 
 const tiers = [
   {
@@ -294,8 +295,11 @@ export const PricingSection = () => {
                     <Button
                       variant={tier.popular ? "default" : "outline"}
                       className="relative z-10 w-full"
+                      asChild
                     >
-                      {tier.cta}
+                      <Link to={tier.cta === "Contact Sales" ? "/#contact" : "/auth"}>
+                        {tier.cta}
+                      </Link>
                     </Button>
                   </div>
                 </div>
