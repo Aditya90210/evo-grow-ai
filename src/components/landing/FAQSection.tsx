@@ -134,7 +134,7 @@ export const FAQSection = () => {
         <div className="text-center mt-12">
           <p className="text-muted-foreground">
             Still have questions?{" "}
-            <Link to="/#contact" className="text-primary hover:text-primary/80 font-medium transition-colors">
+            <Link to="/contact" className="text-primary hover:text-primary/80 font-medium transition-colors">
               Contact our team
             </Link>
           </p>
