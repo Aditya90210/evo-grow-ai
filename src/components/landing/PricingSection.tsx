@@ -297,7 +297,7 @@ export const PricingSection = () => {
                       className="relative z-10 w-full"
                       asChild
                     >
-                      <Link to={tier.cta === "Contact Sales" ? "/#contact" : "/auth"}>
+                      <Link to="/auth">
                         {tier.cta}
                       </Link>
                     </Button>
