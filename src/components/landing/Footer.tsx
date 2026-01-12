@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   const footerLinks = {
     Product: [
-      { name: "Features", path: "/features" },
-      { name: "Pricing", path: "/pricing" },
+      { name: "Features", path: "/#features" },
+      { name: "Pricing", path: "/#pricing" },
       { name: "Integrations", path: "/integrations" },
       { name: "API", path: "/api" },
     ],
@@ -13,7 +13,7 @@ const Footer = () => {
       { name: "About", path: "/about" },
       { name: "Blog", path: "/blog" },
       { name: "Careers", path: "/careers" },
-      { name: "Contact", path: "/contact" },
+      { name: "Contact", path: "/#contact" },
     ],
     Resources: [
       { name: "Documentation", path: "/documentation" },
