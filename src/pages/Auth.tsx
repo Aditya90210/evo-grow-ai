@@ -222,8 +222,7 @@ const Auth = () => {
                       </FormLabel>
                       <FormControl>
                         <Input
-                          type="text"
-                          inputMode="email"
+                          type="email"
                           placeholder="your@email.com"
                           autoComplete="email"
                           className="bg-background/50 border-border/50"
