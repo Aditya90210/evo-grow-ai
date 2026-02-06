@@ -76,6 +76,9 @@ import HIPAA from "./pages/security/HIPAA";
 import ISO27001 from "./pages/security/ISO27001";
 import Events from "./pages/community/Events";
 
+// Pricing pages
+import PlanDetail from "./pages/pricing/PlanDetail";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -100,6 +103,7 @@ const App = () => (
               <Route path="/integrations/get-started" element={<IntegrationGetStarted />} />
               <Route path="/integrations/docs" element={<IntegrationDocs />} />
               <Route path="/pricing" element={<Pricing />} />
+              <Route path="/pricing/:planSlug" element={<PlanDetail />} />
               <Route path="/api" element={<API />} />
               <Route path="/api-documentation" element={<APIDocumentation />} />
               <Route path="/about" element={<About />} />
