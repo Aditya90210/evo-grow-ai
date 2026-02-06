@@ -79,6 +79,8 @@ import Events from "./pages/community/Events";
 // Pricing pages
 import PlanDetail from "./pages/pricing/PlanDetail";
 
+// Dashboard pages
+import Subscription from "./pages/dashboard/Subscription";
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -93,6 +95,7 @@ const App = () => (
               <Route path="/" element={<Index />} />
               <Route path="/auth" element={<Auth />} />
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/dashboard/subscription" element={<Subscription />} />
               <Route path="/integrations" element={<Integrations />} />
               <Route path="/integrations/salesforce" element={<IntegrationSalesforce />} />
               <Route path="/integrations/slack" element={<IntegrationSlack />} />
