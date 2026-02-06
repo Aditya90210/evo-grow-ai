@@ -1,10 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
-import { Check, Zap, Rocket, Building2, Crown, Star, Gem, ArrowLeft, CreditCard } from "lucide-react";
+import { Check, Zap, Rocket, Building2, Crown, Star, Gem, ArrowLeft, CreditCard, ChevronDown, ChevronUp } from "lucide-react";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 
 const plansData = {
   starter: {
@@ -126,12 +127,30 @@ const plansData = {
   },
 };
 
+const comparisonFeatures = [
+  { feature: "Business Twin", values: { starter: "Basic", growth: "Advanced", professional: "Advanced", business: "Advanced", enterprise: "Custom", ultimate: "Custom" } },
+  { feature: "AI Strategy Reports", values: { starter: "5/month", growth: "Unlimited", professional: "Unlimited", business: "Unlimited", enterprise: "Unlimited", ultimate: "Unlimited" } },
+  { feature: "Decision Framework", values: { starter: "Basic", growth: "Full", professional: "Full", business: "Full", enterprise: "Full", ultimate: "Full" } },
+  { feature: "Execution Automation", values: { starter: false, growth: true, professional: true, business: true, enterprise: true, ultimate: true } },
+  { feature: "Team Members", values: { starter: "1", growth: "5", professional: "10", business: "25", enterprise: "Unlimited", ultimate: "Unlimited" } },
+  { feature: "Custom Integrations", values: { starter: false, growth: false, professional: true, business: true, enterprise: true, ultimate: true } },
+  { feature: "API Access", values: { starter: false, growth: false, professional: true, business: true, enterprise: true, ultimate: true } },
+  { feature: "White-label Options", values: { starter: false, growth: false, professional: false, business: true, enterprise: true, ultimate: true } },
+  { feature: "Custom AI Training", values: { starter: false, growth: false, professional: false, business: true, enterprise: true, ultimate: true } },
+  { feature: "Dedicated Success Manager", values: { starter: false, growth: false, professional: false, business: false, enterprise: true, ultimate: true } },
+  { feature: "On-premise Deployment", values: { starter: false, growth: false, professional: false, business: false, enterprise: true, ultimate: true } },
+  { feature: "Custom Feature Development", values: { starter: false, growth: false, professional: false, business: false, enterprise: false, ultimate: true } },
+  { feature: "24/7 Priority Support", values: { starter: false, growth: false, professional: false, business: false, enterprise: false, ultimate: true } },
+  { feature: "Support Level", values: { starter: "Email", growth: "Priority", professional: "Dedicated", business: "Phone", enterprise: "Premium", ultimate: "24/7" } },
+];
+
 type PlanKey = keyof typeof plansData;
 
 const PlanDetail = () => {
   const { planSlug } = useParams<{ planSlug: string }>();
   const { user, loading } = useAuth();
   const navigate = useNavigate();
+  const [showComparison, setShowComparison] = useState(false);
 
   useEffect(() => {
     if (!loading && !user) {
@@ -152,6 +171,8 @@ const PlanDetail = () => {
   }
 
   const plan = planSlug ? plansData[planSlug as PlanKey] : null;
+  const planKeys = Object.keys(plansData) as PlanKey[];
+  const currentPlanIndex = planSlug ? planKeys.indexOf(planSlug as PlanKey) : -1;
 
   if (!plan) {
     return (
@@ -172,6 +193,11 @@ const PlanDetail = () => {
   }
 
   const Icon = plan.icon;
+
+  // Get adjacent plans for comparison
+  const adjacentPlans = planKeys.filter((key, index) => {
+    return Math.abs(index - currentPlanIndex) <= 1;
+  });
 
   return (
     <div className="min-h-screen bg-background">
@@ -196,8 +222,8 @@ const PlanDetail = () => {
             <div className="glass-strong rounded-2xl p-8 border border-border/50 mb-8">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                 <div className="flex items-center gap-4">
-                  <div className={`p-4 rounded-xl bg-${plan.accent}/10`}>
-                    <Icon className={`w-8 h-8 text-${plan.accent}`} />
+                  <div className="p-4 rounded-xl bg-primary/10">
+                    <Icon className="w-8 h-8 text-primary" />
                   </div>
                   <div>
                     <h1 className="text-3xl font-bold text-foreground">{plan.name} Plan</h1>
@@ -272,6 +298,80 @@ const PlanDetail = () => {
                 </div>
               </div>
             </div>
+
+            {/* Plan Comparison Toggle */}
+            <Collapsible open={showComparison} onOpenChange={setShowComparison} className="mb-8">
+              <CollapsibleTrigger asChild>
+                <Button variant="outline" className="w-full flex items-center justify-between">
+                  <span>Compare with Other Plans</span>
+                  {showComparison ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                </Button>
+              </CollapsibleTrigger>
+              <CollapsibleContent className="mt-4">
+                <div className="glass-strong rounded-2xl border border-border/50 overflow-hidden">
+                  <div className="overflow-x-auto">
+                    <table className="w-full">
+                      <thead>
+                        <tr className="border-b border-border/50 bg-muted/30">
+                          <th className="text-left p-4 text-sm font-semibold text-foreground">Features</th>
+                          {adjacentPlans.map((key) => {
+                            const p = plansData[key];
+                            const isCurrent = key === planSlug;
+                            return (
+                              <th key={key} className={`p-4 text-center ${isCurrent ? "bg-primary/10" : ""}`}>
+                                <Link
+                                  to={`/pricing/${key}`}
+                                  className={`text-sm font-semibold ${isCurrent ? "text-primary" : "text-foreground hover:text-primary"}`}
+                                >
+                                  {p.name}
+                                  {isCurrent && <span className="block text-xs text-primary/70">(Current)</span>}
+                                </Link>
+                              </th>
+                            );
+                          })}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr className="border-b border-border/50">
+                          <td className="p-4 text-sm text-muted-foreground font-medium">Price</td>
+                          {adjacentPlans.map((key) => {
+                            const p = plansData[key];
+                            const isCurrent = key === planSlug;
+                            return (
+                              <td key={key} className={`p-4 text-center ${isCurrent ? "bg-primary/5" : ""}`}>
+                                <span className="text-sm font-semibold text-foreground">${p.monthlyPrice}/mo</span>
+                              </td>
+                            );
+                          })}
+                        </tr>
+                        {comparisonFeatures.map((row, idx) => (
+                          <tr key={row.feature} className={idx % 2 === 0 ? "bg-muted/10" : ""}>
+                            <td className="p-4 text-sm text-muted-foreground font-medium">{row.feature}</td>
+                            {adjacentPlans.map((key) => {
+                              const value = row.values[key];
+                              const isCurrent = key === planSlug;
+                              return (
+                                <td key={key} className={`p-4 text-center ${isCurrent ? "bg-primary/5" : ""}`}>
+                                  {typeof value === "boolean" ? (
+                                    value ? (
+                                      <Check className="w-5 h-5 text-primary mx-auto" />
+                                    ) : (
+                                      <span className="text-muted-foreground/50">—</span>
+                                    )
+                                  ) : (
+                                    <span className="text-sm text-foreground">{value}</span>
+                                  )}
+                                </td>
+                              );
+                            })}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </CollapsibleContent>
+            </Collapsible>
 
             {/* FAQ or Additional Info */}
             <div className="glass-strong rounded-2xl p-6 border border-border/50">
