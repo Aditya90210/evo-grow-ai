@@ -288,10 +288,15 @@ const PlanDetail = () => {
                   <p className="text-muted-foreground mb-6">
                     Start your 14-day free trial today. No credit card required.
                   </p>
-                  <Button className="w-full" size="lg">
-                    <CreditCard className="w-4 h-4 mr-2" />
-                    Start Free Trial
-                  </Button>
+                  <div className="space-y-3">
+                    <Button className="w-full" size="lg">
+                      <CreditCard className="w-4 h-4 mr-2" />
+                      Start Free Trial
+                    </Button>
+                    <Button variant="outline" className="w-full" size="lg">
+                      Own it today
+                    </Button>
+                  </div>
                   <p className="text-xs text-muted-foreground text-center mt-4">
                     Cancel anytime. No questions asked.
                   </p>
