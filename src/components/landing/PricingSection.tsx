@@ -18,7 +18,7 @@ const tiers = [
       "Email Support",
       "1 Team Member",
     ],
-    cta: "Start Free Trial",
+    cta: "Get Started",
     popular: false,
     accent: "cyan",
   },
