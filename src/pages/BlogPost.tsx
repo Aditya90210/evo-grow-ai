@@ -36,7 +36,7 @@ The future of business intelligence is not about replacing human decision-makers
     category: "Product Tips",
     excerpt: "Get the most out of your digital twin with these practical optimization strategies.",
     author: "Michael Rivera",
-    content: `Your digital business twin is only as powerful as how you configure and use it. Here are five proven strategies to maximize the value of your EVO Grow Business Twin.
+    content: `Your digital business twin is only as powerful as how you configure and use it. Here are five proven strategies to maximize the value of your EVO Scalvex Business Twin.
 
 ## 1. Keep Your Data Fresh
 
@@ -62,9 +62,9 @@ Ensure your team understands how to interpret and act on the insights provided b
     title: "Case Study: How TechCorp Increased Revenue by 40%",
     date: "Dec 20, 2025",
     category: "Case Studies",
-    excerpt: "Learn how one of our customers achieved remarkable growth using EVO Grow.",
+    excerpt: "Learn how one of our customers achieved remarkable growth using EVO Scalvex.",
     author: "Emily Thompson",
-    content: `TechCorp, a mid-sized software company, was struggling with flat revenue growth and inefficient operations. After implementing EVO Grow, they achieved a remarkable 40% increase in revenue within 12 months.
+    content: `TechCorp, a mid-sized software company, was struggling with flat revenue growth and inefficient operations. After implementing EVO Scalvex, they achieved a remarkable 40% increase in revenue within 12 months.
 
 ## The Challenge
 
@@ -75,7 +75,7 @@ TechCorp faced several challenges:
 
 ## The Solution
 
-TechCorp implemented EVO Grow's Business Twin to create a unified view of their operations. Key implementations included:
+TechCorp implemented EVO Scalvex's Business Twin to create a unified view of their operations. Key implementations included:
 
 - **Real-time revenue tracking** across all product lines
 - **Customer behavior analysis** to identify upsell opportunities
@@ -118,7 +118,7 @@ To begin with predictive analytics, you need:
 - Clear business objectives
 - The right tools and platforms
 
-EVO Grow makes predictive analytics accessible to businesses of all sizes, with built-in models and intuitive interfaces.`
+EVO Scalvex makes predictive analytics accessible to businesses of all sizes, with built-in models and intuitive interfaces.`
   },
   "2026-business-intelligence-trends": {
     title: "2026 Business Intelligence Trends",

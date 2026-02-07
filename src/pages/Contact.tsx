@@ -88,7 +88,7 @@ const Contact = () => {
             </span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Have questions about EVO Grow? We're here to help. Reach out and let's discuss how we can transform your business.
+            Have questions about EVO Scalvex? We're here to help. Reach out and let's discuss how we can transform your business.
           </p>
         </div>
       </section>

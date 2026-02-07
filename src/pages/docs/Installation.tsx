@@ -25,12 +25,12 @@ const Installation = () => {
           
           <div className="prose prose-lg dark:prose-invert max-w-none">
             <p className="text-lg text-muted-foreground mb-8">
-              EVO Grow is a cloud-based platform that requires no local installation. However, you may want to set up our SDK for advanced integrations.
+              EVO Scalvex is a cloud-based platform that requires no local installation. However, you may want to set up our SDK for advanced integrations.
             </p>
             
             <h2 className="text-2xl font-semibold mt-8 mb-4">Web Access</h2>
             <p className="text-muted-foreground mb-4">
-              Simply log in at app.evogrow.com to access the full platform. No downloads required.
+              Simply log in at app.evoscalvex.com to access the full platform. No downloads required.
             </p>
             
             <h2 className="text-2xl font-semibold mt-8 mb-4">SDK Installation</h2>

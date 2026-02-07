@@ -42,7 +42,7 @@ const Footer = () => {
                 <Zap className="w-6 h-6 text-primary-foreground" />
               </div>
               <span className="font-display text-xl font-bold text-foreground">
-                EVO<span className="text-gradient">Grow</span>
+                EVO<span className="text-gradient">Scalvex</span>
               </span>
             </Link>
             <p className="text-sm text-muted-foreground mb-4">
@@ -75,7 +75,7 @@ const Footer = () => {
         {/* Bottom */}
         <div className="pt-8 border-t border-border/50 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-muted-foreground">
-            © 2024 EVO Grow. All rights reserved.
+            © 2024 EVO Scalvex. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
             <span className="text-sm text-muted-foreground">

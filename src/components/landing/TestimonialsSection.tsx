@@ -15,7 +15,7 @@ const testimonials = [
     role: "CEO, TechFlow Startup",
     avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face",
     content:
-      "EVO Grow completely transformed how we approach growth. The Business Twin feature gave us insights we never knew we needed. Our revenue increased 40% in just 3 months.",
+      "EVO Scalvex completely transformed how we approach growth. The Business Twin feature gave us insights we never knew we needed. Our revenue increased 40% in just 3 months.",
     rating: 5,
   },
   {
@@ -47,7 +47,7 @@ const testimonials = [
     role: "VP Growth, Velocity SaaS",
     avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&h=100&fit=crop&crop=face",
     content:
-      "We tried several growth platforms before EVO Grow. Nothing comes close. The depth of understanding it has about our business is remarkable. ROI was visible in week one.",
+      "We tried several growth platforms before EVO Scalvex. Nothing comes close. The depth of understanding it has about our business is remarkable. ROI was visible in week one.",
     rating: 5,
   },
   {
@@ -55,7 +55,7 @@ const testimonials = [
     role: "Founder, NextGen Ventures",
     avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face",
     content:
-      "EVO Grow helped us identify market opportunities we were completely missing. The AI suggestions are brilliant and always backed by solid reasoning. Essential for any serious business.",
+      "EVO Scalvex helped us identify market opportunities we were completely missing. The AI suggestions are brilliant and always backed by solid reasoning. Essential for any serious business.",
     rating: 5,
   },
 ];
@@ -115,7 +115,7 @@ export const TestimonialsSection = () => {
             </span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Join hundreds of businesses already transforming their growth with EVO Grow.
+            Join hundreds of businesses already transforming their growth with EVO Scalvex.
           </p>
         </div>
 

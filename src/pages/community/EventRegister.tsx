@@ -74,7 +74,7 @@ const EventRegister = () => {
       time: "6:00 PM EST",
       location: "WeWork, Manhattan",
       attendees: 45,
-      description: "Network with other EVO Grow users in the NYC area. Join us for an evening of networking, knowledge sharing, and community building.",
+      description: "Network with other EVO Scalvex users in the NYC area. Join us for an evening of networking, knowledge sharing, and community building.",
       agenda: [
         "Networking and refreshments (30 min)",
         "Community showcase presentations (45 min)",

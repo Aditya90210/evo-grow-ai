@@ -29,7 +29,7 @@ const pillars = [
     icon: Rocket,
     title: "Execution Layer",
     subtitle: "Auto Action",
-    description: "Generates content, creates campaigns, builds documentation, designs roadmaps, and automates where possible. Makes EVO Grow feel alive.",
+    description: "Generates content, creates campaigns, builds documentation, designs roadmaps, and automates where possible. Makes EVO Scalvex feel alive.",
     color: "primary",
     features: ["Content Generation", "Campaign Builder", "Task Automation", "Roadmap Design"],
   },
@@ -74,7 +74,7 @@ const PillarsSection = () => {
             <span className="text-gradient">Intelligence</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            EVO Grow operates on four interconnected intelligence layers that work together to transform your business.
+            EVO Scalvex operates on four interconnected intelligence layers that work together to transform your business.
           </p>
         </div>
         

@@ -33,7 +33,7 @@ const TopicDetail = () => {
       category: "Tips & Tricks",
       time: "2 hours ago",
       views: 456,
-      content: `I've been using EVO Grow for about 6 months now and wanted to share some best practices I've discovered for setting up your Business Twin effectively.
+      content: `I've been using EVO Scalvex for about 6 months now and wanted to share some best practices I've discovered for setting up your Business Twin effectively.
 
 **1. Start with Clean Data**
 Before importing your data, make sure it's cleaned and organized. Remove duplicates and ensure consistent formatting.
@@ -61,7 +61,7 @@ What other best practices have you discovered?`,
       category: "General Discussion",
       time: "4 hours ago",
       views: 234,
-      content: `Has anyone successfully integrated EVO Grow with a custom-built CRM? We're using an in-house solution and wondering about the best approach.
+      content: `Has anyone successfully integrated EVO Scalvex with a custom-built CRM? We're using an in-house solution and wondering about the best approach.
 
 I've looked at the API documentation but I'm not sure where to start. Any pointers would be greatly appreciated!`,
       replies: [

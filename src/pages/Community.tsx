@@ -19,7 +19,7 @@ const Community = () => {
               Join Our <span className="text-gradient">Community</span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Connect with thousands of business leaders using EVO Grow to transform their organizations.
+              Connect with thousands of business leaders using EVO Scalvex to transform their organizations.
             </p>
           </div>
 

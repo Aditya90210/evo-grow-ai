@@ -30,7 +30,7 @@ const IntegrationSalesforce = () => {
               <span className="text-gradient">Salesforce</span> Integration
             </h1>
             <p className="text-lg text-muted-foreground mb-8">
-              Sync your customer data seamlessly between EVO Grow and Salesforce. Keep your sales team updated with real-time data synchronization and automated workflows.
+              Sync your customer data seamlessly between EVO Scalvex and Salesforce. Keep your sales team updated with real-time data synchronization and automated workflows.
             </p>
 
             <div className="grid md:grid-cols-2 gap-8 mb-12">

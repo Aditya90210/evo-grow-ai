@@ -32,7 +32,7 @@ const HeroSection = () => {
           
           {/* Subtitle */}
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-10 animate-fade-in" style={{ animationDelay: "0.2s" }}>
-            EVO Grow is the futuristic Business Operating Intelligence System that understands your business deeply, thinks strategically, decides intelligently, and executes automatically.
+            EVO Scalvex is the futuristic Business Operating Intelligence System that understands your business deeply, thinks strategically, decides intelligently, and executes automatically.
           </p>
           
           {/* CTA Buttons */}

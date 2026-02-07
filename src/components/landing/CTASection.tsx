@@ -30,7 +30,7 @@ const CTASection = () => {
             
             {/* Description */}
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-              Stop guessing. Stop wasting time on manual analysis. Let EVO Grow become the digital brain that powers your business decisions and executes your growth strategies.
+              Stop guessing. Stop wasting time on manual analysis. Let EVO Scalvex become the digital brain that powers your business decisions and executes your growth strategies.
             </p>
             
             {/* CTA Buttons */}

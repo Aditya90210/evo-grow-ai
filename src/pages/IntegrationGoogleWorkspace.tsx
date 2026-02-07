@@ -30,7 +30,7 @@ const IntegrationGoogleWorkspace = () => {
               <span className="text-gradient">Google Workspace</span> Integration
             </h1>
             <p className="text-lg text-muted-foreground mb-8">
-              Connect your docs, sheets, and calendar with EVO Grow. Streamline your productivity by integrating your entire Google Workspace suite.
+              Connect your docs, sheets, and calendar with EVO Scalvex. Streamline your productivity by integrating your entire Google Workspace suite.
             </p>
 
             <div className="grid md:grid-cols-2 gap-8 mb-12">
@@ -66,7 +66,7 @@ const IntegrationGoogleWorkspace = () => {
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="w-6 h-6 rounded-full bg-primary/20 text-primary text-sm flex items-center justify-center font-medium">4</span>
-                    <span className="text-muted-foreground">Access Google Workspace from EVO Grow dashboard</span>
+                    <span className="text-muted-foreground">Access Google Workspace from EVO Scalvex dashboard</span>
                   </li>
                 </ol>
               </div>

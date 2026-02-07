@@ -33,7 +33,7 @@ const handler = async (req: Request): Promise<Response> => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "EVO Grow <onboarding@resend.dev>",
+        from: "EVO Scalvex <onboarding@resend.dev>",
         to: [email],
         subject: "We received your message!",
         html: `
@@ -42,7 +42,7 @@ const handler = async (req: Request): Promise<Response> => {
           <p><strong>Your message:</strong></p>
           <p style="padding: 16px; background-color: #f4f4f4; border-radius: 8px;">${message}</p>
           <br>
-          <p>Best regards,<br>The EVO Grow Team</p>
+          <p>Best regards,<br>The EVO Scalvex Team</p>
         `,
       }),
     });

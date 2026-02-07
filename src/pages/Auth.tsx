@@ -121,7 +121,7 @@ const Auth = () => {
     } else {
       toast({
         title: "Account created!",
-        description: "Welcome to EVO Grow!",
+        description: "Welcome to EVO Scalvex!",
       });
     }
     setIsSubmitting(false);

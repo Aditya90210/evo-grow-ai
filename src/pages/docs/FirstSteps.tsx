@@ -25,7 +25,7 @@ const FirstSteps = () => {
           
           <div className="prose prose-lg dark:prose-invert max-w-none">
             <p className="text-lg text-muted-foreground mb-8">
-              Congratulations on setting up your account! Here's what to do next to get the most out of EVO Grow.
+              Congratulations on setting up your account! Here's what to do next to get the most out of EVO Scalvex.
             </p>
             
             <h2 className="text-2xl font-semibold mt-8 mb-4">Explore the Dashboard</h2>

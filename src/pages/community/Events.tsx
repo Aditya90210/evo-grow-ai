@@ -10,7 +10,7 @@ const Events = () => {
   const upcomingEvents = [
     { title: "Getting Started with Business Twin", slug: "getting-started-business-twin", type: "Webinar", date: "Jan 15, 2026", time: "2:00 PM EST", speaker: "Sarah Johnson, Product Manager", attendees: 234, description: "Learn how to set up and configure your Business Twin for maximum effectiveness." },
     { title: "AI Predictions Deep Dive", slug: "ai-predictions-deep-dive", type: "Workshop", date: "Jan 22, 2026", time: "11:00 AM EST", speaker: "Dr. Michael Chen, AI Lead", attendees: 156, description: "Understand how our AI generates predictions and how to interpret them." },
-    { title: "Community Meetup - New York", slug: "community-meetup-new-york", type: "In-Person", date: "Feb 5, 2026", time: "6:00 PM EST", location: "WeWork, Manhattan", attendees: 45, description: "Network with other EVO Grow users in the NYC area." },
+    { title: "Community Meetup - New York", slug: "community-meetup-new-york", type: "In-Person", date: "Feb 5, 2026", time: "6:00 PM EST", location: "WeWork, Manhattan", attendees: 45, description: "Network with other EVO Scalvex users in the NYC area." },
     { title: "Advanced Integrations Masterclass", slug: "advanced-integrations-masterclass", type: "Webinar", date: "Feb 12, 2026", time: "3:00 PM EST", speaker: "Alex Rivera, Integration Specialist", attendees: 189, description: "Master complex integration scenarios and custom API usage." },
   ];
 

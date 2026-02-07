@@ -43,7 +43,7 @@ const Privacy = () => {
 
               <section className="p-6 rounded-2xl border border-border/50 bg-card/50">
                 <h2 className="text-xl font-semibold mb-4">5. Contact Us</h2>
-                <p className="text-muted-foreground">If you have any questions about this Privacy Policy, please contact us at privacy@evogrow.com.</p>
+                <p className="text-muted-foreground">If you have any questions about this Privacy Policy, please contact us at privacy@evoscalvex.com.</p>
               </section>
             </div>
           </div>

@@ -25,7 +25,7 @@ const SlackIntegration = () => {
           
           <div className="prose prose-lg dark:prose-invert max-w-none">
             <p className="text-lg text-muted-foreground mb-8">
-              Get EVO Grow insights and alerts directly in your Slack workspace.
+              Get EVO Scalvex insights and alerts directly in your Slack workspace.
             </p>
             
             <h2 className="text-2xl font-semibold mt-8 mb-4">Features</h2>

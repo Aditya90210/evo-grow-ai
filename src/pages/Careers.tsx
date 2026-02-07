@@ -34,7 +34,7 @@ const Careers = () => {
 
           <div className="max-w-4xl mx-auto">
             <div className="p-8 rounded-2xl border border-border/50 bg-card/50 backdrop-blur-xl mb-12">
-              <h2 className="text-2xl font-bold mb-4">Why EVO Grow?</h2>
+              <h2 className="text-2xl font-bold mb-4">Why EVO Scalvex?</h2>
               <div className="grid md:grid-cols-3 gap-6">
                 <div>
                   <h3 className="font-semibold mb-2">Remote First</h3>

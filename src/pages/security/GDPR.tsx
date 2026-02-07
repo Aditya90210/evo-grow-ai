@@ -46,7 +46,7 @@ const GDPR = () => {
 
           <div className="prose prose-lg dark:prose-invert max-w-none mb-12">
             <p className="text-muted-foreground text-lg">
-              EVO Grow is fully compliant with the General Data Protection Regulation (GDPR). We are committed to protecting the privacy and rights of individuals in the European Union and beyond.
+              EVO Scalvex is fully compliant with the General Data Protection Regulation (GDPR). We are committed to protecting the privacy and rights of individuals in the European Union and beyond.
             </p>
           </div>
 
@@ -96,8 +96,8 @@ const GDPR = () => {
               Our Data Protection Officer oversees our compliance with GDPR and handles all data protection inquiries.
             </p>
             <div className="text-sm">
-              <p><strong>Email:</strong> dpo@evogrow.com</p>
-              <p><strong>Address:</strong> EVO Grow, Data Protection Office, 123 Tech Street, Berlin, Germany</p>
+              <p><strong>Email:</strong> dpo@evoscalvex.com</p>
+              <p><strong>Address:</strong> EVO Scalvex, Data Protection Office, 123 Tech Street, Berlin, Germany</p>
             </div>
           </div>
 

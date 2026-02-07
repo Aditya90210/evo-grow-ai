@@ -25,7 +25,7 @@ const Webhooks = () => {
           
           <div className="prose prose-lg dark:prose-invert max-w-none">
             <p className="text-lg text-muted-foreground mb-8">
-              Receive real-time notifications when events occur in your EVO Grow account.
+              Receive real-time notifications when events occur in your EVO Scalvex account.
             </p>
             
             <h2 className="text-2xl font-semibold mt-8 mb-4">Setting Up Webhooks</h2>

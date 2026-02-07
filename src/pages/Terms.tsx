@@ -23,7 +23,7 @@ const Terms = () => {
             <div className="space-y-8">
               <section className="p-6 rounded-2xl border border-border/50 bg-card/50">
                 <h2 className="text-xl font-semibold mb-4">1. Acceptance of Terms</h2>
-                <p className="text-muted-foreground">By accessing or using EVO Grow services, you agree to be bound by these Terms of Service and all applicable laws and regulations.</p>
+                <p className="text-muted-foreground">By accessing or using EVO Scalvex services, you agree to be bound by these Terms of Service and all applicable laws and regulations.</p>
               </section>
 
               <section className="p-6 rounded-2xl border border-border/50 bg-card/50">
@@ -43,7 +43,7 @@ const Terms = () => {
 
               <section className="p-6 rounded-2xl border border-border/50 bg-card/50">
                 <h2 className="text-xl font-semibold mb-4">5. Limitation of Liability</h2>
-                <p className="text-muted-foreground">EVO Grow shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of the service.</p>
+                <p className="text-muted-foreground">EVO Scalvex shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of the service.</p>
               </section>
 
               <section className="p-6 rounded-2xl border border-border/50 bg-card/50">

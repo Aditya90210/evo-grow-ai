@@ -12,7 +12,7 @@ const IntegrationGetStarted = () => {
     {
       icon: Link2,
       title: "Connect Your Account",
-      description: `Sign in to your ${integration} account and authorize EVO Grow to access your data securely.`,
+      description: `Sign in to your ${integration} account and authorize EVO Scalvex to access your data securely.`,
     },
     {
       icon: Settings,
@@ -22,7 +22,7 @@ const IntegrationGetStarted = () => {
     {
       icon: Zap,
       title: "Activate Integration",
-      description: "Enable the integration and start syncing data between EVO Grow and your connected service.",
+      description: "Enable the integration and start syncing data between EVO Scalvex and your connected service.",
     },
     {
       icon: Rocket,
@@ -32,7 +32,7 @@ const IntegrationGetStarted = () => {
   ];
 
   const requirements = [
-    "Active EVO Grow subscription (Starter plan or higher)",
+    "Active EVO Scalvex subscription (Starter plan or higher)",
     `Valid ${integration} account with admin permissions`,
     "API access enabled on your account",
     "Stable internet connection",
@@ -58,7 +58,7 @@ const IntegrationGetStarted = () => {
               Set Up <span className="text-gradient capitalize">{integration}</span> Integration
             </h1>
             <p className="text-lg text-muted-foreground mb-12">
-              Follow these simple steps to connect {integration} with EVO Grow and start automating your workflows.
+              Follow these simple steps to connect {integration} with EVO Scalvex and start automating your workflows.
             </p>
 
             {/* Setup Steps */}

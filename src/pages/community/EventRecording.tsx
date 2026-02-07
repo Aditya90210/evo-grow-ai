@@ -25,7 +25,7 @@ const EventRecording = () => {
       date: "Dec 15, 2025",
       duration: "58 min",
       attendees: 567,
-      description: "Join us as we review all the major updates, features, and achievements of EVO Grow in 2025. We'll also share a sneak peek of what's coming in 2026.",
+      description: "Join us as we review all the major updates, features, and achievements of EVO Scalvex in 2025. We'll also share a sneak peek of what's coming in 2026.",
       videoId: "dQw4w9WgXcQ",
       chapters: [
         { time: "0:00", title: "Introduction" },
@@ -67,7 +67,7 @@ const EventRecording = () => {
       date: "Nov 28, 2025",
       duration: "72 min",
       attendees: 234,
-      description: "Watch amazing presentations from our community members showcasing innovative ways they're using EVO Grow in their businesses.",
+      description: "Watch amazing presentations from our community members showcasing innovative ways they're using EVO Scalvex in their businesses.",
       videoId: "dQw4w9WgXcQ",
       chapters: [
         { time: "0:00", title: "Introduction" },
