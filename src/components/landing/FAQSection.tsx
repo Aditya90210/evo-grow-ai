@@ -9,9 +9,9 @@ import {
 
 const faqs = [
   {
-    question: "What is EVO Grow and how does it work?",
+    question: "What is EVO Scalvex and how does it work?",
     answer:
-      "EVO Grow is a Business Operating Intelligence System that creates a digital twin of your business, uses AI to generate growth strategies, helps you make data-driven decisions, and automates execution. It learns your business deeply and thinks like a strategist to help you grow intelligently.",
+      "EVO Scalvex is a Business Operating Intelligence System that creates a digital twin of your business, uses AI to generate growth strategies, helps you make data-driven decisions, and automates execution. It learns your business deeply and thinks like a strategist to help you grow intelligently.",
   },
   {
     question: "What is a Business Twin?",
@@ -24,14 +24,14 @@ const faqs = [
       "The AI Growth Engine analyzes your Business Twin data to create structured, logical strategies including marketing plans, sales funnels, brand identity recommendations, and innovation suggestions. Every strategy is tailored specifically to your business context and goals.",
   },
   {
-    question: "Can I try EVO Grow before committing?",
+    question: "Can I try EVO Scalvex before committing?",
     answer:
-      "Yes! All plans include a 7-day free trial with no credit card required. You can explore all features and see exactly how EVO Grow can transform your business before making any commitment.",
+      "Yes! All plans include a 7-day free trial with no credit card required. You can explore all features and see exactly how EVO Scalvex can transform your business before making any commitment.",
   },
   {
-    question: "What kind of businesses is EVO Grow designed for?",
+    question: "What kind of businesses is EVO Scalvex designed for?",
     answer:
-      "EVO Grow is designed for businesses of all sizes that want to grow intelligently. Whether you're a startup, scaling company, or enterprise, our different plans are tailored to match your specific needs and complexity.",
+      "EVO Scalvex is designed for businesses of all sizes that want to grow intelligently. Whether you're a startup, scaling company, or enterprise, our different plans are tailored to match your specific needs and complexity.",
   },
   {
     question: "How does Decision Intelligence work?",
@@ -41,7 +41,7 @@ const faqs = [
   {
     question: "What automations are included in the Execution Layer?",
     answer:
-      "The Execution Layer can generate content, create marketing campaigns, build documentation, create tasks and execution roadmaps, and automate repetitive processes. It makes EVO Grow feel alive and immediately useful for your daily operations.",
+      "The Execution Layer can generate content, create marketing campaigns, build documentation, create tasks and execution roadmaps, and automate repetitive processes. It makes EVO Scalvex feel alive and immediately useful for your daily operations.",
   },
   {
     question: "Is my business data secure?",
@@ -98,7 +98,7 @@ export const FAQSection = () => {
             </span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Everything you need to know about EVO Grow and how it can transform your business.
+            Everything you need to know about EVO Scalvex and how it can transform your business.
           </p>
         </div>
 

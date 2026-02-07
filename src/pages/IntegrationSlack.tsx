@@ -54,7 +54,7 @@ const IntegrationSlack = () => {
                 <ol className="space-y-4">
                   <li className="flex items-start gap-3">
                     <span className="w-6 h-6 rounded-full bg-primary/20 text-primary text-sm flex items-center justify-center font-medium">1</span>
-                    <span className="text-muted-foreground">Install EVO Grow app in your Slack workspace</span>
+                    <span className="text-muted-foreground">Install EVO Scalvex app in your Slack workspace</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="w-6 h-6 rounded-full bg-primary/20 text-primary text-sm flex items-center justify-center font-medium">2</span>

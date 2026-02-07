@@ -47,7 +47,7 @@ const ISO27001 = () => {
 
           <div className="prose prose-lg dark:prose-invert max-w-none mb-12">
             <p className="text-muted-foreground text-lg">
-              EVO Grow maintains ISO 27001:2022 certification, the international standard for information security management systems (ISMS). This certification demonstrates our commitment to systematically managing sensitive information.
+              EVO Scalvex maintains ISO 27001:2022 certification, the international standard for information security management systems (ISMS). This certification demonstrates our commitment to systematically managing sensitive information.
             </p>
           </div>
 

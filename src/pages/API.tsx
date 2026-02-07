@@ -18,7 +18,7 @@ const API = () => {
               <span className="text-gradient">Developer</span> API
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Build powerful integrations with our comprehensive REST API. Access all EVO Grow features programmatically.
+              Build powerful integrations with our comprehensive REST API. Access all EVO Scalvex features programmatically.
             </p>
           </div>
 

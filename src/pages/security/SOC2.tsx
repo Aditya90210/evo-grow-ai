@@ -58,7 +58,7 @@ const SOC2 = () => {
 
           <div className="prose prose-lg dark:prose-invert max-w-none mb-12">
             <p className="text-muted-foreground text-lg">
-              EVO Grow maintains SOC 2 Type II compliance, demonstrating our commitment to the highest standards of security, availability, and data protection. Our compliance is audited annually by independent third-party auditors.
+              EVO Scalvex maintains SOC 2 Type II compliance, demonstrating our commitment to the highest standards of security, availability, and data protection. Our compliance is audited annually by independent third-party auditors.
             </p>
           </div>
 

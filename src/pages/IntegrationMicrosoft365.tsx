@@ -30,7 +30,7 @@ const IntegrationMicrosoft365 = () => {
               <span className="text-gradient">Microsoft 365</span> Integration
             </h1>
             <p className="text-lg text-muted-foreground mb-8">
-              Integrate with Office apps to enhance your productivity. Connect EVO Grow with Microsoft Teams, Outlook, OneDrive, and more.
+              Integrate with Office apps to enhance your productivity. Connect EVO Scalvex with Microsoft Teams, Outlook, OneDrive, and more.
             </p>
 
             <div className="grid md:grid-cols-2 gap-8 mb-12">
@@ -58,7 +58,7 @@ const IntegrationMicrosoft365 = () => {
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="w-6 h-6 rounded-full bg-primary/20 text-primary text-sm flex items-center justify-center font-medium">2</span>
-                    <span className="text-muted-foreground">Authorize EVO Grow to access M365 services</span>
+                    <span className="text-muted-foreground">Authorize EVO Scalvex to access M365 services</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="w-6 h-6 rounded-full bg-primary/20 text-primary text-sm flex items-center justify-center font-medium">3</span>
@@ -66,7 +66,7 @@ const IntegrationMicrosoft365 = () => {
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="w-6 h-6 rounded-full bg-primary/20 text-primary text-sm flex items-center justify-center font-medium">4</span>
-                    <span className="text-muted-foreground">Start using Microsoft 365 within EVO Grow</span>
+                    <span className="text-muted-foreground">Start using Microsoft 365 within EVO Scalvex</span>
                   </li>
                 </ol>
               </div>

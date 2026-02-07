@@ -184,7 +184,7 @@ const Features = () => {
               <span className="text-gradient">Much More</span>
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Additional features that make EVO Grow the complete solution for modern businesses.
+              Additional features that make EVO Scalvex the complete solution for modern businesses.
             </p>
           </div>
 
@@ -213,7 +213,7 @@ const Features = () => {
               Ready to Experience These Features?
             </h2>
             <p className="text-muted-foreground mb-8">
-              Start your 7-day free trial and see how EVO Grow can transform your business.
+              Start your 7-day free trial and see how EVO Scalvex can transform your business.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" className="bg-gradient-primary hover:opacity-90" asChild>

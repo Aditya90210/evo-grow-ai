@@ -59,7 +59,7 @@ const Documentation = () => {
               <span className="text-gradient">Documentation</span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-              Everything you need to know about using EVO Grow effectively.
+              Everything you need to know about using EVO Scalvex effectively.
             </p>
             <div className="max-w-md mx-auto relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />

@@ -5,12 +5,12 @@ import { Button } from "@/components/ui/button";
 
 const Tutorials = () => {
   const tutorials = [
-    { title: "Getting Started with EVO Grow", duration: "10 min", level: "Beginner", description: "Learn the basics of setting up your account and navigating the dashboard." },
+    { title: "Getting Started with EVO Scalvex", duration: "10 min", level: "Beginner", description: "Learn the basics of setting up your account and navigating the dashboard." },
     { title: "Building Your First Business Twin", duration: "15 min", level: "Beginner", description: "Step-by-step guide to creating and configuring your digital business twin." },
     { title: "Understanding AI Predictions", duration: "20 min", level: "Intermediate", description: "Deep dive into how our AI generates predictions and how to interpret them." },
     { title: "Advanced Decision Framework", duration: "25 min", level: "Advanced", description: "Master the decision framework for complex business scenarios." },
-    { title: "Setting Up Integrations", duration: "12 min", level: "Intermediate", description: "Connect EVO Grow with your existing tools and workflows." },
-    { title: "Team Collaboration Features", duration: "18 min", level: "Intermediate", description: "Learn how to collaborate effectively with your team using EVO Grow." },
+    { title: "Setting Up Integrations", duration: "12 min", level: "Intermediate", description: "Connect EVO Scalvex with your existing tools and workflows." },
+    { title: "Team Collaboration Features", duration: "18 min", level: "Intermediate", description: "Learn how to collaborate effectively with your team using EVO Scalvex." },
   ];
 
   return (

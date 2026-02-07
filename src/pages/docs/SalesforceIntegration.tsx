@@ -40,7 +40,7 @@ const SalesforceIntegration = () => {
             <ol className="list-decimal list-inside text-muted-foreground space-y-2 mb-6">
               <li>Go to Integrations → Salesforce</li>
               <li>Click "Connect Salesforce"</li>
-              <li>Authorize EVO Grow in Salesforce</li>
+              <li>Authorize EVO Scalvex in Salesforce</li>
               <li>Select objects to sync</li>
               <li>Configure sync frequency</li>
             </ol>

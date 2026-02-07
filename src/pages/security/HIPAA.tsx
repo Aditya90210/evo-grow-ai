@@ -70,7 +70,7 @@ const HIPAA = () => {
 
           <div className="prose prose-lg dark:prose-invert max-w-none mb-12">
             <p className="text-muted-foreground text-lg">
-              EVO Grow is fully compliant with the Health Insurance Portability and Accountability Act (HIPAA). We implement comprehensive safeguards to protect Protected Health Information (PHI) for healthcare organizations.
+              EVO Scalvex is fully compliant with the Health Insurance Portability and Accountability Act (HIPAA). We implement comprehensive safeguards to protect Protected Health Information (PHI) for healthcare organizations.
             </p>
           </div>
 

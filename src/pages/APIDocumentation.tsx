@@ -76,7 +76,7 @@ const APIDocumentation = () => {
               <span className="text-gradient">API</span> Reference
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Complete documentation for the EVO Grow REST API. Everything you need to build powerful integrations.
+              Complete documentation for the EVO Scalvex REST API. Everything you need to build powerful integrations.
             </p>
           </div>
 

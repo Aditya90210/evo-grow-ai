@@ -12,7 +12,7 @@ const IntegrationDocs = () => {
     {
       icon: Book,
       title: "Overview",
-      description: `Learn about the ${integration} integration capabilities, features, and how it can enhance your EVO Grow experience.`,
+      description: `Learn about the ${integration} integration capabilities, features, and how it can enhance your EVO Scalvex experience.`,
       topics: ["Introduction", "Key Features", "Use Cases", "Supported Features"],
     },
     {
@@ -64,7 +64,7 @@ const IntegrationDocs = () => {
               <span className="text-gradient capitalize">{integration}</span> Documentation
             </h1>
             <p className="text-lg text-muted-foreground mb-12">
-              Comprehensive documentation for integrating and using {integration} with EVO Grow.
+              Comprehensive documentation for integrating and using {integration} with EVO Scalvex.
             </p>
 
             <div className="grid lg:grid-cols-3 gap-8">

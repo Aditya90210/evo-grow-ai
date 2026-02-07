@@ -135,7 +135,7 @@ const ContactSection = () => {
             Ready to <span className="text-gradient">Evolve</span>?
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Have questions about EVO Grow? We'd love to hear from you. Send us a
+            Have questions about EVO Scalvex? We'd love to hear from you. Send us a
             message and we'll respond as soon as possible.
           </p>
         </div>

@@ -105,7 +105,7 @@ const Navbar = () => {
               <Zap className="w-6 h-6 text-primary-foreground" />
             </div>
             <span className="font-display text-xl font-bold text-foreground">
-              EVO<span className="text-gradient">Grow</span>
+              EVO<span className="text-gradient">Scalvex</span>
             </span>
           </Link>
 

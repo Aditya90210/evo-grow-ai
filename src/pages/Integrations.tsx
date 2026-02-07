@@ -28,7 +28,7 @@ const Integrations = () => {
               <span className="text-gradient">Connect</span> Your Tools
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Seamlessly integrate EVO Grow with your favorite tools and platforms to create a unified business ecosystem.
+              Seamlessly integrate EVO Scalvex with your favorite tools and platforms to create a unified business ecosystem.
             </p>
           </div>
 

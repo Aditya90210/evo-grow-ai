@@ -26,7 +26,7 @@ const About = () => {
               <div>
                 <h2 className="text-2xl font-bold mb-4">Who We Are</h2>
                 <p className="text-muted-foreground">
-                  EVO Grow was founded in 2024 by a team of AI researchers and business strategists who believed that advanced AI should be accessible to every business, not just tech giants.
+                  EVO Scalvex was founded in 2024 by a team of AI researchers and business strategists who believed that advanced AI should be accessible to every business, not just tech giants.
                 </p>
               </div>
               <div className="p-8 rounded-2xl border border-border/50 bg-card/50 backdrop-blur-xl">
