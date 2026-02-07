@@ -370,7 +370,7 @@ export const PricingSection = () => {
 
         {/* Bottom Note */}
         <p className="text-center text-sm text-muted-foreground mt-12">
-          All plans include 14-day free trial. No credit card required.
+          All plans include 7-day free trial. No credit card required.
         </p>
       </div>
     </section>

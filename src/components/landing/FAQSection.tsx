@@ -26,7 +26,7 @@ const faqs = [
   {
     question: "Can I try EVO Grow before committing?",
     answer:
-      "Yes! All plans include a 14-day free trial with no credit card required. You can explore all features and see exactly how EVO Grow can transform your business before making any commitment.",
+      "Yes! All plans include a 7-day free trial with no credit card required. You can explore all features and see exactly how EVO Grow can transform your business before making any commitment.",
   },
   {
     question: "What kind of businesses is EVO Grow designed for?",

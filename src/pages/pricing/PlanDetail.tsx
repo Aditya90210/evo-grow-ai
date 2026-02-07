@@ -286,7 +286,7 @@ const PlanDetail = () => {
                 <div className="glass-strong rounded-2xl p-6 border border-primary/20 bg-primary/5">
                   <h2 className="text-xl font-semibold text-foreground mb-4">Ready to get started?</h2>
                   <p className="text-muted-foreground mb-6">
-                    Start your 14-day free trial today. No credit card required.
+                    Start your 7-day free trial today. No credit card required.
                   </p>
                   <div className="space-y-3">
                     <Button className="w-full" size="lg">
