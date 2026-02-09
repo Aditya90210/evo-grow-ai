@@ -81,6 +81,10 @@ import PlanDetail from "./pages/pricing/PlanDetail";
 
 // Dashboard pages
 import Subscription from "./pages/dashboard/Subscription";
+
+// Studio
+import Studio from "./pages/Studio";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -148,6 +152,7 @@ const App = () => (
               <Route path="/cookies" element={<Cookies />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/features" element={<Features />} />
+              <Route path="/studio" element={<Studio />} />
               {/* Documentation pages */}
               <Route path="/docs/quick-start-guide" element={<QuickStartGuide />} />
               <Route path="/docs/installation" element={<Installation />} />
