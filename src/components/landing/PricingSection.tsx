@@ -297,7 +297,7 @@ export const PricingSection = () => {
                       className="relative z-10 w-full"
                       asChild
                     >
-                      <Link to={`/pricing/${tier.name.toLowerCase()}`}>
+                      <Link to="/studio">
                         {tier.cta}
                       </Link>
                     </Button>
