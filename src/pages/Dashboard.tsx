@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, ArrowLeft, Upload, Camera, CreditCard } from "lucide-react";
+import { Loader2, ArrowLeft, Upload, Camera, CreditCard, Building2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { AvatarCropper } from "@/components/AvatarCropper";
 
@@ -234,12 +234,20 @@ const Dashboard = () => {
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Home
           </Button>
-          <Button variant="outline" asChild>
-            <Link to="/dashboard/subscription">
-              <CreditCard className="w-4 h-4 mr-2" />
-              Manage Subscription
-            </Link>
-          </Button>
+          <div className="flex gap-2">
+            <Button variant="outline" asChild>
+              <Link to="/business-profile">
+                <Building2 className="w-4 h-4 mr-2" />
+                Business Profile
+              </Link>
+            </Button>
+            <Button variant="outline" asChild>
+              <Link to="/dashboard/subscription">
+                <CreditCard className="w-4 h-4 mr-2" />
+                Manage Subscription
+              </Link>
+            </Button>
+          </div>
         </div>
 
         <Card>

@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Zap, Mail, Lock, User, ArrowRight, Eye, EyeOff } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
@@ -54,9 +55,21 @@ const Auth = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user) {
-      navigate("/");
-    }
+    if (!user) return;
+    // Check if first-time user (no business profile yet)
+    const checkBusinessProfile = async () => {
+      const { data } = await supabase
+        .from("business_profiles")
+        .select("id")
+        .eq("user_id", user.id)
+        .maybeSingle();
+      if (!data) {
+        navigate("/business-profile?onboarding=true");
+      } else {
+        navigate("/");
+      }
+    };
+    checkBusinessProfile();
   }, [user, navigate]);
 
   useEffect(() => {

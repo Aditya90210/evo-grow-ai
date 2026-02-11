@@ -85,6 +85,9 @@ import Subscription from "./pages/dashboard/Subscription";
 // Studio
 import Studio from "./pages/Studio";
 
+// Business Profile
+import BusinessProfile from "./pages/BusinessProfile";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -153,6 +156,7 @@ const App = () => (
               <Route path="/contact" element={<Contact />} />
               <Route path="/features" element={<Features />} />
               <Route path="/studio" element={<Studio />} />
+              <Route path="/business-profile" element={<BusinessProfile />} />
               {/* Documentation pages */}
               <Route path="/docs/quick-start-guide" element={<QuickStartGuide />} />
               <Route path="/docs/installation" element={<Installation />} />
