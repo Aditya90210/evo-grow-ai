@@ -290,13 +290,13 @@ const PlanDetail = () => {
                   </p>
                   <div className="space-y-3">
                     <Button className="w-full" size="lg" asChild>
-                      <Link to="/studio">
+                      <Link to="/auth">
                         <CreditCard className="w-4 h-4 mr-2" />
                         Start Free Trial
                       </Link>
                     </Button>
                     <Button variant="outline" className="w-full" size="lg" asChild>
-                      <Link to="/studio">
+                      <Link to="/auth">
                         Own it today
                       </Link>
                     </Button>
