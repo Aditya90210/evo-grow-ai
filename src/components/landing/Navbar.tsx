@@ -4,13 +4,33 @@ import { Button } from "@/components/ui/button";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import ThemeToggle from "@/components/ThemeToggle";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { supabase } from "@/integrations/supabase/client";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string | null>(null);
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+
+  // Fetch user avatar
+  useEffect(() => {
+    if (!user) {
+      setAvatarUrl(null);
+      return;
+    }
+    const fetchAvatar = async () => {
+      const { data } = await supabase
+        .from("profiles")
+        .select("avatar_url")
+        .eq("id", user.id)
+        .single();
+      if (data?.avatar_url) setAvatarUrl(data.avatar_url);
+    };
+    fetchAvatar();
+  }, [user]);
 
   const navLinks = [
     { label: "Home", href: "/", section: null },
@@ -131,8 +151,13 @@ const Navbar = () => {
             <ThemeToggle />
             {user ? (
               <>
-                <Button variant="ghost" size="sm" onClick={() => navigate("/dashboard")}>
-                  <User className="w-4 h-4 mr-2" />
+                <Button variant="ghost" size="sm" onClick={() => navigate("/dashboard")} className="gap-2">
+                  <Avatar className="w-6 h-6">
+                    <AvatarImage src={avatarUrl || undefined} alt="Profile" />
+                    <AvatarFallback className="text-xs bg-primary/10 text-primary">
+                      {user?.email?.charAt(0).toUpperCase() || <User className="w-3 h-3" />}
+                    </AvatarFallback>
+                  </Avatar>
                   Dashboard
                 </Button>
                 <Button variant="ghost" size="sm" onClick={handleSignOut}>
@@ -188,8 +213,13 @@ const Navbar = () => {
                 </div>
                 {user ? (
                   <>
-                    <Button variant="ghost" size="sm" className="justify-start" onClick={() => { navigate("/dashboard"); setIsOpen(false); }}>
-                      <User className="w-4 h-4 mr-2" />
+                    <Button variant="ghost" size="sm" className="justify-start gap-2" onClick={() => { navigate("/dashboard"); setIsOpen(false); }}>
+                      <Avatar className="w-6 h-6">
+                        <AvatarImage src={avatarUrl || undefined} alt="Profile" />
+                        <AvatarFallback className="text-xs bg-primary/10 text-primary">
+                          {user?.email?.charAt(0).toUpperCase() || <User className="w-3 h-3" />}
+                        </AvatarFallback>
+                      </Avatar>
                       Dashboard
                     </Button>
                     <Button variant="ghost" size="sm" className="justify-start" onClick={handleSignOut}>
