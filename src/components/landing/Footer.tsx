@@ -1,5 +1,5 @@
-import { Zap } from "lucide-react";
 import { Link } from "react-router-dom";
+import logo from "@/assets/logo.png";
 
 const Footer = () => {
   const footerLinks = {
@@ -38,8 +38,8 @@ const Footer = () => {
           {/* Brand */}
           <div className="lg:col-span-1">
             <Link to="/" className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 rounded-lg bg-gradient-primary flex items-center justify-center shadow-glow">
-                <Zap className="w-6 h-6 text-primary-foreground" />
+              <div className="w-10 h-10 rounded-lg flex items-center justify-center">
+                <img src={logo} alt="EVO Scalvex" className="w-10 h-10 object-contain" />
               </div>
               <span className="font-display text-xl font-bold text-foreground">
                 EVO <span className="text-gradient">Scalvex</span>
