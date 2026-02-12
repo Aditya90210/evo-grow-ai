@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { Menu, X, Zap, LogOut, User } from "lucide-react";
+import { Menu, X, LogOut, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import ThemeToggle from "@/components/ThemeToggle";
+import logo from "@/assets/logo.png";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -121,8 +122,8 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 rounded-lg bg-gradient-primary flex items-center justify-center shadow-glow group-hover:shadow-glow-lg transition-shadow">
-              <Zap className="w-6 h-6 text-primary-foreground" />
+            <div className="w-10 h-10 rounded-lg flex items-center justify-center">
+              <img src={logo} alt="EVO Scalvex" className="w-10 h-10 object-contain" />
             </div>
             <span className="font-display text-xl font-bold text-foreground">
               EVO <span className="text-gradient">Scalvex</span>
