@@ -38,8 +38,8 @@ const Footer = () => {
           {/* Brand */}
           <div className="lg:col-span-1">
             <Link to="/" className="flex items-center gap-2 mb-4">
-              <div className="w-30 h-30 rounded-lg flex items-center justify-center">
-                <img src={logo} alt="EVO Scalvex" className="w-30 h-30 object-contain" />
+              <div className="w-14 h-14 rounded-lg flex items-center justify-center">
+                <img src={logo} alt="EVO Scalvex" className="w-14 h-14 object-contain" />
               </div>
               <span className="font-display text-xl font-bold text-foreground">
                 EVO <span className="text-gradient">Scalvex</span>
