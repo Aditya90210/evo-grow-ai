@@ -122,8 +122,8 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group">
-            <div className="w-20 h-20 rounded-lg flex items-center justify-center">
-              <img src={logo} alt="EVO Scalvex" className="w-20 h-20 object-contain" />
+            <div className="w-25 h-25 rounded-lg flex items-center justify-center">
+              <img src={logo} alt="EVO Scalvex" className="w-25 h-25 object-contain" />
             </div>
             <span className="font-display text-xl font-bold text-foreground">
               EVO <span className="text-gradient">Scalvex</span>
