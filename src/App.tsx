@@ -88,6 +88,9 @@ import Studio from "./pages/Studio";
 // Business Profile
 import BusinessProfile from "./pages/BusinessProfile";
 
+// Personalized Home
+import Home from "./pages/Home";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -100,6 +103,7 @@ const App = () => (
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
+              <Route path="/home" element={<Home />} />
               <Route path="/auth" element={<Auth />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/dashboard/subscription" element={<Subscription />} />
