@@ -35,10 +35,10 @@ const Navbar = () => {
 
   const navLinks = [
     { label: "Home", href: "/", section: null },
-    { label: "Features", href: "/#features", section: "features" },
     { label: "How It Works", href: "/#pillars", section: "pillars" },
-    { label: "Pricing", href: "/#pricing", section: "pricing" },
+    { label: "Features", href: "/#features", section: "features" },
     { label: "Testimonials", href: "/#testimonials", section: "testimonials" },
+    { label: "Pricing", href: "/#pricing", section: "pricing" },
   ];
 
   // Track active section on home page
@@ -168,11 +168,8 @@ const Navbar = () => {
               </>
             ) : (
               <>
-                <Button variant="ghost" size="sm" onClick={() => navigate("/auth")}>
-                  Sign In
-                </Button>
                 <Button variant="default" size="sm" onClick={() => navigate("/auth")}>
-                  Get Started
+                  Claim Your Spot
                 </Button>
               </>
             )}
@@ -230,11 +227,8 @@ const Navbar = () => {
                   </>
                 ) : (
                   <>
-                    <Button variant="ghost" size="sm" className="justify-start" onClick={() => { navigate("/auth"); setIsOpen(false); }}>
-                      Sign In
-                    </Button>
                     <Button variant="default" size="sm" onClick={() => { navigate("/auth"); setIsOpen(false); }}>
-                      Get Started
+                      Claim Your Spot
                     </Button>
                   </>
                 )}
