@@ -1,29 +1,23 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
-import { useSubscription, planFeatures } from "@/hooks/useSubscription";
 import { supabase } from "@/integrations/supabase/client";
-import Navbar from "@/components/landing/Navbar";
-import Footer from "@/components/landing/Footer";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Loader2, Settings, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
-import {
-  Loader2, Zap, Rocket, Star, Building2, Crown, Gem,
-  BarChart3, Brain, Target, Users, Plug, Code, Shield,
-  Headphones, ArrowUpRight, Check, Lock,
-} from "lucide-react";
+import ThemeToggle from "@/components/ThemeToggle";
+import { Sparkles } from "lucide-react";
+import { Link } from "react-router-dom";
 
-const planIcons: Record<string, any> = {
-  starter: Zap,
-  growth: Rocket,
-  professional: Star,
-  business: Building2,
-  enterprise: Crown,
-  ultimate: Gem,
-};
+import WelcomeSection from "@/components/dashboard/WelcomeSection";
+import QuickActions from "@/components/dashboard/QuickActions";
+import AIContentGenerator from "@/components/dashboard/AIContentGenerator";
+import CampaignWorkspace from "@/components/dashboard/CampaignWorkspace";
+import FunnelBuilder from "@/components/dashboard/FunnelBuilder";
+import LeadCaptureForms from "@/components/dashboard/LeadCaptureForms";
+import SocialIntegrations from "@/components/dashboard/SocialIntegrations";
+import AnalyticsDashboard from "@/components/dashboard/AnalyticsDashboard";
+import StorageUsageMonitor from "@/components/dashboard/StorageUsageMonitor";
+import SupportHelp from "@/components/dashboard/SupportHelp";
 
 interface Profile {
   display_name: string | null;
@@ -31,10 +25,11 @@ interface Profile {
 }
 
 const Home = () => {
-  const { user, loading: authLoading } = useAuth();
-  const { subscription, loading: subLoading, currentPlan, planInfo } = useSubscription();
+  const { user, loading: authLoading, signOut } = useAuth();
   const navigate = useNavigate();
   const [profile, setProfile] = useState<Profile | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [aiGenerationsUsed, setAiGenerationsUsed] = useState(12);
 
   useEffect(() => {
     if (!authLoading && !user) {
@@ -51,11 +46,12 @@ const Home = () => {
         .eq("id", user.id)
         .maybeSingle();
       if (data) setProfile(data);
+      setLoading(false);
     };
     if (user) fetchProfile();
   }, [user]);
 
-  if (authLoading || subLoading) {
+  if (authLoading || loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
         <Loader2 className="w-8 h-8 animate-spin text-primary" />
@@ -63,296 +59,111 @@ const Home = () => {
     );
   }
 
-  const PlanIcon = planIcons[currentPlan] || Zap;
   const displayName = profile?.display_name || user?.email?.split("@")[0] || "User";
-
   const getInitials = () => {
     if (profile?.display_name) return profile.display_name.slice(0, 2).toUpperCase();
     if (user?.email) return user.email.slice(0, 2).toUpperCase();
     return "U";
   };
 
-  // Dashboard widgets based on plan features
-  const widgets = [
-    {
-      title: "Business Twin",
-      description: currentPlan === "starter" ? "Basic business modeling" : "Advanced AI-powered business modeling",
-      icon: Brain,
-      available: true,
-      link: "/studio",
-      badge: currentPlan === "starter" ? "Basic" : "Advanced",
-    },
-    {
-      title: "AI Strategy Reports",
-      description: `${planInfo.reportsLimit} reports available`,
-      icon: BarChart3,
-      available: true,
-      link: "/studio",
-      badge: planInfo.reportsLimit,
-    },
-    {
-      title: "Decision Framework",
-      description: currentPlan === "starter" ? "Basic decision tools" : "Full decision intelligence suite",
-      icon: Target,
-      available: true,
-      link: "/studio",
-      badge: currentPlan === "starter" ? "Basic" : "Full",
-    },
-    {
-      title: "Execution Automation",
-      description: "Automate your business workflows",
-      icon: Rocket,
-      available: planInfo.hasExecutionAutomation,
-      link: "/studio",
-      requiredPlan: "growth",
-    },
-    {
-      title: "Team Members",
-      description: `${planInfo.teamMembers} members allowed`,
-      icon: Users,
-      available: true,
-      link: "/dashboard",
-      badge: planInfo.teamMembers,
-    },
-    {
-      title: "Custom Integrations",
-      description: "Connect your favorite tools",
-      icon: Plug,
-      available: planInfo.hasCustomIntegrations,
-      link: "/integrations",
-      requiredPlan: "professional",
-    },
-    {
-      title: "API Access",
-      description: "Full REST API access",
-      icon: Code,
-      available: planInfo.hasApiAccess,
-      link: "/api",
-      requiredPlan: "professional",
-    },
-    {
-      title: "Custom AI Training",
-      description: "Train AI on your business data",
-      icon: Brain,
-      available: planInfo.hasCustomAI,
-      link: "/studio",
-      requiredPlan: "business",
-    },
-    {
-      title: "White-label",
-      description: "Brand customization options",
-      icon: Shield,
-      available: planInfo.hasWhiteLabel,
-      link: "/studio",
-      requiredPlan: "business",
-    },
-    {
-      title: "Dedicated Manager",
-      description: "Your personal success manager",
-      icon: Headphones,
-      available: planInfo.hasDedicatedManager,
-      link: "/help-center",
-      requiredPlan: "enterprise",
-    },
-  ];
+  const handleSignOut = async () => {
+    await signOut();
+    navigate("/");
+  };
 
-  const availableWidgets = widgets.filter((w) => w.available);
-  const lockedWidgets = widgets.filter((w) => !w.available);
-
-  // Plan order for upgrade suggestions
-  const planOrder = ["starter", "growth", "professional", "business", "enterprise", "ultimate"];
-  const currentPlanIndex = planOrder.indexOf(currentPlan);
-  const nextPlan = currentPlanIndex < planOrder.length - 1 ? planOrder[currentPlanIndex + 1] : null;
+  const handleQuickAction = (action: string) => {
+    // Scroll to relevant section or open modal
+    const sectionMap: Record<string, string> = {
+      "ai-content": "ai-generator",
+      "social-post": "social-integrations",
+      "landing-copy": "ai-generator",
+      "funnel": "funnel-builder",
+      "lead-form": "lead-forms",
+      "connect-channel": "social-integrations",
+    };
+    const el = document.getElementById(sectionMap[action] || "");
+    el?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   return (
     <div className="min-h-screen bg-background">
-      <Navbar />
-      <main className="pt-20 pb-16">
-        <div className="container mx-auto px-4">
-          {/* Welcome Header */}
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-4">
-            <div className="flex items-center gap-4">
-              <Avatar className="w-14 h-14">
-                <AvatarImage src={profile?.avatar_url || ""} alt={displayName} />
-                <AvatarFallback className="text-lg bg-primary text-primary-foreground">
-                  {getInitials()}
-                </AvatarFallback>
-              </Avatar>
-              <div>
-                <h1 className="text-2xl font-bold text-foreground">
-                  Welcome back, {displayName}
-                </h1>
-                <div className="flex items-center gap-2 mt-1">
-                  <PlanIcon className="w-4 h-4 text-primary" />
-                  <Badge variant="secondary" className="text-xs">
-                    {planInfo.label} Plan
-                  </Badge>
-                  <Badge variant="outline" className="text-xs capitalize">
-                    {subscription?.status || "active"}
-                  </Badge>
-                </div>
-              </div>
+      {/* Dashboard Header */}
+      <header className="sticky top-0 z-50 border-b border-border/50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="container mx-auto px-4 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="p-2 rounded-lg bg-primary/10">
+              <Sparkles className="w-5 h-5 text-primary" />
             </div>
-            <div className="flex gap-2">
-              <Button variant="outline" size="sm" asChild>
-                <Link to="/dashboard">Edit Profile</Link>
-              </Button>
-              {nextPlan && (
-                <Button size="sm" asChild>
-                  <Link to="/pricing">
-                    Upgrade to {planFeatures[nextPlan].label}
-                    <ArrowUpRight className="w-4 h-4 ml-1" />
-                  </Link>
-                </Button>
-              )}
+            <div>
+              <h1 className="text-lg font-bold text-foreground font-display">EVO Scalvex</h1>
+              <p className="text-xs text-muted-foreground">Starter Plan • $49/mo</p>
             </div>
           </div>
-
-          {/* Plan Overview Card */}
-          <Card className="mb-8 border-primary/20">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-lg flex items-center gap-2">
-                <PlanIcon className="w-5 h-5 text-primary" />
-                Your {planInfo.label} Plan Includes
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
-                {planInfo.features.map((feature) => (
-                  <div key={feature} className="flex items-start gap-2">
-                    <Check className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                    <span className="text-sm text-muted-foreground">{feature}</span>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Quick Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-            <Card>
-              <CardContent className="pt-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-muted-foreground">Reports Used</p>
-                    <p className="text-2xl font-bold text-foreground">
-                      {planInfo.reportsLimit === "Unlimited" ? "∞" : "0/5"}
-                    </p>
-                  </div>
-                  <BarChart3 className="w-8 h-8 text-primary/50" />
-                </div>
-                {planInfo.reportsLimit !== "Unlimited" && (
-                  <Progress value={0} className="mt-3" />
-                )}
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="pt-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-muted-foreground">Team Members</p>
-                    <p className="text-2xl font-bold text-foreground">1/{planInfo.teamMembers}</p>
-                  </div>
-                  <Users className="w-8 h-8 text-primary/50" />
-                </div>
-                {planInfo.teamMembers !== "Unlimited" && (
-                  <Progress value={(1 / parseInt(planInfo.teamMembers)) * 100} className="mt-3" />
-                )}
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="pt-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-muted-foreground">Support</p>
-                    <p className="text-2xl font-bold text-foreground">{planInfo.supportLevel}</p>
-                  </div>
-                  <Headphones className="w-8 h-8 text-primary/50" />
-                </div>
-              </CardContent>
-            </Card>
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <Button variant="ghost" size="icon" asChild>
+              <Link to="/dashboard"><Settings className="w-5 h-5" /></Link>
+            </Button>
+            <Button variant="ghost" size="icon" onClick={handleSignOut}>
+              <LogOut className="w-5 h-5" />
+            </Button>
           </div>
+        </div>
+      </header>
 
-          {/* Available Features */}
-          <h2 className="text-xl font-bold text-foreground mb-4">Your Features</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-            {availableWidgets.map((widget) => {
-              const Icon = widget.icon;
-              return (
-                <Card key={widget.title} className="group hover:border-primary/50 transition-colors">
-                  <CardHeader className="pb-2">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <div className="p-2 rounded-lg bg-primary/10">
-                          <Icon className="w-5 h-5 text-primary" />
-                        </div>
-                        <CardTitle className="text-base">{widget.title}</CardTitle>
-                      </div>
-                      {widget.badge && (
-                        <Badge variant="secondary" className="text-xs">
-                          {widget.badge}
-                        </Badge>
-                      )}
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription className="mb-3">{widget.description}</CardDescription>
-                    <Button variant="outline" size="sm" asChild className="w-full">
-                      <Link to={widget.link}>
-                        Open
-                        <ArrowUpRight className="w-3 h-3 ml-1" />
-                      </Link>
-                    </Button>
-                  </CardContent>
-                </Card>
-              );
-            })}
+      <main className="container mx-auto px-4 py-8 space-y-8 max-w-7xl">
+        {/* 1️⃣ Welcome Section */}
+        <WelcomeSection
+          displayName={displayName}
+          avatarUrl={profile?.avatar_url || ""}
+          initials={getInitials()}
+          aiGenerationsUsed={aiGenerationsUsed}
+          activeCampaigns={1}
+          connectedChannels={2}
+          weeklyClicks={847}
+          weeklyLeads={23}
+          weeklyConversions={8}
+        />
+
+        {/* 2️⃣ Quick Actions */}
+        <QuickActions onAction={handleQuickAction} />
+
+        {/* 3️⃣ AI Content Generator & 4️⃣ Campaign Workspace */}
+        <div className="grid lg:grid-cols-2 gap-8" id="ai-generator">
+          <AIContentGenerator
+            generationsUsed={aiGenerationsUsed}
+            maxGenerations={50}
+            onGenerate={() => setAiGenerationsUsed((prev) => Math.min(prev + 1, 50))}
+          />
+          <CampaignWorkspace />
+        </div>
+
+        {/* 5️⃣ Funnel Builder & 6️⃣ Lead Capture Forms */}
+        <div className="grid lg:grid-cols-2 gap-8" id="funnel-builder">
+          <div id="funnel-builder">
+            <FunnelBuilder />
           </div>
+          <div id="lead-forms">
+            <LeadCaptureForms />
+          </div>
+        </div>
 
-          {/* Locked Features */}
-          {lockedWidgets.length > 0 && (
-            <>
-              <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
-                <Lock className="w-5 h-5 text-muted-foreground" />
-                Unlock More Features
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {lockedWidgets.map((widget) => {
-                  const Icon = widget.icon;
-                  const requiredPlanInfo = planFeatures[widget.requiredPlan || "growth"];
-                  return (
-                    <Card key={widget.title} className="opacity-60 border-dashed">
-                      <CardHeader className="pb-2">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-3">
-                            <div className="p-2 rounded-lg bg-muted">
-                              <Icon className="w-5 h-5 text-muted-foreground" />
-                            </div>
-                            <CardTitle className="text-base">{widget.title}</CardTitle>
-                          </div>
-                          <Badge variant="outline" className="text-xs">
-                            {requiredPlanInfo.label}+
-                          </Badge>
-                        </div>
-                      </CardHeader>
-                      <CardContent>
-                        <CardDescription className="mb-3">{widget.description}</CardDescription>
-                        <Button variant="outline" size="sm" asChild className="w-full">
-                          <Link to="/pricing">
-                            Upgrade to {requiredPlanInfo.label}
-                            <ArrowUpRight className="w-3 h-3 ml-1" />
-                          </Link>
-                        </Button>
-                      </CardContent>
-                    </Card>
-                  );
-                })}
-              </div>
-            </>
-          )}
+        {/* 7️⃣ Social Integrations & 8️⃣ Analytics */}
+        <div className="grid lg:grid-cols-2 gap-8" id="social-integrations">
+          <SocialIntegrations />
+          <AnalyticsDashboard />
+        </div>
+
+        {/* 9️⃣ Storage & Usage & 🔟 Support */}
+        <div className="grid lg:grid-cols-2 gap-8">
+          <StorageUsageMonitor
+            storageUsedGB={2.3}
+            aiGenerationsUsed={aiGenerationsUsed}
+            campaignsUsed={1}
+          />
+          <SupportHelp />
         </div>
       </main>
-      <Footer />
     </div>
   );
 };
