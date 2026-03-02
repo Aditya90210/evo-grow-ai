@@ -4,8 +4,6 @@ import logo from "@/assets/logo.png";
 const Footer = () => {
   const footerLinks = {
     Product: [
-      { name: "Features", path: "/#features" },
-      { name: "Pricing", path: "/#pricing" },
       { name: "Integrations", path: "/integrations" },
       { name: "API", path: "/api" },
     ],
@@ -13,7 +11,6 @@ const Footer = () => {
       { name: "About", path: "/about" },
       { name: "Blog", path: "/blog" },
       { name: "Careers", path: "/careers" },
-      { name: "Contact", path: "/#contact" },
     ],
     Resources: [
       { name: "Documentation", path: "/documentation" },
