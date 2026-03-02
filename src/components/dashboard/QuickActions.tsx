@@ -1,37 +1,33 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
-  Sparkles,
-  Share2,
-  FileText,
-  GitBranch,
-  ClipboardList,
-  Plug,
+  Sparkles, Share2, FileText, GitBranch, ClipboardList, Plug,
+  Megaphone, Mail, Target, Workflow, FlaskConical, Search, Mic, Code,
 } from "lucide-react";
+import type { PlanLimits } from "@/lib/planLimits";
 
 interface QuickActionsProps {
   onAction: (action: string) => void;
+  plan: PlanLimits;
 }
 
-const actions = [
-  { id: "ai-content", label: "Generate AI Content", icon: Sparkles },
-  { id: "social-post", label: "Create Social Post", icon: Share2 },
-  { id: "landing-copy", label: "Build Landing Page Copy", icon: FileText },
-  { id: "funnel", label: "Start New Funnel", icon: GitBranch },
-  { id: "lead-form", label: "Create Lead Form", icon: ClipboardList },
-  { id: "connect-channel", label: "Connect Social Channel", icon: Plug },
-];
+const iconMap: Record<string, any> = {
+  Sparkles, Share2, FileText, GitBranch, ClipboardList, Plug,
+  Megaphone, Mail, Target, Workflow, FlaskConical, Search, Mic, Code,
+};
 
-const QuickActions = ({ onAction }: QuickActionsProps) => {
+const QuickActions = ({ onAction, plan }: QuickActionsProps) => {
   return (
     <Card className="border-border/50">
       <CardHeader className="pb-3">
-        <CardTitle className="text-lg">Quick Actions</CardTitle>
+        <CardTitle className="text-lg">
+          {plan.name === "professional" ? "Advanced Quick Actions" : "Quick Actions"}
+        </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
-          {actions.map((action) => {
-            const Icon = action.icon;
+        <div className={`grid grid-cols-2 md:grid-cols-3 ${plan.quickActions.length > 6 ? "lg:grid-cols-7" : "lg:grid-cols-6"} gap-3`}>
+          {plan.quickActions.map((action) => {
+            const Icon = iconMap[action.icon] || Sparkles;
             return (
               <Button
                 key={action.id}
