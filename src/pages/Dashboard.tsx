@@ -12,6 +12,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Loader2, ArrowLeft, Upload, Camera, CreditCard, Building2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { AvatarCropper } from "@/components/AvatarCropper";
+import { DeleteAccountSection } from "@/components/dashboard/DeleteAccountSection";
 
 interface Profile {
   id: string;
@@ -377,6 +378,10 @@ const Dashboard = () => {
             )}
           </CardContent>
         </Card>
+
+        <div className="mt-8">
+          <DeleteAccountSection />
+        </div>
       </div>
     </div>
   );
