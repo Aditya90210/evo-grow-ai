@@ -26,7 +26,7 @@ const StorageUsageMonitor = ({
   const storagePercent = (storageUsedGB / plan.storageGB) * 100;
   const aiPercent = (aiGenerationsUsed / plan.aiGenerations) * 100;
   const nearingLimit = storagePercent > 80 || aiPercent > 80;
-  const isPro = plan.name === "professional";
+  const isPro = plan.name === "professional" || plan.name === "business";
 
   return (
     <Card className="border-border/50">

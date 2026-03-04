@@ -43,7 +43,7 @@ const WelcomeSection = ({
   const campaignLabel = plan.maxCampaigns === "Unlimited" ? `${activeCampaigns}` : `${activeCampaigns}/${plan.maxCampaigns}`;
   const funnelLabel = plan.maxFunnels === "Unlimited" ? `${activeFunnels}` : `${activeFunnels}/${plan.maxFunnels}`;
 
-  const isPro = plan.name === "professional";
+  const isAdvanced = plan.name === "professional" || plan.name === "business";
 
   return (
     <div className="space-y-6">
@@ -65,7 +65,7 @@ const WelcomeSection = ({
         </div>
       </div>
 
-      <div className={`grid grid-cols-2 ${isPro ? "lg:grid-cols-4 xl:grid-cols-4" : "lg:grid-cols-4"} gap-4`}>
+      <div className={`grid grid-cols-2 ${isAdvanced ? "lg:grid-cols-4 xl:grid-cols-4" : "lg:grid-cols-4"} gap-4`}>
         <Card className="border-border/50">
           <CardContent className="pt-5 pb-4">
             <div className="flex items-center gap-3 mb-2">
@@ -74,8 +74,15 @@ const WelcomeSection = ({
               </div>
               <p className="text-sm text-muted-foreground">AI Generations</p>
             </div>
-            <p className="text-2xl font-bold text-foreground">{aiGenerationsUsed}/{plan.aiGenerations}</p>
-            <Progress value={(aiGenerationsUsed / plan.aiGenerations) * 100} className="mt-2 h-1.5" />
+            <p className="text-2xl font-bold text-foreground">
+              {plan.aiGenerations > 99999 ? "∞" : `${aiGenerationsUsed}/${plan.aiGenerations}`}
+            </p>
+            {plan.aiGenerations <= 99999 && (
+              <Progress value={(aiGenerationsUsed / plan.aiGenerations) * 100} className="mt-2 h-1.5" />
+            )}
+            {plan.aiGenerations > 99999 && (
+              <p className="text-xs text-muted-foreground mt-2">Unlimited</p>
+            )}
           </CardContent>
         </Card>
 
@@ -97,7 +104,7 @@ const WelcomeSection = ({
           </CardContent>
         </Card>
 
-        {isPro ? (
+        {isAdvanced ? (
           <>
             <Card className="border-border/50">
               <CardContent className="pt-5 pb-4">
@@ -160,7 +167,7 @@ const WelcomeSection = ({
       </div>
 
       {/* Professional extra stats row */}
-      {isPro && (
+      {isAdvanced && (
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           <Card className="border-border/50">
             <CardContent className="pt-4 pb-3">

@@ -17,7 +17,7 @@ const topContent = [
 ];
 
 const AnalyticsDashboard = ({ plan }: AnalyticsDashboardProps) => {
-  const isPro = plan.name === "professional";
+  const isPro = plan.name === "professional" || plan.name === "business";
 
   return (
     <Card className="border-border/50">

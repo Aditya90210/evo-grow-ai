@@ -33,7 +33,7 @@ const funnels = [
 ];
 
 const FunnelBuilder = ({ plan }: FunnelBuilderProps) => {
-  const isPro = plan.name === "professional";
+  const isPro = plan.name === "professional" || plan.name === "business";
   const funnelLimit = plan.maxFunnels === "Unlimited" ? "∞" : plan.maxFunnels;
 
   return (
