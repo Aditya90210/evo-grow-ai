@@ -22,6 +22,10 @@ import SupportHelp from "@/components/dashboard/SupportHelp";
 import MiniCRM from "@/components/dashboard/MiniCRM";
 import AutomationCenter from "@/components/dashboard/AutomationCenter";
 import APIIntegrationCenter from "@/components/dashboard/APIIntegrationCenter";
+import RevenueForecasting from "@/components/dashboard/RevenueForecasting";
+import BehavioralAnalytics from "@/components/dashboard/BehavioralAnalytics";
+import TeamManagement from "@/components/dashboard/TeamManagement";
+import SecurityInfrastructure from "@/components/dashboard/SecurityInfrastructure";
 
 interface Profile {
   display_name: string | null;
@@ -37,6 +41,8 @@ const Home = () => {
   const [aiGenerationsUsed, setAiGenerationsUsed] = useState(12);
 
   const plan = getPlanLimits(currentPlan);
+  const isBusiness = plan.name === "business";
+  const isAdvanced = plan.name === "professional" || isBusiness;
 
   useEffect(() => {
     if (!authLoading && !user) {
@@ -96,12 +102,14 @@ const Home = () => {
       "competitor": "ai-generator",
       "brand-voice": "ai-generator",
       "api-tools": "api-center",
+      "journey-map": "behavioral-analytics",
+      "revenue-forecast": "revenue-forecasting",
+      "behavioral": "behavioral-analytics",
+      "team-roles": "team-management",
     };
     const el = document.getElementById(sectionMap[action] || "");
     el?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
-
-  const isPro = plan.name === "professional";
 
   return (
     <div className="min-h-screen bg-background">
@@ -129,25 +137,28 @@ const Home = () => {
       </header>
 
       <main className="container mx-auto px-4 py-8 space-y-8 max-w-7xl">
+        {/* 1️⃣ Executive Revenue Overview */}
         <WelcomeSection
           displayName={displayName}
           avatarUrl={profile?.avatar_url || ""}
           initials={getInitials()}
           aiGenerationsUsed={aiGenerationsUsed}
-          activeCampaigns={isPro ? 3 : 1}
-          connectedChannels={isPro ? 8 : 2}
-          weeklyClicks={isPro ? 4280 : 847}
-          weeklyLeads={isPro ? 156 : 23}
-          weeklyConversions={isPro ? 42 : 8}
+          activeCampaigns={isBusiness ? 8 : isAdvanced ? 3 : 1}
+          connectedChannels={isBusiness ? 18 : isAdvanced ? 8 : 2}
+          weeklyClicks={isBusiness ? 12480 : isAdvanced ? 4280 : 847}
+          weeklyLeads={isBusiness ? 423 : isAdvanced ? 156 : 23}
+          weeklyConversions={isBusiness ? 128 : isAdvanced ? 42 : 8}
           plan={plan}
-          activeFunnels={isPro ? 4 : 1}
-          revenueTracked={isPro ? "$28,400" : "$0"}
-          conversionRate={isPro ? 8.4 : 6.9}
-          bestCampaign={isPro ? "Product Launch Q1" : undefined}
+          activeFunnels={isBusiness ? 12 : isAdvanced ? 4 : 1}
+          revenueTracked={isBusiness ? "$94,200" : isAdvanced ? "$28,400" : "$0"}
+          conversionRate={isBusiness ? 10.2 : isAdvanced ? 8.4 : 6.9}
+          bestCampaign={isBusiness ? "Revenue Growth Q1" : isAdvanced ? "Product Launch Q1" : undefined}
         />
 
+        {/* 2️⃣ Intelligent Quick Action Panel */}
         <QuickActions onAction={handleQuickAction} plan={plan} />
 
+        {/* 3️⃣ AI Content & Personalization Engine + 4️⃣ Campaign Command Center */}
         <div className="grid lg:grid-cols-2 gap-8" id="ai-generator">
           <AIContentGenerator
             generationsUsed={aiGenerationsUsed}
@@ -160,6 +171,7 @@ const Home = () => {
           </div>
         </div>
 
+        {/* 5️⃣ Unlimited Funnel & CRO System */}
         <div className="grid lg:grid-cols-2 gap-8" id="funnel-builder">
           <FunnelBuilder plan={plan} />
           <div id="lead-forms">
@@ -167,11 +179,32 @@ const Home = () => {
           </div>
         </div>
 
-        {/* CRM & Automation - shown for Growth+ plans */}
+        {/* 6️⃣ Advanced Automation & 7️⃣ Customer Intelligence CRM */}
         {plan.hasCRM && (
           <div className="grid lg:grid-cols-2 gap-8" id="automation-center">
             <MiniCRM plan={plan} />
             {plan.hasAutomation && <AutomationCenter plan={plan} />}
+          </div>
+        )}
+
+        {/* 8️⃣ Behavioral Analytics Engine (Business+) */}
+        {plan.hasBehavioralAnalytics && (
+          <div id="behavioral-analytics">
+            <BehavioralAnalytics />
+          </div>
+        )}
+
+        {/* 9️⃣ Revenue Forecasting & Strategic Insights (Business+) */}
+        {plan.hasRevenueForecasting && (
+          <div id="revenue-forecasting">
+            <RevenueForecasting />
+          </div>
+        )}
+
+        {/* 🔟 Team & Role Management (Business+) */}
+        {plan.hasTeamManagement && (
+          <div id="team-management">
+            <TeamManagement plan={plan} />
           </div>
         )}
 
@@ -187,17 +220,37 @@ const Home = () => {
           <AnalyticsDashboard plan={plan} />
         </div>
 
+        {/* 1️⃣1️⃣ Security & Infrastructure + 1️⃣2️⃣ Usage Monitor */}
         <div className="grid lg:grid-cols-2 gap-8">
-          <StorageUsageMonitor
-            storageUsedGB={isPro ? 34.7 : 2.3}
-            aiGenerationsUsed={aiGenerationsUsed}
-            campaignsUsed={isPro ? 3 : 1}
-            plan={plan}
-            activeAutomations={isPro ? 5 : 0}
-            apiUsage={isPro ? 1247 : 0}
-          />
-          <SupportHelp plan={plan} />
+          {plan.hasSSO ? (
+            <SecurityInfrastructure plan={plan} />
+          ) : (
+            <StorageUsageMonitor
+              storageUsedGB={isBusiness ? 247 : isAdvanced ? 34.7 : 2.3}
+              aiGenerationsUsed={aiGenerationsUsed}
+              campaignsUsed={isBusiness ? 8 : isAdvanced ? 3 : 1}
+              plan={plan}
+              activeAutomations={isBusiness ? 12 : isAdvanced ? 5 : 0}
+              apiUsage={isBusiness ? 4820 : isAdvanced ? 1247 : 0}
+            />
+          )}
+          {plan.hasSSO && (
+            <StorageUsageMonitor
+              storageUsedGB={247}
+              aiGenerationsUsed={aiGenerationsUsed}
+              campaignsUsed={8}
+              plan={plan}
+              activeAutomations={12}
+              apiUsage={4820}
+            />
+          )}
+          {/* 1️⃣3️⃣ Support & Strategic Resources */}
+          {!plan.hasSSO && <SupportHelp plan={plan} />}
         </div>
+
+        {plan.hasSSO && (
+          <SupportHelp plan={plan} />
+        )}
       </main>
     </div>
   );

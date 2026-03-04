@@ -9,7 +9,8 @@ interface SupportHelpProps {
 }
 
 const SupportHelp = ({ plan }: SupportHelpProps) => {
-  const isPro = plan.name === "professional";
+  const isPro = plan.name === "professional" || plan.name === "business";
+  const isBusiness = plan.name === "business";
 
   return (
     <Card className="border-border/50">
@@ -17,41 +18,62 @@ const SupportHelp = ({ plan }: SupportHelpProps) => {
         <div className="flex items-center gap-2">
           <HelpCircle className="w-5 h-5 text-primary" />
           <CardTitle className="text-lg">
-            {isPro ? "Support & Performance Resources" : "Support & Help"}
+            {isBusiness ? "Support & Strategic Resources" : isPro ? "Support & Performance Resources" : "Support & Help"}
           </CardTitle>
         </div>
         <CardDescription>
-          {isPro ? `${plan.supportLevel} support with optimization guides` : "Get help and learn how to maximize your plan"}
+          {isBusiness
+            ? `${plan.supportLevel} support with growth playbooks`
+            : isPro
+            ? `${plan.supportLevel} support with optimization guides`
+            : "Get help and learn how to maximize your plan"}
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-2 gap-3">
+        <div className={`grid ${isBusiness ? "grid-cols-2 sm:grid-cols-3" : "grid-cols-2"} gap-3`}>
           <Button variant="outline" className="flex flex-col h-auto py-4 gap-2" asChild>
             <Link to="/help-center">
               <HelpCircle className="w-5 h-5 text-primary" />
               <span className="text-xs">Help Center</span>
             </Link>
           </Button>
+          {isBusiness && (
+            <Button variant="outline" className="flex flex-col h-auto py-4 gap-2" asChild>
+              <Link to="/help-center/phone-support">
+                <Phone className="w-5 h-5 text-primary" />
+                <span className="text-xs">Phone Support</span>
+              </Link>
+            </Button>
+          )}
           <Button variant="outline" className="flex flex-col h-auto py-4 gap-2" asChild>
             <Link to="/help-center/email-support">
               <MessageSquare className="w-5 h-5 text-primary" />
-              <span className="text-xs">{isPro ? "Email + Chat" : "Submit Ticket"}</span>
+              <span className="text-xs">{isBusiness ? "Priority Tickets" : isPro ? "Email + Chat" : "Submit Ticket"}</span>
             </Link>
           </Button>
           <Button variant="outline" className="flex flex-col h-auto py-4 gap-2" asChild>
             <Link to="/tutorials">
               <BookOpen className="w-5 h-5 text-primary" />
-              <span className="text-xs">{isPro ? "Strategy Library" : "Tutorials"}</span>
+              <span className="text-xs">{isBusiness ? "Growth Playbooks" : isPro ? "Strategy Library" : "Tutorials"}</span>
             </Link>
           </Button>
-          {isPro ? (
+          {isBusiness && (
+            <Button variant="outline" className="flex flex-col h-auto py-4 gap-2" asChild>
+              <Link to="/tutorials">
+                <Lightbulb className="w-5 h-5 text-primary" />
+                <span className="text-xs">Strategic Guides</span>
+              </Link>
+            </Button>
+          )}
+          {isPro && !isBusiness && (
             <Button variant="outline" className="flex flex-col h-auto py-4 gap-2" asChild>
               <Link to="/tutorials">
                 <Lightbulb className="w-5 h-5 text-primary" />
                 <span className="text-xs">Optimization Guides</span>
               </Link>
             </Button>
-          ) : (
+          )}
+          {!isPro && (
             <Button variant="outline" className="flex flex-col h-auto py-4 gap-2" asChild>
               <Link to="/pricing">
                 <ArrowUpRight className="w-5 h-5 text-primary" />

@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import {
   Sparkles, Share2, FileText, GitBranch, ClipboardList, Plug,
   Megaphone, Mail, Target, Workflow, FlaskConical, Search, Mic, Code,
+  Map, TrendingUp, Activity, Shield,
 } from "lucide-react";
 import type { PlanLimits } from "@/lib/planLimits";
 
@@ -14,6 +15,7 @@ interface QuickActionsProps {
 const iconMap: Record<string, any> = {
   Sparkles, Share2, FileText, GitBranch, ClipboardList, Plug,
   Megaphone, Mail, Target, Workflow, FlaskConical, Search, Mic, Code,
+  Map, TrendingUp, Activity, Shield,
 };
 
 const QuickActions = ({ onAction, plan }: QuickActionsProps) => {

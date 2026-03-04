@@ -31,6 +31,7 @@ const contentTypeOptions: Record<string, { label: string; icon: any }> = {
   "seo": { label: "SEO Article", icon: FileText },
   "sales-page": { label: "Sales Page Copy", icon: FileText },
   "funnel-script": { label: "Funnel Script", icon: FileText },
+  "multi-language": { label: "Multi-Language Content", icon: FileText },
 };
 
 const pastGenerations = [
@@ -48,8 +49,8 @@ const AIContentGenerator = ({ generationsUsed, maxGenerations, onGenerate, plan 
   const [keywords, setKeywords] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedContent, setGeneratedContent] = useState("");
-  const remaining = maxGenerations - generationsUsed;
-  const isPro = plan.name === "professional";
+  const remaining = maxGenerations > 99999 ? Infinity : maxGenerations - generationsUsed;
+  const isPro = plan.name === "professional" || plan.name === "business";
 
   const handleGenerate = async () => {
     if (remaining <= 0) {
@@ -90,8 +91,8 @@ const AIContentGenerator = ({ generationsUsed, maxGenerations, onGenerate, plan 
               {isPro ? "AI Content Intelligence Engine" : "AI Content Generator"}
             </CardTitle>
           </div>
-          <Badge variant={remaining <= 10 ? "destructive" : "secondary"}>
-            {remaining}/{maxGenerations} remaining
+          <Badge variant={remaining <= 10 && remaining !== Infinity ? "destructive" : "secondary"}>
+            {maxGenerations > 99999 ? "Unlimited" : `${remaining}/${maxGenerations} remaining`}
           </Badge>
         </div>
         <CardDescription>

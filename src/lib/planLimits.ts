@@ -23,6 +23,16 @@ export interface PlanLimits {
   hasConditionalWorkflows: boolean;
   hasDropOffAnalysis: boolean;
   hasRevenueForecasting: boolean;
+  hasSSO: boolean;
+  has2FA: boolean;
+  hasAuditLogs: boolean;
+  hasBehavioralAnalytics: boolean;
+  hasTeamManagement: boolean;
+  hasCustomerJourneyMap: boolean;
+  hasHeatmapAnalytics: boolean;
+  hasDynamicPersonalization: boolean;
+  hasMultiLanguageContent: boolean;
+  hasPhoneSupport: boolean;
   supportLevel: string;
   upgradeTo: string | null;
 }
@@ -60,6 +70,16 @@ export const planLimitsMap: Record<string, PlanLimits> = {
     hasConditionalWorkflows: false,
     hasDropOffAnalysis: false,
     hasRevenueForecasting: false,
+    hasSSO: false,
+    has2FA: false,
+    hasAuditLogs: false,
+    hasBehavioralAnalytics: false,
+    hasTeamManagement: false,
+    hasCustomerJourneyMap: false,
+    hasHeatmapAnalytics: false,
+    hasDynamicPersonalization: false,
+    hasMultiLanguageContent: false,
+    hasPhoneSupport: false,
     supportLevel: "Email",
     upgradeTo: "growth",
   },
@@ -97,6 +117,16 @@ export const planLimitsMap: Record<string, PlanLimits> = {
     hasConditionalWorkflows: false,
     hasDropOffAnalysis: false,
     hasRevenueForecasting: false,
+    hasSSO: false,
+    has2FA: false,
+    hasAuditLogs: false,
+    hasBehavioralAnalytics: false,
+    hasTeamManagement: false,
+    hasCustomerJourneyMap: false,
+    hasHeatmapAnalytics: false,
+    hasDynamicPersonalization: false,
+    hasMultiLanguageContent: false,
+    hasPhoneSupport: false,
     supportLevel: "Priority",
     upgradeTo: "professional",
   },
@@ -133,8 +163,68 @@ export const planLimitsMap: Record<string, PlanLimits> = {
     hasConditionalWorkflows: true,
     hasDropOffAnalysis: true,
     hasRevenueForecasting: true,
+    hasSSO: false,
+    has2FA: false,
+    hasAuditLogs: false,
+    hasBehavioralAnalytics: false,
+    hasTeamManagement: false,
+    hasCustomerJourneyMap: false,
+    hasHeatmapAnalytics: false,
+    hasDynamicPersonalization: false,
+    hasMultiLanguageContent: false,
+    hasPhoneSupport: false,
     supportLevel: "Email + Chat",
     upgradeTo: "business",
+  },
+  business: {
+    name: "business",
+    label: "Business Plan",
+    price: "$599/mo",
+    tagline: "Your revenue systems are live.",
+    aiGenerations: 999999,
+    maxCampaigns: "Unlimited",
+    maxFunnels: "Unlimited",
+    maxIntegrations: 100,
+    storageGB: 1000,
+    maxTeamMembers: 75,
+    contentTypes: [
+      "blog-seo", "multi-ad", "email-campaign", "sales-page",
+      "funnel-script", "social-batch", "landing", "multi-language",
+    ],
+    quickActions: [
+      { id: "ai-content", label: "Generate AI Content", icon: "Sparkles" },
+      { id: "campaign", label: "Launch Campaign", icon: "Target" },
+      { id: "funnel", label: "Build New Funnel", icon: "GitBranch" },
+      { id: "automation", label: "Create Automation", icon: "Workflow" },
+      { id: "journey-map", label: "Customer Journey Map", icon: "Map" },
+      { id: "revenue-forecast", label: "Run Revenue Forecast", icon: "TrendingUp" },
+      { id: "behavioral", label: "Analyze Behavior Data", icon: "Activity" },
+      { id: "team-roles", label: "Manage Team Roles", icon: "Shield" },
+    ],
+    hasABTesting: true,
+    hasAdvancedAnalytics: true,
+    hasAutomation: true,
+    hasCRM: true,
+    hasCRMPipeline: true,
+    hasAPIAccess: true,
+    hasCompetitorAnalysis: true,
+    hasBrandVoice: true,
+    hasPredictiveScoring: true,
+    hasConditionalWorkflows: true,
+    hasDropOffAnalysis: true,
+    hasRevenueForecasting: true,
+    hasSSO: true,
+    has2FA: true,
+    hasAuditLogs: true,
+    hasBehavioralAnalytics: true,
+    hasTeamManagement: true,
+    hasCustomerJourneyMap: true,
+    hasHeatmapAnalytics: true,
+    hasDynamicPersonalization: true,
+    hasMultiLanguageContent: true,
+    hasPhoneSupport: true,
+    supportLevel: "Phone + Priority",
+    upgradeTo: "enterprise",
   },
 };
 

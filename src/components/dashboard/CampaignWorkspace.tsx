@@ -23,7 +23,7 @@ const abTests = [
 ];
 
 const CampaignWorkspace = ({ plan }: CampaignWorkspaceProps) => {
-  const isPro = plan.name === "professional";
+  const isPro = plan.name === "professional" || plan.name === "business";
   const campaignLimit = plan.maxCampaigns === "Unlimited" ? "∞" : plan.maxCampaigns;
 
   return (
