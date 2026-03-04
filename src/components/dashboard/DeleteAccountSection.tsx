@@ -23,13 +23,21 @@ export const DeleteAccountSection = () => {
   const { toast } = useToast();
   const [dialogOpen, setDialogOpen] = useState(false);
   const [confirmText, setConfirmText] = useState("");
+  const [password, setPassword] = useState("");
   const [deleting, setDeleting] = useState(false);
 
   const handleDelete = async () => {
-    if (confirmText !== "DELETE" || !user) return;
+    if (confirmText !== "DELETE" || !user || !password) return;
 
     setDeleting(true);
     try {
+      // Re-authenticate with password
+      const { error: authError } = await supabase.auth.signInWithPassword({
+        email: user.email!,
+        password,
+      });
+      if (authError) throw new Error("Incorrect password. Please try again.");
+
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) throw new Error("No active session");
 
@@ -63,6 +71,7 @@ export const DeleteAccountSection = () => {
       setDeleting(false);
       setDialogOpen(false);
       setConfirmText("");
+      setPassword("");
     }
   };
 
@@ -82,7 +91,7 @@ export const DeleteAccountSection = () => {
         </CardContent>
       </Card>
 
-      <Dialog open={dialogOpen} onOpenChange={(open) => { if (!deleting) { setDialogOpen(open); setConfirmText(""); } }}>
+      <Dialog open={dialogOpen} onOpenChange={(open) => { if (!deleting) { setDialogOpen(open); setConfirmText(""); setPassword(""); } }}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2 text-destructive">
@@ -90,7 +99,7 @@ export const DeleteAccountSection = () => {
               Delete Your Account?
             </DialogTitle>
             <DialogDescription>
-              This action is permanent and cannot be undone.
+              This action is permanent and cannot be undone. Re-enter your password to proceed.
             </DialogDescription>
           </DialogHeader>
 
@@ -109,6 +118,18 @@ export const DeleteAccountSection = () => {
             </div>
 
             <div className="space-y-2">
+              <Label htmlFor="confirm-password">Enter your password</Label>
+              <Input
+                id="confirm-password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Your current password"
+                disabled={deleting}
+              />
+            </div>
+
+            <div className="space-y-2">
               <Label htmlFor="confirm-delete">
                 Type <span className="font-mono font-bold text-destructive">DELETE</span> to confirm
               </Label>
@@ -123,13 +144,13 @@ export const DeleteAccountSection = () => {
           </div>
 
           <DialogFooter className="gap-2 sm:gap-0">
-            <Button variant="outline" onClick={() => { setDialogOpen(false); setConfirmText(""); }} disabled={deleting}>
+            <Button variant="outline" onClick={() => { setDialogOpen(false); setConfirmText(""); setPassword(""); }} disabled={deleting}>
               Cancel
             </Button>
             <Button
               variant="destructive"
               onClick={handleDelete}
-              disabled={confirmText !== "DELETE" || deleting}
+              disabled={confirmText !== "DELETE" || !password || deleting}
             >
               {deleting && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
               Confirm Deletion
