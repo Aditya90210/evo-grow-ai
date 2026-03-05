@@ -43,7 +43,8 @@ const WelcomeSection = ({
   const campaignLabel = plan.maxCampaigns === "Unlimited" ? `${activeCampaigns}` : `${activeCampaigns}/${plan.maxCampaigns}`;
   const funnelLabel = plan.maxFunnels === "Unlimited" ? `${activeFunnels}` : `${activeFunnels}/${plan.maxFunnels}`;
 
-  const isAdvanced = plan.name === "professional" || plan.name === "business";
+  const isEnterprise = plan.name === "enterprise";
+  const isAdvanced = plan.name === "professional" || plan.name === "business" || isEnterprise;
 
   return (
     <div className="space-y-6">
