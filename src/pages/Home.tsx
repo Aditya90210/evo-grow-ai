@@ -26,6 +26,9 @@ import RevenueForecasting from "@/components/dashboard/RevenueForecasting";
 import BehavioralAnalytics from "@/components/dashboard/BehavioralAnalytics";
 import TeamManagement from "@/components/dashboard/TeamManagement";
 import SecurityInfrastructure from "@/components/dashboard/SecurityInfrastructure";
+import CrossDepartmentDashboard from "@/components/dashboard/CrossDepartmentDashboard";
+import EnterpriseIntegrationHub from "@/components/dashboard/EnterpriseIntegrationHub";
+import DedicatedAccountManager from "@/components/dashboard/DedicatedAccountManager";
 
 interface Profile {
   display_name: string | null;
@@ -41,7 +44,8 @@ const Home = () => {
   const [aiGenerationsUsed, setAiGenerationsUsed] = useState(12);
 
   const plan = getPlanLimits(currentPlan);
-  const isBusiness = plan.name === "business";
+  const isEnterprise = plan.name === "enterprise";
+  const isBusiness = plan.name === "business" || isEnterprise;
   const isAdvanced = plan.name === "professional" || isBusiness;
 
   useEffect(() => {
@@ -106,6 +110,11 @@ const Home = () => {
       "revenue-forecast": "revenue-forecasting",
       "behavioral": "behavioral-analytics",
       "team-roles": "team-management",
+      "cross-dept": "cross-department",
+      "crm": "automation-center",
+      "integrations": "enterprise-integrations",
+      "compliance": "security-infrastructure",
+      "custom-ai": "ai-generator",
     };
     const el = document.getElementById(sectionMap[action] || "");
     el?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -137,28 +146,35 @@ const Home = () => {
       </header>
 
       <main className="container mx-auto px-4 py-8 space-y-8 max-w-7xl">
-        {/* 1️⃣ Executive Revenue Overview */}
+        {/* 1️⃣ Executive Command Overview */}
         <WelcomeSection
           displayName={displayName}
           avatarUrl={profile?.avatar_url || ""}
           initials={getInitials()}
           aiGenerationsUsed={aiGenerationsUsed}
-          activeCampaigns={isBusiness ? 8 : isAdvanced ? 3 : 1}
-          connectedChannels={isBusiness ? 18 : isAdvanced ? 8 : 2}
-          weeklyClicks={isBusiness ? 12480 : isAdvanced ? 4280 : 847}
-          weeklyLeads={isBusiness ? 423 : isAdvanced ? 156 : 23}
-          weeklyConversions={isBusiness ? 128 : isAdvanced ? 42 : 8}
+          activeCampaigns={isEnterprise ? 24 : isBusiness ? 8 : isAdvanced ? 3 : 1}
+          connectedChannels={isEnterprise ? 48 : isBusiness ? 18 : isAdvanced ? 8 : 2}
+          weeklyClicks={isEnterprise ? 48200 : isBusiness ? 12480 : isAdvanced ? 4280 : 847}
+          weeklyLeads={isEnterprise ? 1842 : isBusiness ? 423 : isAdvanced ? 156 : 23}
+          weeklyConversions={isEnterprise ? 486 : isBusiness ? 128 : isAdvanced ? 42 : 8}
           plan={plan}
-          activeFunnels={isBusiness ? 12 : isAdvanced ? 4 : 1}
-          revenueTracked={isBusiness ? "$94,200" : isAdvanced ? "$28,400" : "$0"}
-          conversionRate={isBusiness ? 10.2 : isAdvanced ? 8.4 : 6.9}
-          bestCampaign={isBusiness ? "Revenue Growth Q1" : isAdvanced ? "Product Launch Q1" : undefined}
+          activeFunnels={isEnterprise ? 38 : isBusiness ? 12 : isAdvanced ? 4 : 1}
+          revenueTracked={isEnterprise ? "$509,400" : isBusiness ? "$94,200" : isAdvanced ? "$28,400" : "$0"}
+          conversionRate={isEnterprise ? 11.8 : isBusiness ? 10.2 : isAdvanced ? 8.4 : 6.9}
+          bestCampaign={isEnterprise ? "Enterprise Growth Q1" : isBusiness ? "Revenue Growth Q1" : isAdvanced ? "Product Launch Q1" : undefined}
         />
 
-        {/* 2️⃣ Intelligent Quick Action Panel */}
+        {/* 2️⃣ Executive Quick Action Panel */}
         <QuickActions onAction={handleQuickAction} plan={plan} />
 
-        {/* 3️⃣ AI Content & Personalization Engine + 4️⃣ Campaign Command Center */}
+        {/* 4️⃣ Cross-Department Intelligence Dashboard (Enterprise) */}
+        {isEnterprise && (
+          <div id="cross-department">
+            <CrossDepartmentDashboard />
+          </div>
+        )}
+
+        {/* 3️⃣ AI Content & Personalization Engine + Campaign Command Center */}
         <div className="grid lg:grid-cols-2 gap-8" id="ai-generator">
           <AIContentGenerator
             generationsUsed={aiGenerationsUsed}
@@ -171,7 +187,7 @@ const Home = () => {
           </div>
         </div>
 
-        {/* 5️⃣ Unlimited Funnel & CRO System */}
+        {/* 5️⃣ Funnel & CRO System */}
         <div className="grid lg:grid-cols-2 gap-8" id="funnel-builder">
           <FunnelBuilder plan={plan} />
           <div id="lead-forms">
@@ -179,7 +195,7 @@ const Home = () => {
           </div>
         </div>
 
-        {/* 6️⃣ Advanced Automation & 7️⃣ Customer Intelligence CRM */}
+        {/* 6️⃣ CRM & Automation */}
         {plan.hasCRM && (
           <div className="grid lg:grid-cols-2 gap-8" id="automation-center">
             <MiniCRM plan={plan} />
@@ -187,21 +203,28 @@ const Home = () => {
           </div>
         )}
 
-        {/* 8️⃣ Behavioral Analytics Engine (Business+) */}
+        {/* 8️⃣ Behavioral Analytics */}
         {plan.hasBehavioralAnalytics && (
           <div id="behavioral-analytics">
             <BehavioralAnalytics />
           </div>
         )}
 
-        {/* 9️⃣ Revenue Forecasting & Strategic Insights (Business+) */}
+        {/* 9️⃣ Revenue Forecasting */}
         {plan.hasRevenueForecasting && (
           <div id="revenue-forecasting">
             <RevenueForecasting />
           </div>
         )}
 
-        {/* 🔟 Team & Role Management (Business+) */}
+        {/* 🔟 Enterprise Integration Hub */}
+        {isEnterprise && (
+          <div id="enterprise-integrations">
+            <EnterpriseIntegrationHub />
+          </div>
+        )}
+
+        {/* Team & Role Management */}
         {plan.hasTeamManagement && (
           <div id="team-management">
             <TeamManagement plan={plan} />
@@ -209,7 +232,7 @@ const Home = () => {
         )}
 
         {/* API & Integration Center - Professional+ */}
-        {plan.hasAPIAccess && (
+        {plan.hasAPIAccess && !isEnterprise && (
           <div id="api-center">
             <APIIntegrationCenter />
           </div>
@@ -220,37 +243,39 @@ const Home = () => {
           <AnalyticsDashboard plan={plan} />
         </div>
 
-        {/* 1️⃣1️⃣ Security & Infrastructure + 1️⃣2️⃣ Usage Monitor */}
-        <div className="grid lg:grid-cols-2 gap-8">
+        {/* Security & Infrastructure + Usage Monitor */}
+        <div className="grid lg:grid-cols-2 gap-8" id="security-infrastructure">
           {plan.hasSSO ? (
             <SecurityInfrastructure plan={plan} />
           ) : (
             <StorageUsageMonitor
-              storageUsedGB={isBusiness ? 247 : isAdvanced ? 34.7 : 2.3}
+              storageUsedGB={isAdvanced ? 34.7 : 2.3}
               aiGenerationsUsed={aiGenerationsUsed}
-              campaignsUsed={isBusiness ? 8 : isAdvanced ? 3 : 1}
+              campaignsUsed={isAdvanced ? 3 : 1}
               plan={plan}
-              activeAutomations={isBusiness ? 12 : isAdvanced ? 5 : 0}
-              apiUsage={isBusiness ? 4820 : isAdvanced ? 1247 : 0}
+              activeAutomations={isAdvanced ? 5 : 0}
+              apiUsage={isAdvanced ? 1247 : 0}
             />
           )}
           {plan.hasSSO && (
             <StorageUsageMonitor
-              storageUsedGB={247}
+              storageUsedGB={isEnterprise ? 1240 : 247}
               aiGenerationsUsed={aiGenerationsUsed}
-              campaignsUsed={8}
+              campaignsUsed={isEnterprise ? 24 : 8}
               plan={plan}
-              activeAutomations={12}
-              apiUsage={4820}
+              activeAutomations={isEnterprise ? 42 : 12}
+              apiUsage={isEnterprise ? 248320 : 4820}
             />
           )}
-          {/* 1️⃣3️⃣ Support & Strategic Resources */}
           {!plan.hasSSO && <SupportHelp plan={plan} />}
         </div>
 
-        {plan.hasSSO && (
+        {/* Dedicated Account Manager (Enterprise) or Support */}
+        {isEnterprise ? (
+          <DedicatedAccountManager />
+        ) : plan.hasSSO ? (
           <SupportHelp plan={plan} />
-        )}
+        ) : null}
       </main>
     </div>
   );

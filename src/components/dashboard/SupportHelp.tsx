@@ -9,8 +9,9 @@ interface SupportHelpProps {
 }
 
 const SupportHelp = ({ plan }: SupportHelpProps) => {
-  const isPro = plan.name === "professional" || plan.name === "business";
-  const isBusiness = plan.name === "business";
+  const isEnterprise = plan.name === "enterprise";
+  const isPro = plan.name === "professional" || plan.name === "business" || isEnterprise;
+  const isBusiness = plan.name === "business" || isEnterprise;
 
   return (
     <Card className="border-border/50">

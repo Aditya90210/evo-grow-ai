@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import {
   Sparkles, Share2, FileText, GitBranch, ClipboardList, Plug,
   Megaphone, Mail, Target, Workflow, FlaskConical, Search, Mic, Code,
-  Map, TrendingUp, Activity, Shield,
+  Map, TrendingUp, Activity, Shield, BarChart3, Users, Brain,
 } from "lucide-react";
 import type { PlanLimits } from "@/lib/planLimits";
 
@@ -15,7 +15,7 @@ interface QuickActionsProps {
 const iconMap: Record<string, any> = {
   Sparkles, Share2, FileText, GitBranch, ClipboardList, Plug,
   Megaphone, Mail, Target, Workflow, FlaskConical, Search, Mic, Code,
-  Map, TrendingUp, Activity, Shield,
+  Map, TrendingUp, Activity, Shield, BarChart3, Users, Brain,
 };
 
 const QuickActions = ({ onAction, plan }: QuickActionsProps) => {
@@ -23,7 +23,7 @@ const QuickActions = ({ onAction, plan }: QuickActionsProps) => {
     <Card className="border-border/50">
       <CardHeader className="pb-3">
         <CardTitle className="text-lg">
-          {plan.name === "professional" ? "Advanced Quick Actions" : "Quick Actions"}
+          {plan.name === "enterprise" ? "Executive Quick Actions" : plan.name === "professional" ? "Advanced Quick Actions" : "Quick Actions"}
         </CardTitle>
       </CardHeader>
       <CardContent>
