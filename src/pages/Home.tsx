@@ -29,6 +29,10 @@ import SecurityInfrastructure from "@/components/dashboard/SecurityInfrastructur
 import CrossDepartmentDashboard from "@/components/dashboard/CrossDepartmentDashboard";
 import EnterpriseIntegrationHub from "@/components/dashboard/EnterpriseIntegrationHub";
 import DedicatedAccountManager from "@/components/dashboard/DedicatedAccountManager";
+import AIMarketIntelligence from "@/components/dashboard/AIMarketIntelligence";
+import MultiBrandManager from "@/components/dashboard/MultiBrandManager";
+import AIStrategicAdvisor from "@/components/dashboard/AIStrategicAdvisor";
+import AssetLibrary from "@/components/dashboard/AssetLibrary";
 
 interface Profile {
   display_name: string | null;
@@ -44,7 +48,8 @@ const Home = () => {
   const [aiGenerationsUsed, setAiGenerationsUsed] = useState(12);
 
   const plan = getPlanLimits(currentPlan);
-  const isEnterprise = plan.name === "enterprise";
+  const isUltimate = plan.name === "ultimate";
+  const isEnterprise = plan.name === "enterprise" || isUltimate;
   const isBusiness = plan.name === "business" || isEnterprise;
   const isAdvanced = plan.name === "professional" || isBusiness;
 
@@ -115,6 +120,10 @@ const Home = () => {
       "integrations": "enterprise-integrations",
       "compliance": "security-infrastructure",
       "custom-ai": "ai-generator",
+      "market-intel": "market-intelligence",
+      "multi-brand": "multi-brand",
+      "strategic-advisor": "strategic-advisor",
+      "asset-library": "asset-library",
     };
     const el = document.getElementById(sectionMap[action] || "");
     el?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -146,35 +155,42 @@ const Home = () => {
       </header>
 
       <main className="container mx-auto px-4 py-8 space-y-8 max-w-7xl">
-        {/* 1️⃣ Executive Command Overview */}
+        {/* 1️⃣ Executive / Business Intelligence Overview */}
         <WelcomeSection
           displayName={displayName}
           avatarUrl={profile?.avatar_url || ""}
           initials={getInitials()}
           aiGenerationsUsed={aiGenerationsUsed}
-          activeCampaigns={isEnterprise ? 24 : isBusiness ? 8 : isAdvanced ? 3 : 1}
-          connectedChannels={isEnterprise ? 48 : isBusiness ? 18 : isAdvanced ? 8 : 2}
-          weeklyClicks={isEnterprise ? 48200 : isBusiness ? 12480 : isAdvanced ? 4280 : 847}
-          weeklyLeads={isEnterprise ? 1842 : isBusiness ? 423 : isAdvanced ? 156 : 23}
-          weeklyConversions={isEnterprise ? 486 : isBusiness ? 128 : isAdvanced ? 42 : 8}
+          activeCampaigns={isUltimate ? 42 : isEnterprise ? 24 : isBusiness ? 8 : isAdvanced ? 3 : 1}
+          connectedChannels={isUltimate ? 120 : isEnterprise ? 48 : isBusiness ? 18 : isAdvanced ? 8 : 2}
+          weeklyClicks={isUltimate ? 128400 : isEnterprise ? 48200 : isBusiness ? 12480 : isAdvanced ? 4280 : 847}
+          weeklyLeads={isUltimate ? 4820 : isEnterprise ? 1842 : isBusiness ? 423 : isAdvanced ? 156 : 23}
+          weeklyConversions={isUltimate ? 1284 : isEnterprise ? 486 : isBusiness ? 128 : isAdvanced ? 42 : 8}
           plan={plan}
-          activeFunnels={isEnterprise ? 38 : isBusiness ? 12 : isAdvanced ? 4 : 1}
-          revenueTracked={isEnterprise ? "$509,400" : isBusiness ? "$94,200" : isAdvanced ? "$28,400" : "$0"}
-          conversionRate={isEnterprise ? 11.8 : isBusiness ? 10.2 : isAdvanced ? 8.4 : 6.9}
-          bestCampaign={isEnterprise ? "Enterprise Growth Q1" : isBusiness ? "Revenue Growth Q1" : isAdvanced ? "Product Launch Q1" : undefined}
+          activeFunnels={isUltimate ? 86 : isEnterprise ? 38 : isBusiness ? 12 : isAdvanced ? 4 : 1}
+          revenueTracked={isUltimate ? "$1,284,600" : isEnterprise ? "$509,400" : isBusiness ? "$94,200" : isAdvanced ? "$28,400" : "$0"}
+          conversionRate={isUltimate ? 14.2 : isEnterprise ? 11.8 : isBusiness ? 10.2 : isAdvanced ? 8.4 : 6.9}
+          bestCampaign={isUltimate ? "Ultimate Growth Q1 Multi-Brand" : isEnterprise ? "Enterprise Growth Q1" : isBusiness ? "Revenue Growth Q1" : isAdvanced ? "Product Launch Q1" : undefined}
         />
 
-        {/* 2️⃣ Executive Quick Action Panel */}
+        {/* 2️⃣ Quick Action Panel */}
         <QuickActions onAction={handleQuickAction} plan={plan} />
 
-        {/* 4️⃣ Cross-Department Intelligence Dashboard (Enterprise) */}
+        {/* Cross-Department / Command Dashboard (Enterprise+) */}
         {isEnterprise && (
           <div id="cross-department">
             <CrossDepartmentDashboard />
           </div>
         )}
 
-        {/* 3️⃣ AI Content & Personalization Engine + Campaign Command Center */}
+        {/* 4️⃣ AI Market Intelligence (Ultimate) */}
+        {isUltimate && (
+          <div id="market-intelligence">
+            <AIMarketIntelligence />
+          </div>
+        )}
+
+        {/* 3️⃣ AI Content Engine + Campaign Command Center */}
         <div className="grid lg:grid-cols-2 gap-8" id="ai-generator">
           <AIContentGenerator
             generationsUsed={aiGenerationsUsed}
@@ -187,6 +203,18 @@ const Home = () => {
           </div>
         </div>
 
+        {/* 6️⃣ Multi-Brand Management + AI Strategic Advisor (Ultimate) */}
+        {isUltimate && (
+          <div className="grid lg:grid-cols-2 gap-8">
+            <div id="multi-brand">
+              <MultiBrandManager />
+            </div>
+            <div id="strategic-advisor">
+              <AIStrategicAdvisor />
+            </div>
+          </div>
+        )}
+
         {/* 5️⃣ Funnel & CRO System */}
         <div className="grid lg:grid-cols-2 gap-8" id="funnel-builder">
           <FunnelBuilder plan={plan} />
@@ -195,7 +223,7 @@ const Home = () => {
           </div>
         </div>
 
-        {/* 6️⃣ CRM & Automation */}
+        {/* CRM & Automation */}
         {plan.hasCRM && (
           <div className="grid lg:grid-cols-2 gap-8" id="automation-center">
             <MiniCRM plan={plan} />
@@ -203,21 +231,28 @@ const Home = () => {
           </div>
         )}
 
-        {/* 8️⃣ Behavioral Analytics */}
+        {/* 9️⃣ Asset Library (Ultimate) */}
+        {isUltimate && (
+          <div id="asset-library">
+            <AssetLibrary />
+          </div>
+        )}
+
+        {/* Behavioral Analytics */}
         {plan.hasBehavioralAnalytics && (
           <div id="behavioral-analytics">
             <BehavioralAnalytics />
           </div>
         )}
 
-        {/* 9️⃣ Revenue Forecasting */}
+        {/* Revenue Forecasting */}
         {plan.hasRevenueForecasting && (
           <div id="revenue-forecasting">
             <RevenueForecasting />
           </div>
         )}
 
-        {/* 🔟 Enterprise Integration Hub */}
+        {/* Enterprise Integration Hub */}
         {isEnterprise && (
           <div id="enterprise-integrations">
             <EnterpriseIntegrationHub />
@@ -231,7 +266,7 @@ const Home = () => {
           </div>
         )}
 
-        {/* API & Integration Center - Professional+ */}
+        {/* API & Integration Center - Professional+ (non-Enterprise) */}
         {plan.hasAPIAccess && !isEnterprise && (
           <div id="api-center">
             <APIIntegrationCenter />
@@ -259,18 +294,18 @@ const Home = () => {
           )}
           {plan.hasSSO && (
             <StorageUsageMonitor
-              storageUsedGB={isEnterprise ? 1240 : 247}
+              storageUsedGB={isUltimate ? 8420 : isEnterprise ? 1240 : 247}
               aiGenerationsUsed={aiGenerationsUsed}
-              campaignsUsed={isEnterprise ? 24 : 8}
+              campaignsUsed={isUltimate ? 42 : isEnterprise ? 24 : 8}
               plan={plan}
-              activeAutomations={isEnterprise ? 42 : 12}
-              apiUsage={isEnterprise ? 248320 : 4820}
+              activeAutomations={isUltimate ? 128 : isEnterprise ? 42 : 12}
+              apiUsage={isUltimate ? 842000 : isEnterprise ? 248320 : 4820}
             />
           )}
           {!plan.hasSSO && <SupportHelp plan={plan} />}
         </div>
 
-        {/* Dedicated Account Manager (Enterprise) or Support */}
+        {/* Dedicated Account Manager / Support */}
         {isEnterprise ? (
           <DedicatedAccountManager />
         ) : plan.hasSSO ? (
