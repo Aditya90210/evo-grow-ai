@@ -94,7 +94,7 @@ export const planFeatures: Record<string, {
   },
   ultimate: {
     label: "Ultimate",
-    features: ["Everything in Enterprise", "24/7 Priority Support", "Custom Feature Development", "Dedicated Infrastructure", "Executive Business Reviews", "Full Customization"],
+    features: ["Everything in Enterprise", "24/7 Priority Support", "Custom Feature Development", "Dedicated Infrastructure", "Executive Business Reviews", "Full Customization", "Unlimited Brands", "AI Strategic Advisor"],
     teamMembers: "Unlimited",
     reportsLimit: "Unlimited",
     supportLevel: "24/7",

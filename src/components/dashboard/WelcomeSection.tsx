@@ -43,7 +43,8 @@ const WelcomeSection = ({
   const campaignLabel = plan.maxCampaigns === "Unlimited" ? `${activeCampaigns}` : `${activeCampaigns}/${plan.maxCampaigns}`;
   const funnelLabel = plan.maxFunnels === "Unlimited" ? `${activeFunnels}` : `${activeFunnels}/${plan.maxFunnels}`;
 
-  const isEnterprise = plan.name === "enterprise";
+  const isUltimate = plan.name === "ultimate";
+  const isEnterprise = plan.name === "enterprise" || isUltimate;
   const isAdvanced = plan.name === "professional" || plan.name === "business" || isEnterprise;
 
   return (
