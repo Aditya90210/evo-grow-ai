@@ -4,6 +4,7 @@ import {
   Sparkles, Share2, FileText, GitBranch, ClipboardList, Plug,
   Megaphone, Mail, Target, Workflow, FlaskConical, Search, Mic, Code,
   Map, TrendingUp, Activity, Shield, BarChart3, Users, Brain,
+  Building2, FolderOpen,
 } from "lucide-react";
 import type { PlanLimits } from "@/lib/planLimits";
 
@@ -16,6 +17,7 @@ const iconMap: Record<string, any> = {
   Sparkles, Share2, FileText, GitBranch, ClipboardList, Plug,
   Megaphone, Mail, Target, Workflow, FlaskConical, Search, Mic, Code,
   Map, TrendingUp, Activity, Shield, BarChart3, Users, Brain,
+  Building2, FolderOpen,
 };
 
 const QuickActions = ({ onAction, plan }: QuickActionsProps) => {
