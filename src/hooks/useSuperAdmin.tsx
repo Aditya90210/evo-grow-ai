@@ -26,11 +26,11 @@ export const useSuperAdmin = () => {
 
   const logAction = async (action: string, details: Record<string, unknown> = {}) => {
     if (!user) return;
-    await supabase.from("system_logs").insert({
+    await supabase.from("system_logs").insert([{
       user_id: user.id,
       action,
-      details,
-    });
+      details: details as any,
+    }]);
   };
 
   return { isSuperAdmin, loading, logAction };
