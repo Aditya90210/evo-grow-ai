@@ -90,6 +90,8 @@ import BusinessProfile from "./pages/BusinessProfile";
 
 // Personalized Home
 import Home from "./pages/Home";
+// Super Admin
+import SuperAdmin from "./pages/SuperAdmin";
 
 const queryClient = new QueryClient();
 
@@ -161,6 +163,7 @@ const App = () => (
               <Route path="/features" element={<Features />} />
               <Route path="/studio" element={<Studio />} />
               <Route path="/business-profile" element={<BusinessProfile />} />
+              <Route path="/super-admin" element={<SuperAdmin />} />
               {/* Documentation pages */}
               <Route path="/docs/quick-start-guide" element={<QuickStartGuide />} />
               <Route path="/docs/installation" element={<Installation />} />
