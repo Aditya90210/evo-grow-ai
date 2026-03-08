@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { useSubscription } from "@/hooks/useSubscription";
 import { supabase } from "@/integrations/supabase/client";
-import { Loader2, Settings, LogOut, Sparkles } from "lucide-react";
+import { Loader2, Settings, LogOut, Sparkles, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ThemeToggle from "@/components/ThemeToggle";
 import { Link } from "react-router-dom";
@@ -46,6 +46,7 @@ const Home = () => {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
   const [aiGenerationsUsed, setAiGenerationsUsed] = useState(12);
+  const [isSuperAdmin, setIsSuperAdmin] = useState(false);
 
   const plan = getPlanLimits(currentPlan);
   const isUltimate = plan.name === "ultimate";
@@ -64,9 +65,7 @@ const Home = () => {
           _user_id: user.id,
           _role: "super_admin" as const,
         });
-        if (data) {
-          navigate("/super-admin");
-        }
+        if (data) setIsSuperAdmin(true);
       }
     };
     if (user) checkSuperAdmin();
@@ -156,6 +155,14 @@ const Home = () => {
             </div>
           </div>
           <div className="flex items-center gap-2">
+            {isSuperAdmin && (
+              <Button variant="outline" size="sm" asChild>
+                <Link to="/super-admin" className="gap-2">
+                  <Shield className="w-4 h-4 text-destructive" />
+                  Super Admin
+                </Link>
+              </Button>
+            )}
             <ThemeToggle />
             <Button variant="ghost" size="icon" asChild>
               <Link to="/dashboard"><Settings className="w-5 h-5" /></Link>
