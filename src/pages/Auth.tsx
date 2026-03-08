@@ -56,8 +56,17 @@ const Auth = () => {
 
   useEffect(() => {
     if (!user) return;
-    // Check if first-time user (no business profile yet)
-    const checkBusinessProfile = async () => {
+    const checkRoleAndRedirect = async () => {
+      // Check super_admin role first
+      const { data: isAdmin } = await supabase.rpc("has_role", {
+        _user_id: user.id,
+        _role: "super_admin" as const,
+      });
+      if (isAdmin) {
+        navigate("/super-admin");
+        return;
+      }
+      // Regular user: check business profile for onboarding
       const { data } = await supabase
         .from("business_profiles")
         .select("id")
@@ -69,7 +78,7 @@ const Auth = () => {
         navigate("/");
       }
     };
-    checkBusinessProfile();
+    checkRoleAndRedirect();
   }, [user, navigate]);
 
   useEffect(() => {

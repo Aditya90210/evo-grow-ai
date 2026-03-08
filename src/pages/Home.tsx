@@ -56,7 +56,20 @@ const Home = () => {
   useEffect(() => {
     if (!authLoading && !user) {
       navigate("/auth");
+      return;
     }
+    const checkSuperAdmin = async () => {
+      if (user) {
+        const { data } = await supabase.rpc("has_role", {
+          _user_id: user.id,
+          _role: "super_admin" as const,
+        });
+        if (data) {
+          navigate("/super-admin");
+        }
+      }
+    };
+    if (user) checkSuperAdmin();
   }, [user, authLoading, navigate]);
 
   useEffect(() => {
