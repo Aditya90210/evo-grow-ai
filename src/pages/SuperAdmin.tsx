@@ -45,7 +45,7 @@ const SuperAdmin = () => {
 
   useEffect(() => {
     if (!authLoading && !roleLoading && user && !isSuperAdmin) {
-      navigate("/home");
+      navigate("/pricing");
     }
   }, [authLoading, roleLoading, user, isSuperAdmin, navigate]);
 

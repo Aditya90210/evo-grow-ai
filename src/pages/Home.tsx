@@ -59,16 +59,40 @@ const Home = () => {
       navigate("/auth");
       return;
     }
-    const checkSuperAdmin = async () => {
-      if (user) {
-        const { data } = await supabase.rpc("has_role", {
-          _user_id: user.id,
-          _role: "super_admin" as const,
-        });
-        if (data) setIsSuperAdmin(true);
+
+    const checkAccessAndRedirect = async () => {
+      if (!user) return;
+
+      // Check super_admin role
+      const { data: isAdmin } = await supabase.rpc("has_role", {
+        _user_id: user.id,
+        _role: "super_admin" as const,
+      });
+      if (isAdmin) {
+        setIsSuperAdmin(true);
+        return;
+      }
+
+      // Verify user has active subscription; if not, redirect to pricing
+      const { data: sub } = await supabase
+        .from("subscriptions")
+        .select("plan_name, status")
+        .eq("user_id", user.id)
+        .maybeSingle();
+
+      if (!sub || sub.status !== "active") {
+        navigate("/pricing");
+        return;
+      }
+
+      // Ensure user is on the correct plan-specific route
+      const expectedPath = `/${sub.plan_name}-dashboard`;
+      if (window.location.pathname === "/home") {
+        navigate(expectedPath, { replace: true });
       }
     };
-    if (user) checkSuperAdmin();
+
+    if (user) checkAccessAndRedirect();
   }, [user, authLoading, navigate]);
 
   useEffect(() => {

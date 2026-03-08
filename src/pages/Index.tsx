@@ -25,14 +25,27 @@ const Index = () => {
   useEffect(() => {
     const checkRoleAndRedirect = async () => {
       if (!loading && user) {
-        const { data } = await supabase.rpc("has_role", {
+        // 1. Check super_admin role first
+        const { data: isSuperAdmin } = await supabase.rpc("has_role", {
           _user_id: user.id,
           _role: "super_admin" as const,
         });
-        if (data) {
+        if (isSuperAdmin) {
           navigate("/super-admin");
+          return;
+        }
+
+        // 2. Check subscription
+        const { data: sub } = await supabase
+          .from("subscriptions")
+          .select("plan_name, status")
+          .eq("user_id", user.id)
+          .maybeSingle();
+
+        if (sub && sub.status === "active" && sub.plan_name) {
+          navigate(`/${sub.plan_name}-dashboard`);
         } else {
-          navigate("/home");
+          navigate("/pricing");
         }
       }
     };
