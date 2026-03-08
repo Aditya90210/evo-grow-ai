@@ -155,6 +155,14 @@ const Home = () => {
             </div>
           </div>
           <div className="flex items-center gap-2">
+            {isSuperAdmin && (
+              <Button variant="outline" size="sm" asChild>
+                <Link to="/super-admin" className="gap-2">
+                  <Shield className="w-4 h-4 text-destructive" />
+                  Super Admin
+                </Link>
+              </Button>
+            )}
             <ThemeToggle />
             <Button variant="ghost" size="icon" asChild>
               <Link to="/dashboard"><Settings className="w-5 h-5" /></Link>
