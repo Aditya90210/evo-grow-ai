@@ -1,45 +1,23 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Users, CreditCard, Activity, Brain, HardDrive, Globe, TrendingUp, Server, Database, Cpu } from "lucide-react";
-
-interface PlatformStats {
-  totalUsers: number;
-  activeUsers: number;
-  activeSubscriptions: number;
-  mrr: number;
-  arr: number;
-  newUsersToday: number;
-  aiGenerationsToday: number;
-  activeCampaigns: number;
-  storageUsedGB: number;
-  apiRequestsToday: number;
-}
+import { Users, CreditCard, Activity, Brain, HardDrive, Globe, TrendingUp, Server, Database, Cpu, Loader2 } from "lucide-react";
+import { useAdminUsers } from "@/hooks/useAdminUsers";
 
 const PlatformOverview = () => {
-  const stats: PlatformStats = {
-    totalUsers: 2847,
-    activeUsers: 1923,
-    activeSubscriptions: 1456,
-    mrr: 284750,
-    arr: 3417000,
-    newUsersToday: 34,
-    aiGenerationsToday: 12847,
-    activeCampaigns: 892,
-    storageUsedGB: 4.2,
-    apiRequestsToday: 89432,
-  };
+  const { users, loading } = useAdminUsers();
+
+  const totalUsers = users.length;
+  const activeSubscriptions = users.filter((u) => u.subscription_status === "active").length;
 
   const metrics = [
-    { label: "Total Users", value: stats.totalUsers.toLocaleString(), icon: Users, trend: "+12%" },
-    { label: "Active Users", value: stats.activeUsers.toLocaleString(), icon: Activity, trend: "+8%" },
-    { label: "Active Subscriptions", value: stats.activeSubscriptions.toLocaleString(), icon: CreditCard, trend: "+5%" },
-    { label: "MRR", value: `$${(stats.mrr / 1000).toFixed(1)}K`, icon: TrendingUp, trend: "+15%" },
-    { label: "ARR", value: `$${(stats.arr / 1000000).toFixed(1)}M`, icon: TrendingUp, trend: "+18%" },
-    { label: "New Users Today", value: stats.newUsersToday.toString(), icon: Users, trend: "+22%" },
-    { label: "AI Generations Today", value: stats.aiGenerationsToday.toLocaleString(), icon: Brain, trend: "+30%" },
-    { label: "Active Campaigns", value: stats.activeCampaigns.toString(), icon: Globe, trend: "+7%" },
-    { label: "Storage Used", value: `${stats.storageUsedGB} TB`, icon: HardDrive, trend: "+3%" },
-    { label: "API Requests Today", value: stats.apiRequestsToday.toLocaleString(), icon: Globe, trend: "+25%" },
+    { label: "Total Users", value: totalUsers.toLocaleString(), icon: Users, trend: "live" },
+    { label: "Active Subscriptions", value: activeSubscriptions.toLocaleString(), icon: CreditCard, trend: "live" },
+    { label: "MRR", value: "$284.8K", icon: TrendingUp, trend: "+15%" },
+    { label: "ARR", value: "$3.4M", icon: TrendingUp, trend: "+18%" },
+    { label: "AI Generations Today", value: "12,847", icon: Brain, trend: "+30%" },
+    { label: "Active Campaigns", value: "892", icon: Globe, trend: "+7%" },
+    { label: "Storage Used", value: "4.2 TB", icon: HardDrive, trend: "+3%" },
+    { label: "API Requests Today", value: "89,432", icon: Globe, trend: "+25%" },
   ];
 
   const healthIndicators = [
@@ -48,6 +26,14 @@ const PlatformOverview = () => {
     { label: "Database Activity", status: "healthy", icon: Database },
   ];
 
+  if (loading) {
+    return (
+      <div id="platform-overview" className="flex items-center justify-center py-12">
+        <Loader2 className="h-6 w-6 animate-spin text-primary" />
+      </div>
+    );
+  }
+
   return (
     <div id="platform-overview" className="space-y-6">
       <div>
@@ -55,7 +41,7 @@ const PlatformOverview = () => {
         <p className="text-muted-foreground">Real-time platform health and metrics</p>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {metrics.map((m) => (
           <Card key={m.label} className="border-border/50">
             <CardContent className="p-4">

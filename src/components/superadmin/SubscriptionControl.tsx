@@ -2,15 +2,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { CreditCard, TrendingUp, TrendingDown, ArrowUpDown, Download } from "lucide-react";
-
-const subscriptionData = [
-  { user: "Sarah Chen", email: "sarah@acme.com", plan: "ultimate", status: "active", started: "2025-01-15", expires: "2026-01-15", revenue: 5999 },
-  { user: "Marcus Rivera", email: "marcus@growth.io", plan: "enterprise", status: "active", started: "2025-03-02", expires: "2026-03-02", revenue: 2999 },
-  { user: "Lisa Wong", email: "lisa@startup.co", plan: "business", status: "active", started: "2025-06-11", expires: "2026-06-11", revenue: 599 },
-  { user: "James O'Brien", email: "james@corp.net", plan: "professional", status: "expired", started: "2025-02-20", expires: "2026-02-20", revenue: 0 },
-  { user: "Anna Kowalski", email: "anna@digital.com", plan: "starter", status: "active", started: "2025-09-01", expires: "2026-09-01", revenue: 99 },
-];
+import { CreditCard, TrendingUp, TrendingDown, Download, Loader2 } from "lucide-react";
+import { useAdminUsers } from "@/hooks/useAdminUsers";
+import { format } from "date-fns";
 
 const analytics = [
   { label: "Revenue by Ultimate", value: "$143,976", trend: "+24%" },
@@ -22,12 +16,29 @@ const analytics = [
 ];
 
 const SubscriptionControl = () => {
+  const { users, loading } = useAdminUsers();
+
+  const usersWithSubs = users.filter((u) => u.plan_name);
+
+  const formatDate = (date: string | null) => {
+    if (!date) return "—";
+    try { return format(new Date(date), "yyyy-MM-dd"); } catch { return "—"; }
+  };
+
+  if (loading) {
+    return (
+      <div id="subscriptions" className="flex items-center justify-center py-12">
+        <Loader2 className="h-6 w-6 animate-spin text-primary" />
+      </div>
+    );
+  }
+
   return (
     <div id="subscriptions" className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
           <h2 className="text-2xl font-bold text-foreground">Subscription & Billing Control</h2>
-          <p className="text-muted-foreground">Manage all platform subscriptions</p>
+          <p className="text-muted-foreground">Manage all platform subscriptions ({usersWithSubs.length} total)</p>
         </div>
         <Button variant="outline"><Download className="h-4 w-4 mr-2" /> Export Report</Button>
       </div>
@@ -50,27 +61,26 @@ const SubscriptionControl = () => {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>User</TableHead>
+                <TableHead>Email</TableHead>
+                <TableHead>Name</TableHead>
                 <TableHead>Plan</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead>Started</TableHead>
                 <TableHead>Expires</TableHead>
-                <TableHead>Monthly Revenue</TableHead>
                 <TableHead>Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {subscriptionData.map((s) => (
-                <TableRow key={s.email}>
+              {usersWithSubs.map((u) => (
+                <TableRow key={u.user_id}>
                   <TableCell>
-                    <p className="font-medium text-foreground">{s.user}</p>
-                    <p className="text-xs text-muted-foreground">{s.email}</p>
+                    <p className="font-medium text-foreground text-sm">{u.email}</p>
                   </TableCell>
-                  <TableCell><Badge variant="outline" className="capitalize">{s.plan}</Badge></TableCell>
-                  <TableCell><Badge variant={s.status === "active" ? "default" : "destructive"}>{s.status}</Badge></TableCell>
-                  <TableCell className="text-sm text-muted-foreground">{s.started}</TableCell>
-                  <TableCell className="text-sm text-muted-foreground">{s.expires}</TableCell>
-                  <TableCell className="font-medium text-foreground">${s.revenue.toLocaleString()}</TableCell>
+                  <TableCell className="text-sm text-muted-foreground">{u.display_name || "—"}</TableCell>
+                  <TableCell><Badge variant="outline" className="capitalize">{u.plan_name}</Badge></TableCell>
+                  <TableCell><Badge variant={u.subscription_status === "active" ? "default" : "destructive"} className="capitalize">{u.subscription_status}</Badge></TableCell>
+                  <TableCell className="text-sm text-muted-foreground">{formatDate(u.subscription_started_at)}</TableCell>
+                  <TableCell className="text-sm text-muted-foreground">{formatDate(u.subscription_expires_at)}</TableCell>
                   <TableCell>
                     <div className="flex gap-1">
                       <Button variant="ghost" size="sm"><TrendingUp className="h-3 w-3 mr-1" /> Upgrade</Button>
@@ -79,6 +89,11 @@ const SubscriptionControl = () => {
                   </TableCell>
                 </TableRow>
               ))}
+              {usersWithSubs.length === 0 && (
+                <TableRow>
+                  <TableCell colSpan={7} className="text-center text-muted-foreground py-8">No subscriptions found</TableCell>
+                </TableRow>
+              )}
             </TableBody>
           </Table>
         </CardContent>
