@@ -106,6 +106,12 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/home" element={<Home />} />
+              <Route path="/starter-dashboard" element={<Home />} />
+              <Route path="/growth-dashboard" element={<Home />} />
+              <Route path="/professional-dashboard" element={<Home />} />
+              <Route path="/business-dashboard" element={<Home />} />
+              <Route path="/enterprise-dashboard" element={<Home />} />
+              <Route path="/ultimate-dashboard" element={<Home />} />
               <Route path="/auth" element={<Auth />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/dashboard/subscription" element={<Subscription />} />
