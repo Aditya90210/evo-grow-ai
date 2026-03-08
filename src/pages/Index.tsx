@@ -22,9 +22,20 @@ const Index = () => {
   }, []);
 
   useEffect(() => {
-    if (!loading && user) {
-      navigate("/home");
-    }
+    const checkRoleAndRedirect = async () => {
+      if (!loading && user) {
+        const { data } = await supabase.rpc("has_role", {
+          _user_id: user.id,
+          _role: "super_admin" as const,
+        });
+        if (data) {
+          navigate("/super-admin");
+        } else {
+          navigate("/home");
+        }
+      }
+    };
+    checkRoleAndRedirect();
   }, [user, loading, navigate]);
 
   return (
