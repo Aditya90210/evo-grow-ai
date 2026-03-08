@@ -46,6 +46,7 @@ const Home = () => {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
   const [aiGenerationsUsed, setAiGenerationsUsed] = useState(12);
+  const [isSuperAdmin, setIsSuperAdmin] = useState(false);
 
   const plan = getPlanLimits(currentPlan);
   const isUltimate = plan.name === "ultimate";
