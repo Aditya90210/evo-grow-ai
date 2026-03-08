@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
+import { useSubscription } from "@/hooks/useSubscription";
+import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -25,30 +27,14 @@ import {
   Gem,
   ArrowLeft,
   CreditCard,
-  Calendar,
   TrendingUp,
   Users,
   FileText,
   Settings,
   AlertTriangle,
+  Loader2,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-
-// Mock subscription data - in a real app, this would come from your database
-const mockSubscription = {
-  plan: "growth",
-  status: "active",
-  billingCycle: "monthly",
-  currentPeriodStart: "2024-01-01",
-  currentPeriodEnd: "2024-02-01",
-  nextBillingDate: "2024-02-01",
-  amount: 149,
-  usage: {
-    teamMembers: { used: 3, limit: 5 },
-    aiReports: { used: 47, limit: -1 }, // -1 means unlimited
-    storageGB: { used: 2.4, limit: 10 },
-  },
-};
 
 const plansData = {
   starter: { name: "Starter", icon: Zap, price: 49, color: "primary" },
@@ -63,51 +49,67 @@ type PlanKey = keyof typeof plansData;
 
 const Subscription = () => {
   const { user, loading: authLoading } = useAuth();
+  const { subscription, loading: subLoading, currentPlan } = useSubscription();
   const navigate = useNavigate();
   const { toast } = useToast();
   const [cancelling, setCancelling] = useState(false);
 
-  if (authLoading) {
+  useEffect(() => {
+    if (!authLoading && !user) {
+      navigate("/auth");
+    }
+  }, [authLoading, user, navigate]);
+
+  if (authLoading || subLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
       </div>
     );
   }
 
-  if (!user) {
-    navigate("/auth");
-    return null;
-  }
+  if (!user) return null;
 
-  const currentPlan = plansData[mockSubscription.plan as PlanKey];
-  const CurrentPlanIcon = currentPlan.icon;
+  const planKey = (currentPlan in plansData ? currentPlan : "starter") as PlanKey;
+  const currentPlanData = plansData[planKey];
+  const CurrentPlanIcon = currentPlanData.icon;
   const planKeys = Object.keys(plansData) as PlanKey[];
-  const currentPlanIndex = planKeys.indexOf(mockSubscription.plan as PlanKey);
+  const currentPlanIndex = planKeys.indexOf(planKey);
+  const isActive = subscription?.status === "active";
+  const billingCycle = subscription?.billing_cycle || "monthly";
 
   const handleCancelSubscription = async () => {
+    if (!subscription) return;
     setCancelling(true);
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+
+    const { error } = await supabase
+      .from("subscriptions")
+      .update({ status: "cancelled", plan_name: "starter" })
+      .eq("id", subscription.id);
+
     setCancelling(false);
+
+    if (error) {
+      toast({
+        title: "Error",
+        description: "Failed to cancel subscription. Please try again.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     toast({
       title: "Subscription cancelled",
-      description: "Your subscription will remain active until the end of your current billing period.",
+      description: "Your subscription has been cancelled successfully. Plan access has been removed.",
     });
-  };
 
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
+    navigate("/pricing");
   };
 
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8 max-w-4xl">
-        <Button variant="ghost" className="mb-6" onClick={() => navigate("/dashboard")}>
+        <Button variant="ghost" className="mb-6" onClick={() => navigate("/home")}>
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Dashboard
         </Button>
@@ -127,18 +129,18 @@ const Subscription = () => {
                 </div>
                 <div>
                   <CardTitle className="text-xl flex items-center gap-2">
-                    {currentPlan.name} Plan
-                    <Badge variant="default" className="ml-2">
-                      {mockSubscription.status === "active" ? "Active" : "Inactive"}
+                    {currentPlanData.name} Plan
+                    <Badge variant={isActive ? "default" : "destructive"} className="ml-2">
+                      {isActive ? "Active" : subscription?.status || "Inactive"}
                     </Badge>
                   </CardTitle>
                   <CardDescription>
-                    ${mockSubscription.amount}/{mockSubscription.billingCycle === "monthly" ? "month" : "year"}
+                    ${currentPlanData.price}/{billingCycle === "monthly" ? "month" : "year"}
                   </CardDescription>
                 </div>
               </div>
               <Button asChild>
-                <Link to={`/pricing/${mockSubscription.plan}`}>
+                <Link to={`/pricing/${planKey}`}>
                   <Settings className="w-4 h-4 mr-2" />
                   View Plan Details
                 </Link>
@@ -146,85 +148,21 @@ const Subscription = () => {
             </div>
           </CardHeader>
           <CardContent>
-            <div className="grid md:grid-cols-3 gap-4">
-              <div className="flex items-center gap-3 p-4 rounded-lg bg-background/50">
-                <Calendar className="w-5 h-5 text-muted-foreground" />
-                <div>
-                  <p className="text-sm text-muted-foreground">Current Period</p>
-                  <p className="text-sm font-medium text-foreground">
-                    {formatDate(mockSubscription.currentPeriodStart)} - {formatDate(mockSubscription.currentPeriodEnd)}
-                  </p>
-                </div>
-              </div>
+            <div className="grid md:grid-cols-2 gap-4">
               <div className="flex items-center gap-3 p-4 rounded-lg bg-background/50">
                 <CreditCard className="w-5 h-5 text-muted-foreground" />
                 <div>
-                  <p className="text-sm text-muted-foreground">Next Billing</p>
-                  <p className="text-sm font-medium text-foreground">{formatDate(mockSubscription.nextBillingDate)}</p>
+                  <p className="text-sm text-muted-foreground">Status</p>
+                  <p className="text-sm font-medium text-foreground capitalize">{subscription?.status || "N/A"}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3 p-4 rounded-lg bg-background/50">
                 <TrendingUp className="w-5 h-5 text-muted-foreground" />
                 <div>
                   <p className="text-sm text-muted-foreground">Billing Cycle</p>
-                  <p className="text-sm font-medium text-foreground capitalize">{mockSubscription.billingCycle}</p>
+                  <p className="text-sm font-medium text-foreground capitalize">{billingCycle}</p>
                 </div>
               </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Usage Stats */}
-        <Card className="mb-8">
-          <CardHeader>
-            <CardTitle>Usage This Period</CardTitle>
-            <CardDescription>Track your resource consumption</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div>
-              <div className="flex items-center justify-between mb-2">
-                <div className="flex items-center gap-2">
-                  <Users className="w-4 h-4 text-muted-foreground" />
-                  <span className="text-sm font-medium">Team Members</span>
-                </div>
-                <span className="text-sm text-muted-foreground">
-                  {mockSubscription.usage.teamMembers.used} / {mockSubscription.usage.teamMembers.limit}
-                </span>
-              </div>
-              <Progress
-                value={(mockSubscription.usage.teamMembers.used / mockSubscription.usage.teamMembers.limit) * 100}
-                className="h-2"
-              />
-            </div>
-
-            <div>
-              <div className="flex items-center justify-between mb-2">
-                <div className="flex items-center gap-2">
-                  <FileText className="w-4 h-4 text-muted-foreground" />
-                  <span className="text-sm font-medium">AI Strategy Reports</span>
-                </div>
-                <span className="text-sm text-muted-foreground">
-                  {mockSubscription.usage.aiReports.used}{" "}
-                  {mockSubscription.usage.aiReports.limit === -1 ? "(Unlimited)" : `/ ${mockSubscription.usage.aiReports.limit}`}
-                </span>
-              </div>
-              <Progress value={mockSubscription.usage.aiReports.limit === -1 ? 100 : 50} className="h-2" />
-            </div>
-
-            <div>
-              <div className="flex items-center justify-between mb-2">
-                <div className="flex items-center gap-2">
-                  <Zap className="w-4 h-4 text-muted-foreground" />
-                  <span className="text-sm font-medium">Storage</span>
-                </div>
-                <span className="text-sm text-muted-foreground">
-                  {mockSubscription.usage.storageGB.used} GB / {mockSubscription.usage.storageGB.limit} GB
-                </span>
-              </div>
-              <Progress
-                value={(mockSubscription.usage.storageGB.used / mockSubscription.usage.storageGB.limit) * 100}
-                className="h-2"
-              />
             </div>
           </CardContent>
         </Card>
@@ -240,9 +178,8 @@ const Subscription = () => {
               {planKeys.map((key, index) => {
                 const p = plansData[key];
                 const Icon = p.icon;
-                const isCurrent = key === mockSubscription.plan;
+                const isCurrent = key === planKey;
                 const isUpgrade = index > currentPlanIndex;
-                const isDowngrade = index < currentPlanIndex;
 
                 return (
                   <div
@@ -280,47 +217,48 @@ const Subscription = () => {
         </Card>
 
         {/* Danger Zone */}
-        <Card className="border-destructive/20">
-          <CardHeader>
-            <CardTitle className="text-destructive flex items-center gap-2">
-              <AlertTriangle className="w-5 h-5" />
-              Danger Zone
-            </CardTitle>
-            <CardDescription>Irreversible actions for your subscription</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="flex items-center justify-between p-4 rounded-lg border border-destructive/20 bg-destructive/5">
-              <div>
-                <p className="font-medium text-foreground">Cancel Subscription</p>
-                <p className="text-sm text-muted-foreground">
-                  Your access will continue until {formatDate(mockSubscription.currentPeriodEnd)}
-                </p>
+        {isActive && planKey !== "starter" && (
+          <Card className="border-destructive/20">
+            <CardHeader>
+              <CardTitle className="text-destructive flex items-center gap-2">
+                <AlertTriangle className="w-5 h-5" />
+                Danger Zone
+              </CardTitle>
+              <CardDescription>Irreversible actions for your subscription</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-center justify-between p-4 rounded-lg border border-destructive/20 bg-destructive/5">
+                <div>
+                  <p className="font-medium text-foreground">Cancel Subscription</p>
+                  <p className="text-sm text-muted-foreground">
+                    Your plan access will be removed immediately upon cancellation.
+                  </p>
+                </div>
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <Button variant="destructive" disabled={cancelling}>
+                      {cancelling ? "Cancelling..." : "Cancel Plan"}
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>Are you sure you want to cancel?</AlertDialogTitle>
+                      <AlertDialogDescription>
+                        Your subscription will be cancelled immediately. You will lose access to all {currentPlanData.name} plan features right away. This action cannot be undone.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Keep Subscription</AlertDialogCancel>
+                      <AlertDialogAction onClick={handleCancelSubscription} className="bg-destructive hover:bg-destructive/90">
+                        {cancelling ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Cancelling...</> : "Yes, Cancel Now"}
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
               </div>
-              <AlertDialog>
-                <AlertDialogTrigger asChild>
-                  <Button variant="destructive" disabled={cancelling}>
-                    {cancelling ? "Cancelling..." : "Cancel Plan"}
-                  </Button>
-                </AlertDialogTrigger>
-                <AlertDialogContent>
-                  <AlertDialogHeader>
-                    <AlertDialogTitle>Are you sure you want to cancel?</AlertDialogTitle>
-                    <AlertDialogDescription>
-                      Your subscription will remain active until {formatDate(mockSubscription.currentPeriodEnd)}. After
-                      that, you'll lose access to {currentPlan.name} plan features.
-                    </AlertDialogDescription>
-                  </AlertDialogHeader>
-                  <AlertDialogFooter>
-                    <AlertDialogCancel>Keep Subscription</AlertDialogCancel>
-                    <AlertDialogAction onClick={handleCancelSubscription} className="bg-destructive hover:bg-destructive/90">
-                      Yes, Cancel
-                    </AlertDialogAction>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </AlertDialog>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        )}
       </div>
     </div>
   );
