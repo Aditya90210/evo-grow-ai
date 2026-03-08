@@ -193,6 +193,35 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      get_admin_users: {
+        Args: never
+        Returns: {
+          avatar_url: string
+          created_at: string
+          display_name: string
+          email: string
+          last_sign_in_at: string
+          user_id: string
+        }[]
+      }
+      get_admin_users_full: {
+        Args: never
+        Returns: {
+          avatar_url: string
+          display_name: string
+          email: string
+          last_sign_in_at: string
+          plan_name: string
+          subscription_expires_at: string
+          subscription_started_at: string
+          subscription_status: string
+          user_created_at: string
+          user_id: string
+          user_role: string
+        }[]
+      }
+      get_email_by_user_id: { Args: { _user_id: string }; Returns: string }
+      get_user_id_by_email: { Args: { _email: string }; Returns: string }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
