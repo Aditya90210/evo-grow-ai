@@ -65,9 +65,7 @@ const Home = () => {
           _user_id: user.id,
           _role: "super_admin" as const,
         });
-        if (data) {
-          navigate("/super-admin");
-        }
+        if (data) setIsSuperAdmin(true);
       }
     };
     if (user) checkSuperAdmin();
