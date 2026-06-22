@@ -26,6 +26,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 import ThemeToggle from "@/components/ThemeToggle";
 
 const GENERATE_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/generate-ad-content`;
@@ -70,11 +71,23 @@ const Studio = () => {
     setGeneratedContent("");
 
     try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session?.access_token) {
+        toast({
+          title: "Sign in required",
+          description: "Please sign in to generate content.",
+          variant: "destructive",
+        });
+        setIsGenerating(false);
+        navigate("/auth");
+        return;
+      }
       const response = await fetch(GENERATE_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+          Authorization: `Bearer ${session.access_token}`,
+          apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
         },
         body: JSON.stringify({
           businessDescription,

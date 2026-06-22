@@ -12,20 +12,45 @@ interface ContactEmailRequest {
   message: string;
 }
 
+const escapeHtml = (s: string) =>
+  String(s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+
+const isValidEmail = (email: string) =>
+  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && email.length <= 255;
+
 const handler = async (req: Request): Promise<Response> => {
-  // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
-    const { name, email, message }: ContactEmailRequest = await req.json();
+    const body = (await req.json()) as ContactEmailRequest;
+    const name = (body.name ?? "").toString().trim().slice(0, 100);
+    const email = (body.email ?? "").toString().trim().slice(0, 255);
+    const message = (body.message ?? "").toString().trim().slice(0, 2000);
 
-    console.log(`Sending contact email from ${name} (${email})`);
+    if (!name || !message || !isValidEmail(email)) {
+      return new Response(
+        JSON.stringify({ error: "Invalid input" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
 
     const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
+    // Always send the notification to a fixed internal admin address.
+    // Never use the caller-supplied address as the recipient (prevents
+    // using this endpoint as an unauthenticated spam/phishing relay).
+    const ADMIN_EMAIL = Deno.env.get("CONTACT_ADMIN_EMAIL") ?? "onboarding@resend.dev";
 
-    // Send confirmation email to the user
+    const safeName = escapeHtml(name);
+    const safeEmail = escapeHtml(email);
+    const safeMessage = escapeHtml(message).replace(/\n/g, "<br>");
+
     const response = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
@@ -34,43 +59,37 @@ const handler = async (req: Request): Promise<Response> => {
       },
       body: JSON.stringify({
         from: "EVO Scalvex <onboarding@resend.dev>",
-        to: [email],
-        subject: "We received your message!",
+        to: [ADMIN_EMAIL],
+        reply_to: email,
+        subject: `New contact form submission from ${name}`,
         html: `
-          <h1>Thank you for contacting us, ${name}!</h1>
-          <p>We have received your message and will get back to you as soon as possible.</p>
-          <p><strong>Your message:</strong></p>
-          <p style="padding: 16px; background-color: #f4f4f4; border-radius: 8px;">${message}</p>
-          <br>
-          <p>Best regards,<br>The EVO Scalvex Team</p>
+          <h1>New contact form submission</h1>
+          <p><strong>From:</strong> ${safeName} &lt;${safeEmail}&gt;</p>
+          <p><strong>Message:</strong></p>
+          <p style="padding: 16px; background-color: #f4f4f4; border-radius: 8px;">${safeMessage}</p>
         `,
+        text: `New contact form submission\n\nFrom: ${name} <${email}>\n\nMessage:\n${message}`,
       }),
     });
 
     if (!response.ok) {
-      const errorData = await response.json();
+      const errorData = await response.json().catch(() => ({}));
       console.error("Resend API error:", errorData);
-      throw new Error(errorData.message || "Failed to send email");
+      return new Response(
+        JSON.stringify({ error: "Failed to send email" }),
+        { status: 502, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
     }
-
-    const data = await response.json();
-    console.log("Email sent successfully:", data);
 
     return new Response(
       JSON.stringify({ success: true, message: "Email sent successfully" }),
-      {
-        status: 200,
-        headers: { "Content-Type": "application/json", ...corsHeaders },
-      }
+      { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
     );
   } catch (error: any) {
     console.error("Error in send-contact-email function:", error);
     return new Response(
-      JSON.stringify({ error: error.message }),
-      {
-        status: 500,
-        headers: { "Content-Type": "application/json", ...corsHeaders },
-      }
+      JSON.stringify({ error: "Internal server error" }),
+      { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
     );
   }
 };

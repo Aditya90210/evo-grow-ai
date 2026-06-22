@@ -193,6 +193,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      cancel_my_subscription: { Args: never; Returns: undefined }
       get_admin_users: {
         Args: never
         Returns: {
