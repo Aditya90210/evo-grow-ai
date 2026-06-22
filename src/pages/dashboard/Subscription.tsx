@@ -82,7 +82,7 @@ const Subscription = () => {
     if (!subscription) return;
     setCancelling(true);
 
-    const { error } = await supabase.rpc("cancel_my_subscription");
+    const { error } = await (supabase.rpc as any)("cancel_my_subscription");
 
     setCancelling(false);
 
